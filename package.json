@@ -1,0 +1,35 @@
+{
+	"name": "namvr-chateconomy",
+	"version": "1.0.0",
+	"description": "An open-source discord chat economy bot that has various events to be triggered randomly in your chat.",
+	"main": "bot.js",
+	"scripts": {
+		"start": "node bot.js",
+		"dev": "nodemon bot.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/NamVr/Chat-Economy-Bot.git"
+	},
+	"keywords": [
+		"discord-js"
+	],
+	"author": "Naman Vrati",
+	"license": "GPL-3.0-or-later",
+	"bugs": {
+		"url": "https://github.com/NamVr/Chat-Economy-Bot/issues"
+	},
+	"homepage": "https://namanvrati.cf/",
+	"dependencies": {
+		"discord.js": "^12.5.3",
+		"dotenv": "^10.0.0",
+		"file-exists": "^5.0.1",
+		"leekslazylogger": "^3.0.2",
+		"random-number": "^0.0.9",
+		"sequelize": "^6.6.2",
+		"sqlite3": "^5.0.2"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.7"
+	}
+}

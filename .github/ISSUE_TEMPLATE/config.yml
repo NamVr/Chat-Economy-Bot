@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/NamVr/.../discussions
+    about: Start a discussion
+  - name: Discord support server
+    url: https://discord.gg/soon
+    about: The best place to go for help installing or using NamVr's softwares.
