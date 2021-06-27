@@ -1,4 +1,6 @@
-const { Collection, MessageEmbed: Embed } = require("discord.js");
+const Discord = require("discord.js");
+const client = new Discord.Client();
+
 //const { prefix, owner } = require("../config.json");
 const heatConfigPath = "./database/heat.json";
 const config = require("../config.json");
@@ -13,24 +15,18 @@ module.exports = {
 
 		// Tries reading required heat file. If it can't read, bot will be terminated, because they are required!
 		try {
-			fs.readFileSync(heatConfigPath);
+			var jsonString = fs.readFileSync(heatConfigPath);
 		} catch (error) {
 			log.error(error);
 			return process.exit(1);
 		}
-
-		// json string is stored here.
-		const jsonString = fs.readFileSync(heatConfigPath);
 
 		try {
-			JSON.parse(jsonString);
+			var heatConfig = JSON.parse(jsonString);
 		} catch (error) {
 			log.error(error);
 			return process.exit(1);
 		}
-
-		// Read successfully done. Now it actually stores data in const.
-		const heatConfig = JSON.parse(jsonString);
 
 		// On every message sent, heat gets increased as defined in config.json!
 		heatConfig.heat += parseInt(config.heat_on_msg);

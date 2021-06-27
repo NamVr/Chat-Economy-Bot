@@ -1,3 +1,6 @@
+const Discord = require("discord.js");
+const client = new Discord.Client();
+
 const configPath = "./config.json";
 const heatConfigPath = "./database/heat.json";
 const fs = require("fs");
@@ -5,20 +8,18 @@ const Logger = require("leekslazylogger");
 const log = new Logger({ keepSilent: true });
 
 try {
-	fs.readFileSync(configPath);
+	var configString = fs.readFileSync(configPath);
 } catch (error) {
 	log.error(error);
 	return process.exit(1);
 }
 
-const configString = fs.readFileSync(configPath);
 try {
-	JSON.parse(configString);
+	var config = JSON.parse(configString);
 } catch (error) {
 	log.error(error);
 	return process.exit(1);
 }
-const config = JSON.parse(configString);
 
 module.exports = {
 	name: "ready",
@@ -27,24 +28,18 @@ module.exports = {
 		setInterval(() => {
 			// Tries reading required heat file. If it can't read, bot will be terminated, because they are required!
 			try {
-				fs.readFileSync(heatConfigPath);
+				var jsonString = fs.readFileSync(heatConfigPath);
 			} catch (error) {
 				log.error(error);
 				return process.exit(1);
 			}
-
-			// json string is stored here.
-			const jsonString = fs.readFileSync(heatConfigPath);
 
 			try {
-				JSON.parse(jsonString);
+				var heatConfig = JSON.parse(jsonString);
 			} catch (error) {
 				log.error(error);
 				return process.exit(1);
 			}
-
-			// Read successfully done. Now it actually stores data in const.
-			const heatConfig = JSON.parse(jsonString);
 
 			if (heatConfig.heat >= config.heatmax) {
 				// Heat Event Activated!

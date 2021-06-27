@@ -1,5 +1,7 @@
 // CURRENCY REQUIREMENTS
 const Discord = require("discord.js");
+const client = new Discord.Client();
+
 const { Op } = require("sequelize");
 const { Users, CurrencyShop } = require("../../database/dbObjects");
 const currency = new Discord.Collection();

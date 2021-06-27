@@ -1,3 +1,6 @@
+const Discord = require("discord.js");
+const client = new Discord.Client();
+
 const Logger = require("leekslazylogger");
 const log = new Logger({ keepSilent: true });
 const Sequelize = require("sequelize");

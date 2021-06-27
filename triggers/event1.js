@@ -1,6 +1,8 @@
+const Discord = require("discord.js");
+const client = new Discord.Client();
+
 var rn = require("random-number");
 var random = rn.generator({ integer: true });
-const Discord = require("discord.js");
 
 module.exports = {
 	name: "event1",

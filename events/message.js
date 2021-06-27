@@ -1,4 +1,6 @@
-const { Collection, MessageEmbed: Embed } = require("discord.js");
+const Discord = require("discord.js");
+const client = new Discord.Client();
+
 const Logger = require("leekslazylogger");
 const log = new Logger({ keepSilent: true });
 const fs = require("fs");
@@ -12,22 +14,18 @@ module.exports = {
 	name: "message",
 	async execute(message) {
 		try {
-			fs.readFileSync(configPath);
+			var configString = fs.readFileSync(configPath);
 		} catch (error) {
 			log.error(error);
 			return process.exit(1);
 		}
-		const configString = fs.readFileSync(configPath);
-		try {
-			JSON.parse(configString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-		const config = JSON.parse(configString);
 
-		// Declares const to be used.
-		const { client, guild, channel, content, author } = message;
+		try {
+			var config = JSON.parse(configString);
+		} catch (error) {
+			log.error(error);
+			return process.exit(1);
+		}
 
 		// Converts prefix to lowercase.
 		const checkPrefix = config.prefix.toLowerCase();
@@ -36,11 +34,11 @@ module.exports = {
 		const prefixRegex = new RegExp(
 			`^(<@!?${client.user.id}>|${escapeRegex(checkPrefix)})\\s*`
 		);
-		if (!prefixRegex.test(content.toLowerCase())) return;
+		if (!prefixRegex.test(message.content.toLowerCase())) return;
 
 		// Real checks goes dynamically.
-		const [matchedPrefix] = content.toLowerCase().match(prefixRegex);
-		const args = content.slice(matchedPrefix.length).trim().split(/ +/);
+		const [matchedPrefix] = message.content.toLowerCase().match(prefixRegex);
+		const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
 		const commandName = args.shift().toLowerCase();
 
 		// Check if mesage does not starts with prefix, or message author is bot. If yes, return.
@@ -60,7 +58,7 @@ module.exports = {
 		// Check if the command is an event, if yes, disable calling it directly.
 		if (message.channel.id !== config.ecoshop_channel) {
 			return message.channel.send(
-				`You can't execute economy commands here! We have a special channel over <#${config.ecoshop_channel}>!`
+				new `You can't execute economy commands here! We have a special channel over <#${config.ecoshop_channel}>!`()
 			);
 		}
 
@@ -96,7 +94,7 @@ module.exports = {
 		const { cooldowns } = client;
 
 		if (!cooldowns.has(command.name)) {
-			cooldowns.set(command.name, new Collection());
+			cooldowns.set(command.name, new Discord.Collection());
 		}
 
 		const now = Date.now();
