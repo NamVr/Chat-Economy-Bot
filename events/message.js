@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const client = new Discord.Client();
 
 const Logger = require("leekslazylogger");
 const log = new Logger({ keepSilent: true });
@@ -13,6 +12,7 @@ const escapeRegex = (string) => {
 module.exports = {
 	name: "message",
 	async execute(message) {
+		const client = message.client;
 		try {
 			var configString = fs.readFileSync(configPath);
 		} catch (error) {
@@ -54,40 +54,70 @@ module.exports = {
 
 		// It it's not a command, return :)
 		if (!command) return;
+		if (message.content == matchedPrefix) return;
 
 		// Check if the command is an event, if yes, disable calling it directly.
 		if (message.channel.id !== config.ecoshop_channel) {
 			return message.channel.send(
-				new `You can't execute economy commands here! We have a special channel over <#${config.ecoshop_channel}>!`()
+				new Discord.MessageEmbed()
+					.setTitle(`:x: Access Denied!`)
+					.setDescription(
+						`You can't execute economy commands here! We have a special channel => <#${config.ecoshop_channel}>!`
+					)
+					.setColor("RED")
 			);
 		}
 
 		// Owner Only Property, add in your command properties if true.
 		if (command.ownerOnly && message.author.id !== config.owner) {
-			return message.reply("This is a owner only command!");
+			return message.reply(
+				new Discord.MessageEmbed()
+					.setTitle(`:x: Access Denied!`)
+					.setDescription(
+						`You can't run this command! Please refrain from trying.`
+					)
+					.setColor("RED")
+			);
 		}
 		// Guild Only Property, add in your command properties if true.
 		if (command.guildOnly && message.channel.type === "dm") {
-			return message.reply("I can't execute that command inside DMs!");
+			return message.channel.send(
+				new Discord.MessageEmbed()
+					.setTitle(`:x: Access Denied!`)
+					.setDescription(`You can't run this command in DMs!`)
+					.setColor("RED")
+			);
 		}
 
 		// Author perms property
 		if (command.permissions) {
 			const authorPerms = message.channel.permissionsFor(message.author);
 			if (!authorPerms || !authorPerms.has(command.permissions)) {
-				return message.reply("You can not do this!");
+				return message.reply(
+					new Discord.MessageEmbed()
+						.setTitle(`:x: Access Denied!`)
+						.setDescription(
+							`You don't have enough permissions to run this command! Try contacting an admin?`
+						)
+						.setColor("RED")
+				);
 			}
 		}
 
 		// Args missing
 		if (command.args && !args.length) {
-			let reply = `You didn't provide any arguments, ${message.author}!`;
+			var reply = `You didn't provide any arguments, ${message.author}!`;
 
 			if (command.usage) {
 				reply += `\nThe proper usage would be: \`${config.prefix}${command.name} ${command.usage}\``;
 			}
 
-			return message.channel.send(reply);
+			return message.channel.send(
+				new Discord.MessageEmbed()
+					.setTitle(`:x: Arguments Error!`)
+					.setDescription(reply)
+					.setColor("RED")
+			);
 		}
 
 		// Copldowns
@@ -107,9 +137,14 @@ module.exports = {
 			if (now < expirationTime) {
 				const timeLeft = (expirationTime - now) / 1000;
 				return message.reply(
-					`please wait ${timeLeft.toFixed(
-						1
-					)} more second(s) before reusing the \`${command.name}\` command.`
+					new Discord.MessageEmbed()
+						.setTitle(`:x: Spam is never cool, dude.`)
+						.setColor("RED")
+						.setDescription(
+							`Please wait ${timeLeft.toFixed(
+								1
+							)} more second(s) before reusing the \`${command.name}\` command.`
+						)
 				);
 			}
 		}
@@ -123,7 +158,9 @@ module.exports = {
 			command.execute(message, args);
 		} catch (error) {
 			log.error(error);
-			message.reply("There was an error trying to execute that command!");
+			message.channel.send(
+				"There was an error trying to execute that command! Please check console and fix errors."
+			);
 		}
 	},
 };

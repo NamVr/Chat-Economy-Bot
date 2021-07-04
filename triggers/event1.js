@@ -13,12 +13,11 @@ module.exports = {
 	execute(message, args) {
 		var num1 = random(0, 50);
 		var num2 = random(0, 50);
-		var choice = random(1, 2);
+		var choice = 2;
 
 		if (choice == "1") {
 			// Addition Event
 			var answer = num1 + num2;
-			console.log("Addition => " + answer);
 			message.channel.send(
 				new Discord.MessageEmbed()
 					.setColor(`RANDOM`)
@@ -36,12 +35,11 @@ module.exports = {
 			});
 
 			collector.on("end", (m) => {
-				return message.channel.send(`${m.author} won!`);
+				return message.channel.send(`${collected.last().author.username} won!`);
 			});
 		} else {
 			// Subtraction Event
 			var answer = num1 - num2;
-			console.log("Subtraction => " + answer);
 			message.channel.send(
 				new Discord.MessageEmbed()
 					.setColor(`RANDOM`)
@@ -58,8 +56,8 @@ module.exports = {
 				collector.stop();
 			});
 
-			collector.on("end", (m) => {
-				return message.channel.send(`${m.author} won!`);
+			collector.on("end", (collected) => {
+				return message.channel.send(`${collected.last().author.username} won!`);
 			});
 		}
 	},

@@ -5,7 +5,6 @@ const client = new Discord.Client();
 const { Op } = require("sequelize");
 const { Users, CurrencyShop } = require("../../database/dbObjects");
 const currency = new Discord.Collection();
-const client = new Discord.Client();
 
 module.exports = {
 	name: "leaderboard",

@@ -28,6 +28,8 @@ module.exports = {
 			return process.exit(1);
 		}
 
+		if (message.channel.id !== config.heat_channel) return;
+
 		// On every message sent, heat gets increased as defined in config.json!
 		heatConfig.heat += parseInt(config.heat_on_msg);
 
