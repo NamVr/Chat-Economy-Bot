@@ -16,6 +16,8 @@
 
 > An open-source discord chat economy bot that has various events to be triggered randomly in your chat.
 
+> PLEASE NOTE: I HAVE BEEN BUSY IRL TO CONTINUE THIS PROJECT. I HAVE **NOT** DISCONTINUED IT. I JUST HAVE STOPPED WORKING TILL I GET TIME. I WILL POST NEW UPDATES SOON!
+
 ### 🏠 [Homepage](https://github.com/NamVr/Chat-Economy-Bot#readme)
 
 ## Install
