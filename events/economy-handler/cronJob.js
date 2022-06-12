@@ -81,13 +81,13 @@ module.exports = {
 
 				// Find the Heat Channel.
 
-				let channel = client.channels.cache.get(config.heat_channel);
+				let channel = client.channels.cache.get(config.chat_channel);
 
 				// Check if your input channel is a Text-Based Channel.
 
 				if (!channel) {
 					log.critical(
-						`${config.heat_channel} does NOT belong to ANY Channel!`
+						`${config.chat_channel} does NOT belong to ANY Channel!`
 					);
 					log.error(
 						"Please fix your configuration file with a correct Heat Channel ID."

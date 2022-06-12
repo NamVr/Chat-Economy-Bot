@@ -44,7 +44,7 @@ module.exports = {
 
 		// Disallow incorrect guild as per configuration.
 
-		if (config.heat_channel != guild.id) {
+		if (config.chat_channel != guild.id) {
 			log.console(
 				"\n ---------------------------------------------------------- \n"
 			);

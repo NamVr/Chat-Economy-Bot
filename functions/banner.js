@@ -15,13 +15,13 @@ const { version, homepage } = require("../package.json");
 
 module.exports = () => {
 	log.success(`
-	#     #               #     #        
-	##    #   ##   #    # #     # #####  
-	# #   #  #  #  ##  ## #     # #    # 
-	#  #  # #    # # ## # #     # #    # 
-	#   # # ###### #    #  #   #  #####  
-	#    ## #    # #    #   # #   #   #  
-	#     # #    # #    #    #    #    # 
+	#     #                        #     #           
+	##    #      ##      #    #    #     #    #####  
+	# #   #     #  #     ##  ##    #     #    #    # 
+	#  #  #    #    #    # ## #    #     #    #    # 
+	#   # #    ######    #    #     #   #     #####  
+	#    ##    #    #    #    #      # #      #   #  
+	#     #    #    #    #    #       #       #    # 
     `);
 	log.notice(`[NCE] NamVr Chat Economy Discord Bot v${version} by NamVr!`);
 	log.success(homepage + "\n");

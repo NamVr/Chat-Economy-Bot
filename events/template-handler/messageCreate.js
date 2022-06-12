@@ -8,7 +8,7 @@
 // Declares constants (destructured) to be used in this file.
 
 const Discord = require("discord.js");
-const { prefix, owner } = require("../../config.json");
+const { owner } = require("../../config.json");
 
 // Initialize LeeksLazyLogger
 
@@ -51,6 +51,8 @@ module.exports = {
 			log.error(error);
 			return process.exit(1);
 		}
+
+		const prefix = config.prefix;
 
 		// Checks if the bot is mentioned in the message all alone and triggers onMention trigger.
 		// You can change the behavior as per your liking at ./messages/onMention.js
@@ -151,13 +153,13 @@ module.exports = {
 		}
 
 		// Check if the command is an event, if yes, disable calling it directly.
-		if (message.channel.id !== config.ecoshop_channel) {
+		if (message.channel.id !== config.bot_channel) {
 			return message.channel.send({
 				embeds: [
 					new Discord.MessageEmbed()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(
-							`You can't execute economy commands here! We have a special channel => <#${config.ecoshop_channel}>!`
+							`You can't execute economy commands here! We have a special channel => <#${config.bot_channel}>!`
 						)
 						.setColor("RED"),
 				],
