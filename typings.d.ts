@@ -239,4 +239,121 @@ export interface Client extends Discord.Client {
 	 * Represents a collection of chat-based Trigger Commands.
 	 */
 	triggers: Discord.Collection<string, TriggerCommand>;
+
+	/**
+	 * Represents a collection of autocomplete interactions
+	 */
+	autocompleteInteractions: Discord.Collection<string, AutocompleteInteraction>;
+}
+
+// Custom Typings for NamVr Chat Economy!
+
+/**
+ * Represents a Autocomplete Interaction.
+ */
+export interface AutocompleteInteraction {
+	/**
+	 * The command name of the autocomplete interaction which was interacted with.
+	 */
+	name: string;
+
+	/**
+	 * The interaction executor when it is called by the template handler.
+	 * @param interaction The interaction that triggered this command.
+	 */
+	execute(
+		interaction: Discord.AutocompleteInteraction & { client: Client }
+	): void | Promise<void>;
+}
+
+/**
+ * Represents an Item of Shop Database.
+ */
+export interface ShopItem {
+	/**
+	 * Name of the item
+	 */
+	name: string;
+
+	/**
+	 * Price/Cost of the item (10-100000)
+	 */
+	price: number;
+
+	/**
+	 * Description of the item
+	 */
+	description: string;
+}
+
+/**
+ * Represents Shop Database (Items Array).
+ */
+export interface ShopDatabase extends Array<ShopItem> {}
+
+/**
+ * Represents Configuration File (config.json).
+ */
+export interface ConfigurationFile {
+	/**
+	 * Represents internal configuration of the application.
+	 */
+
+	internal: {
+		/**
+		 * Token of the application.
+		 */
+
+		token: string;
+
+		/**
+		 * Owner ID of the application.
+		 */
+		owner_id: Discord.Snowflake;
+
+		/**
+		 * Client ID of the application.
+		 */
+		client_id: Discord.Snowflake;
+
+		/**
+		 * Guild ID of the application.
+		 */
+		guild_id: Discord.Snowflake;
+	};
+
+	/**
+	 * Represents Economy/Bot based configuration of the application.
+	 */
+	settings: {
+		/**
+		 * Prefix of the application.
+		 */
+		prefix: string;
+
+		/**
+		 * Amount of maximum heat (trigger).
+		 */
+		heat_max: number;
+
+		/**
+		 * Amount of heat per message (to be added).
+		 */
+		heat_per_msg: number;
+
+		/**
+		 * Cooldown of Legacy Commands (in ms).
+		 */
+		cooldown: number;
+
+		/**
+		 * Chat Channel ID (Heat Channel).
+		 */
+		chat_channel: Discord.Snowflake;
+
+		/**
+		 * Bot Channel ID (Ecoshop Channel).
+		 */
+		bot_channel: Discord.Snowflake;
+	};
 }

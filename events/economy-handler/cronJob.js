@@ -5,7 +5,6 @@
  * @version 2.0.0
  */
 
-const configPath = "./config.json";
 const heatConfigPath = "./database/heat.json";
 const fs = require("fs");
 
@@ -14,24 +13,10 @@ const fs = require("fs");
 const Logger = require("leekslazylogger");
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
-
-// We will try to read the configuration file & check if it exists.
-
-try {
-	var configString = fs.readFileSync(configPath, { encoding: "utf-8" });
-} catch (error) {
-	log.error(error);
-	process.exit(1);
-}
-
-// We will now parse the configuration file to return an object to be played with.
-
-try {
-	var config = JSON.parse(configString);
-} catch (error) {
-	log.error(error);
-	process.exit(1);
-}
+/**
+ * @type {import('../../typings').ConfigurationFile} Config File.
+ */
+const config = require("../../config.json");
 
 // Main cron job application starts here.
 
@@ -66,7 +51,7 @@ module.exports = {
 
 			// Check if heat has reached it's limit!
 
-			if (heatConfig.heat >= config.heat_max) {
+			if (heatConfig.heat >= config.settings.heat_max) {
 				// Heat Event Activated!
 
 				// Finds a random number to choose a random event.
@@ -77,17 +62,17 @@ module.exports = {
 				// Fetch the random event & execute the event.
 
 				//const event = require(`../chat-triggers/event${random}`);
-				const event = require(`../../chat-triggers/event1`);
+				const event = require(`../../chat-triggers/event1`); // Temp: Debug.
 
 				// Find the Heat Channel.
 
-				let channel = client.channels.cache.get(config.chat_channel);
+				let channel = client.channels.cache.get(config.settings.chat_channel);
 
 				// Check if your input channel is a Text-Based Channel.
 
 				if (!channel) {
 					log.critical(
-						`${config.chat_channel} does NOT belong to ANY Channel!`
+						`${config.settings.chat_channel} does NOT belong to ANY Channel!`
 					);
 					log.error(
 						"Please fix your configuration file with a correct Heat Channel ID."
@@ -135,6 +120,6 @@ module.exports = {
 					}
 				);
 			}
-		}, config.cooldown);
+		}, config.settings.cooldown);
 	},
 };

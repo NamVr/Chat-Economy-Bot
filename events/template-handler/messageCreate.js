@@ -8,7 +8,13 @@
 // Declares constants (destructured) to be used in this file.
 
 const Discord = require("discord.js");
-const { owner } = require("../../config.json");
+
+/**
+ * @type {import('../../typings').ConfigurationFile} Config File.
+ */
+const config = require("../../config.json");
+const { internal } = config;
+const { owner_id } = internal;
 
 // Initialize LeeksLazyLogger
 
@@ -46,13 +52,16 @@ module.exports = {
 		}
 
 		try {
+			/**
+			 * @type {import('../../typings').ConfigurationFile} Config File.
+			 */
 			var config = JSON.parse(configString);
 		} catch (error) {
 			log.error(error);
 			return process.exit(1);
 		}
 
-		const prefix = config.prefix;
+		const prefix = config.settings.prefix;
 
 		// Checks if the bot is mentioned in the message all alone and triggers onMention trigger.
 		// You can change the behavior as per your liking at ./messages/onMention.js
@@ -126,7 +135,7 @@ module.exports = {
 
 		// Owner Only Property, add in your command properties if true.
 
-		if (command.ownerOnly && message.author.id !== owner) {
+		if (command.ownerOnly && message.author.id !== owner_id) {
 			return message.reply({
 				embeds: [
 					new Discord.MessageEmbed()
@@ -153,13 +162,13 @@ module.exports = {
 		}
 
 		// Check if the command is an event, if yes, disable calling it directly.
-		if (message.channel.id !== config.bot_channel) {
+		if (message.channel.id !== config.settings.bot_channel) {
 			return message.channel.send({
 				embeds: [
 					new Discord.MessageEmbed()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(
-							`You can't execute economy commands here! We have a special channel => <#${config.bot_channel}>!`
+							`You can't execute economy commands here! We have a special channel => <#${config.settings.bot_channel}>!`
 						)
 						.setColor("RED"),
 				],
@@ -190,7 +199,7 @@ module.exports = {
 			var reply = `You didn't provide any arguments, ${message.author}!`;
 
 			if (command.usage) {
-				reply += `\nThe proper usage would be: \`${config.prefix}${command.name} ${command.usage}\``;
+				reply += `\nThe proper usage would be: \`${config.settings.prefix}${command.name} ${command.usage}\``;
 			}
 
 			return message.channel.send({

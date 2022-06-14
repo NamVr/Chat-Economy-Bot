@@ -12,7 +12,12 @@ const Logger = require("leekslazylogger");
 const log = new Logger({ keepSilent: true });
 
 // Deconstructing prefix from config file to use in help command
-const { prefix } = require("./../../config.json");
+/**
+ * @type {import('../../typings').ConfigurationFile} Config File.
+ */
+const config = require("./../../config.json");
+const { settings } = config;
+const { prefix } = settings;
 
 // Deconstructing MessageEmbed to create embeds within this command
 const { MessageEmbed } = require("discord.js");

@@ -149,6 +149,9 @@ module.exports = {
 		// Tries parsing required config file.
 
 		try {
+			/**
+			 * @type {import('../../../typings').ConfigurationFile} Config File.
+			 */
 			var config = JSON.parse(jsonString);
 		} catch (error) {
 			log.error(error);
