@@ -16,9 +16,7 @@ const log = new Logger({ keepSilent: true });
 const { MessageEmbed } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
-const shopPath = "./database/shop.json";
-const userPath = "./database/users.json";
-const fs = require("fs");
+const manager = require("../../../functions/database");
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -42,51 +40,8 @@ module.exports = {
 		 */
 		const item_name = interaction.options.getString("item", true);
 
-		// Tries reading required database file.
-
-		try {
-			var jsonString = fs.readFileSync(shopPath, {
-				encoding: "utf-8",
-			});
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-
-		// Tries parsing required database file.
-
-		try {
-			/**
-			 * @type {import('../../../typings').ShopDatabase}
-			 */
-			var shopDB = JSON.parse(jsonString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-
-		// Tries reading required database file.
-
-		try {
-			var jsonString = fs.readFileSync(userPath, {
-				encoding: "utf-8",
-			});
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-
-		// Tries parsing required database file.
-
-		try {
-			/**
-			 * @type {import('../../../typings').UserDatabase}
-			 */
-			var userDB = JSON.parse(jsonString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
+		const shopDB = manager.getShopDB();
+		const userDB = manager.getUserDB();
 
 		// Find the user (index) in the database.
 
@@ -148,27 +103,8 @@ module.exports = {
 			}
 		}
 
-		// Now we will write the config to shop.json
-
-		fs.writeFile(shopPath, JSON.stringify(shopDB, null, 2), (err) => {
-			// IF ERROR BOT WILL BE TERMINATED!
-
-			if (err) {
-				log.error("Error writing file:", err);
-				return process.exit(1);
-			}
-		});
-
-		// Now we will write the config to users.json
-
-		fs.writeFile(userPath, JSON.stringify(userDB, null, 2), (err) => {
-			// IF ERROR BOT WILL BE TERMINATED!
-
-			if (err) {
-				log.error("Error writing file:", err);
-				return process.exit(1);
-			}
-		});
+		manager.putShopDB(shopDB);
+		manager.putUserDB(userDB);
 
 		// Make a stylish embed result!
 

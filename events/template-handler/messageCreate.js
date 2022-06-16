@@ -9,20 +9,13 @@
 
 const Discord = require("discord.js");
 
-/**
- * @type {import('../../typings').ConfigurationFile} Config File.
- */
-const config = require("../../config.json");
-const { internal } = config;
-const { owner_id } = internal;
-
 // Initialize LeeksLazyLogger
 
 const Logger = require("leekslazylogger");
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
-const fs = require("fs");
-const configPath = "./config.json";
+
+const manager = require("../../functions/database");
 
 // Prefix regex, we will use to match in mention prefix.
 
@@ -44,22 +37,7 @@ module.exports = {
 
 		const { client, guild, channel, content, author } = message;
 
-		try {
-			var configString = fs.readFileSync(configPath, { encoding: "utf-8" });
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-
-		try {
-			/**
-			 * @type {import('../../typings').ConfigurationFile} Config File.
-			 */
-			var config = JSON.parse(configString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
+		const config = manager.getConfigFile();
 
 		const prefix = config.settings.prefix;
 
@@ -135,7 +113,7 @@ module.exports = {
 
 		// Owner Only Property, add in your command properties if true.
 
-		if (command.ownerOnly && message.author.id !== owner_id) {
+		if (command.ownerOnly && message.author.id !== config.internal.owner_id) {
 			return message.reply({
 				embeds: [
 					new Discord.MessageEmbed()

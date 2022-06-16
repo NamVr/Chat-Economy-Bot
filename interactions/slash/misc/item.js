@@ -14,11 +14,9 @@ const log = new Logger({ keepSilent: true });
 // Deconstructed the constants we need in this file.
 
 const { SlashCommandBuilder } = require("@discordjs/builders");
-
-const fs = require("fs");
 const { MessageEmbed } = require("discord.js");
 
-const shopPath = "./database/shop.json";
+const manager = require("../../../functions/database");
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -111,28 +109,7 @@ module.exports = {
 
 		const subCommand = options.getSubcommand();
 
-		// Tries reading required database file.
-
-		try {
-			var jsonString = fs.readFileSync(shopPath, {
-				encoding: "utf-8",
-			});
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-
-		// Tries parsing required database file.
-
-		try {
-			/**
-			 * @type {import('../../../typings').ShopDatabase}
-			 */
-			var shopDB = JSON.parse(jsonString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
+		const shopDB = manager.getShopDB();
 
 		/**
 		 * Values fetched via interaction.
@@ -245,14 +222,7 @@ module.exports = {
 
 		// Now we will write the config to shop.json
 
-		fs.writeFile(shopPath, JSON.stringify(shopDB, null, 2), (err) => {
-			// IF ERROR BOT WILL BE TERMINATED!
-
-			if (err) {
-				log.error("Error writing file:", err);
-				return process.exit(1);
-			}
-		});
+		manager.putShopDB(shopDB);
 
 		// Now follow-up after success!
 

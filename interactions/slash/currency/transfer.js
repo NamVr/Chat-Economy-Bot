@@ -16,8 +16,7 @@ const log = new Logger({ keepSilent: true });
 const { MessageEmbed } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
-const userPath = "./database/users.json";
-const fs = require("fs");
+const manager = require("../../../functions/database");
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -60,28 +59,7 @@ module.exports = {
 			return;
 		}
 
-		// Tries reading required database file.
-
-		try {
-			var jsonString = fs.readFileSync(userPath, {
-				encoding: "utf-8",
-			});
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-
-		// Tries parsing required database file.
-
-		try {
-			/**
-			 * @type {import('../../../typings').UserDatabase}
-			 */
-			var userDB = JSON.parse(jsonString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
+		const userDB = manager.getUserDB();
 
 		// Find the user (index) in the database.
 
@@ -129,14 +107,7 @@ module.exports = {
 				? (userDB[userDB.indexOf(dbUserReceiver)] = dbUserReceiver)
 				: userDB.push(dbUserReceiver);
 
-			fs.writeFile(userPath, JSON.stringify(userDB, null, 2), (err) => {
-				// IF ERROR BOT WILL BE TERMINATED!
-
-				if (err) {
-					log.error("Error writing file:", err);
-					return process.exit(1);
-				}
-			});
+			manager.putUserDB(userDB);
 
 			// Make a stylish embed result!
 

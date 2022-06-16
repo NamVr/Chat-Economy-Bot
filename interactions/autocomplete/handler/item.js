@@ -11,9 +11,7 @@ const Logger = require("leekslazylogger");
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-const shopPath = "./database/shop.json";
-
-const fs = require("fs");
+const manager = require("../../../functions/database");
 
 /**
  * @type {import("../../../typings").AutocompleteInteraction}
@@ -22,28 +20,7 @@ module.exports = {
 	name: "item",
 
 	async execute(interaction) {
-		// Tries reading required database file.
-
-		try {
-			var jsonString = fs.readFileSync(shopPath, {
-				encoding: "utf-8",
-			});
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-
-		// Tries parsing required database file.
-
-		try {
-			/**
-			 * @type {import('../../../typings').ShopDatabase}
-			 */
-			var shopDB = JSON.parse(jsonString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
+		const shopDB = manager.getShopDB();
 
 		// Preparation for the autocomplete request.
 

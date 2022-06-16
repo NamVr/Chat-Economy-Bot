@@ -16,9 +16,7 @@ const log = new Logger({ keepSilent: true });
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { ChannelType } = require("discord-api-types/v10");
 
-const configPath = "./config.json";
-
-const fs = require("fs");
+const manager = require("../../../functions/database");
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -135,28 +133,7 @@ module.exports = {
 		if (subCommand == "bot_channel" || subCommand == "chat_channel")
 			value = options.getChannel("value")?.id;
 
-		// Tries reading required config file.
-
-		try {
-			var jsonString = fs.readFileSync(configPath, {
-				encoding: "utf-8",
-			});
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-
-		// Tries parsing required config file.
-
-		try {
-			/**
-			 * @type {import('../../../typings').ConfigurationFile} Config File.
-			 */
-			var config = JSON.parse(jsonString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
+		const config = manager.getConfigFile();
 
 		// Now we will update the config object with new value
 
@@ -164,14 +141,7 @@ module.exports = {
 
 		// Now we will write the config to config.json
 
-		fs.writeFile(configPath, JSON.stringify(config, null, 2), (err) => {
-			// IF ERROR BOT WILL BE TERMINATED!
-
-			if (err) {
-				log.error("Error writing file:", err);
-				return process.exit(1);
-			}
-		});
+		manager.putConfigFile(config);
 
 		// Now follow-up after success!
 

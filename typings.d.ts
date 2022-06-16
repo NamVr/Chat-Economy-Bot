@@ -403,3 +403,13 @@ export interface ChatTriggerEvent {
 	 */
 	execute(message: Discord.Message & { client: Client }): void | Promise<void>;
 }
+
+/**
+ * Represents a Heat Database/File.
+ */
+export interface HeatDatabase {
+	/**
+	 * Represents Live Heat.
+	 */
+	heat: number;
+}

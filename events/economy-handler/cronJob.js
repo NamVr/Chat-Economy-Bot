@@ -5,8 +5,7 @@
  * @version 2.0.0
  */
 
-const heatConfigPath = "./database/heat.json";
-const fs = require("fs");
+const manager = require("../../functions/database");
 
 // Initialize LeeksLazyLogger
 
@@ -31,23 +30,7 @@ module.exports = {
 
 	execute(client) {
 		setInterval(() => {
-			// Tries reading required heat file. If it can't read, bot will be terminated, because they are required!
-
-			try {
-				var jsonString = fs.readFileSync(heatConfigPath, { encoding: "utf-8" });
-			} catch (error) {
-				log.error(error);
-				return process.exit(1);
-			}
-
-			// Tries parsing required heat file. If it can't read, bot will be terminated, because they are required!
-
-			try {
-				var heatConfig = JSON.parse(jsonString);
-			} catch (error) {
-				log.error(error);
-				return process.exit(1);
-			}
+			const heatConfig = manager.getHeatDB();
 
 			// Check if heat has reached it's limit!
 
@@ -108,18 +91,7 @@ module.exports = {
 
 				// Save the configuration.
 
-				fs.writeFile(
-					heatConfigPath,
-					JSON.stringify(heatConfig, null, 2),
-					(err) => {
-						// IF ERROR BOT WILL BE TERMINATED!
-
-						if (err) {
-							log.error("Error writing file:", err);
-							return process.exit(1);
-						}
-					}
-				);
+				manager.putHeatDB(heatConfig);
 			}
 		}, config.settings.cooldown);
 	},

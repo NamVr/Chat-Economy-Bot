@@ -5,15 +5,12 @@
  * @version 2.0.0
  */
 
-// Define Paths
-const heatConfigPath = "./database/heat.json";
+const manager = require("../../functions/database");
 
 /**
  * @type {import('../../typings').ConfigurationFile} Config File.
  */
 const config = require("../../config.json");
-
-const fs = require("fs");
 
 // Initialize LeeksLazyLogger
 
@@ -36,23 +33,7 @@ module.exports = {
 
 		if (message.author.bot) return;
 
-		// Tries reading required heat file. If it can't read, bot will be terminated, because they are required!
-
-		try {
-			var jsonString = fs.readFileSync(heatConfigPath, { encoding: "utf-8" });
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
-
-		// Tries parsing required heat file. If it can't read, bot will be terminated, because they are required!
-
-		try {
-			var heatConfig = JSON.parse(jsonString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
+		const heatConfig = manager.getHeatDB();
 
 		// Check if the message is not sent in the heat channel, do not affect heat.
 
@@ -64,13 +45,8 @@ module.exports = {
 
 		// Now it will add heat in heat file.
 
-		fs.writeFile(heatConfigPath, JSON.stringify(heatConfig, null, 2), (err) => {
-			// IF ERROR BOT WILL BE TERMINATED!
+		manager.putHeatDB(heatConfig);
 
-			if (err) {
-				log.error("Error writing file:", err);
-				return process.exit(1);
-			}
-		});
+		return;
 	},
 };
