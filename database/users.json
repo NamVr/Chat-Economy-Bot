@@ -1,6 +1,11 @@
-{
-	"user_id": {
+[
+	{
+		"user_id": "discord-id",
 		"balance": 0,
-		"won_times": 0
+		"won_times": 0,
+		"items": {
+			"item_1": 0,
+			"item_2": 0
+		}
 	}
-}
+]

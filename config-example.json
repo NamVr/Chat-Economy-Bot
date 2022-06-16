@@ -1,0 +1,16 @@
+{
+	"internal": {
+		"token": "your-discord-token",
+		"owner_id": "your-user-id",
+		"client_id": "your-bot-id",
+		"guild_id": "your-server-id"
+	},
+	"settings": {
+		"prefix": "!",
+		"heat_max": 100,
+		"heat_per_msg": 10,
+		"cooldown": 30000,
+		"chat_channel": "your-general-channel-id",
+		"bot_channel": "your-bot-channel-id"
+	}
+}

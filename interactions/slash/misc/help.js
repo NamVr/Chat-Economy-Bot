@@ -8,7 +8,7 @@
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed, Collection } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 /**
@@ -51,17 +51,6 @@ module.exports = {
 				const command = commands.get(name).data;
 				if (command.description)
 					helpEmbed.setDescription(command.description + "\n\n**Parameters:**");
-				command.options.forEach((option) => {
-					let content = option.description;
-					if (option.choices) {
-						let choices = "\nChoices: ";
-						option.choices.forEach((choice) => (choices += choice + ", "));
-						choices = choices.slice(0, -2);
-						content += choices;
-					}
-					if (!option.required) content += "\n*Optional*";
-					helpEmbed.addField(option.name, content.trim(), true);
-				});
 			} else {
 				helpEmbed
 					.setDescription(`No slash command with the name \`${name}\` found.`)

@@ -1,7 +1,7 @@
 /**
- * @file Server shop command.
+ * @file Item Suggestion Auto-Complete
  * @author Naman Vrati
- * @since 1.0.0
+ * @since 2.0.0
  * @version 2.0.0
  */
 
@@ -11,22 +11,16 @@ const Logger = require("leekslazylogger");
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-// Deconstructed the constants we need in this file.
-
-const { MessageEmbed } = require("discord.js");
-const { SlashCommandBuilder } = require("@discordjs/builders");
-
 const shopPath = "./database/shop.json";
+
 const fs = require("fs");
 
 /**
- * @type {import('../../../typings').SlashInteractionCommand}
+ * @type {import("../../../typings").AutocompleteInteraction}
  */
 module.exports = {
-	// The data needed to register slash commands to Discord.
-	data: new SlashCommandBuilder()
-		.setName("shop")
-		.setDescription("Displays the server shop!"),
+	name: "buy",
+
 	async execute(interaction) {
 		// Tries reading required database file.
 
@@ -51,18 +45,25 @@ module.exports = {
 			return process.exit(1);
 		}
 
-		// Make a stylish embed result!
+		// Preparation for the autocomplete request.
 
-		const embed = new MessageEmbed()
-			.setTitle(`${interaction.guild.name}'s Shop!`)
-			.setDescription(
-				`${shopDB.map((item) => `${item.name}: ${item.price}💰`).join("\n")}`
-			)
-			.setTimestamp();
+		const focusedValue = interaction.options.getFocused();
 
-		await interaction.reply({
-			embeds: [embed],
-		});
+		// Extract choices automatically from the database file.
+
+		const choices = shopDB.map((m) => m.name);
+
+		// Filter choices according to user input.
+
+		const filtered = choices.filter((choice) =>
+			// @ts-ignore
+			choice.startsWith(focusedValue)
+		);
+
+		// Respond the request here.
+		await interaction.respond(
+			filtered.map((choice) => ({ name: choice, value: choice }))
+		);
 
 		return;
 	},

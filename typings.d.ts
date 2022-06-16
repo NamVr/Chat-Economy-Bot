@@ -287,6 +287,36 @@ export interface ShopItem {
 }
 
 /**
+ * Represents a User of User Database.
+ */
+export interface UserItem {
+	/**
+	 * User ID of the User.
+	 */
+	user_id: Discord.Snowflake;
+
+	/**
+	 * Balance of the User.
+	 */
+	balance: number;
+
+	/**
+	 * Number of times the user has won a chat event.
+	 */
+	won_times: number;
+
+	/**
+	 * Storage of Quantity of Items (item_name: number)
+	 */
+	items: Object;
+}
+
+/**
+ * Represents User Database (Users Array).
+ */
+export interface UserDatabase extends Array<UserItem> {}
+
+/**
  * Represents Shop Database (Items Array).
  */
 export interface ShopDatabase extends Array<ShopItem> {}

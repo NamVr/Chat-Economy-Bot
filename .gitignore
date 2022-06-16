@@ -2,6 +2,8 @@
 /config.json
 testing
 .vscode/
+/functions/database
+/functions/build.js
 
 # Logs
 logs
