@@ -387,3 +387,19 @@ export interface ConfigurationFile {
 		bot_channel: Discord.Snowflake;
 	};
 }
+
+/**
+ * Represents a Chat-Event (Trigger).
+ */
+export interface ChatTriggerEvent {
+	/**
+	 * The event name of the chat-trigger which was interacted with.
+	 */
+	name: string;
+
+	/**
+	 * The event executor when it is called by the template handler.
+	 * @param message The message that triggered this command.
+	 */
+	execute(message: Discord.Message & { client: Client }): void | Promise<void>;
+}

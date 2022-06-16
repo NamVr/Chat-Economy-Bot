@@ -98,6 +98,7 @@ module.exports = {
 					if (!message) {
 						return;
 					}
+					// @ts-ignore
 					event.execute(message);
 				});
 

@@ -740,11 +740,6 @@
   dependencies:
     "escape-goat" "^2.0.0"
 
-"random-number@^0.0.9":
-  "integrity" "sha512-ipG3kRCREi/YQpi2A5QGcvDz1KemohovWmH6qGfboVyyGdR2t/7zQz0vFxrfxpbHQgPPdtVlUDaks3aikD1Ljw=="
-  "resolved" "https://registry.npmjs.org/random-number/-/random-number-0.0.9.tgz"
-  "version" "0.0.9"
-
 "rc@^1.2.8":
   "integrity" "sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw=="
   "resolved" "https://registry.npmjs.org/rc/-/rc-1.2.8.tgz"

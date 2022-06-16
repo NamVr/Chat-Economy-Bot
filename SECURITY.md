@@ -22,4 +22,4 @@ Whenever I receive a vulnerability report, I'll cross-examine the report and act
 I'll also follow you up by the same means of communication to let you know whether it was accepted or declined. <br>
 Of course, suitable actions will be taken as fast as possible! <br>
 
--- NamVr, *Developer*
+-- NamVr, _Developer_

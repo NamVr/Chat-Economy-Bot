@@ -1,15 +1,11 @@
 const Discord = require("discord.js");
+const random = require("../functions/get/random-number");
 
-var rn = require("random-number");
-var random = rn.generator({ integer: true });
-
+/**
+ * @type {import('../typings').ChatTriggerEvent}
+ */
 module.exports = {
 	name: "Event Name",
-
-	/**
-	 *
-	 * @param {import('discord.js').Message} message
-	 */
 	execute(message) {
 		var num1 = random(0, 50);
 		var num2 = random(0, 50);
