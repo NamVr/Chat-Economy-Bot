@@ -31,9 +31,8 @@
 	"dependencies": {
 		"@discordjs/builders": "^0.15.0",
 		"@discordjs/rest": "^0.5.0",
-		"discord-api-types": "^0.33.5",
+		"discord-api-types": "^0.34.0",
 		"discord.js": "^13.8.0",
-		"file-exists": "^5.0.1",
 		"leekslazylogger": "^4.1.7"
 	},
 	"devDependencies": {

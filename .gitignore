@@ -1,9 +1,7 @@
 # Custom
-config.json
-testing
 .vscode/
-functions/build.js
-database
+/config.json
+/database
 
 # Logs
 logs

@@ -22,7 +22,7 @@ const { token, client_id, guild_id } = internal;
 const { version } = require("./package.json");
 
 // Additional Required Modules
-const fileExists = require("file-exists");
+const fileExists = require("./functions/fileExists");
 // Initialize LeeksLazyLogger
 
 const Logger = require("leekslazylogger");
@@ -70,7 +70,7 @@ const requiredFiles = [
 ];
 
 for (const path of requiredFiles) {
-	if (!fileExists.sync(path)) {
+	if (!fileExists(path)) {
 		log.warn("A REQUIRED FILE IS MISSING!");
 		log.error(
 			`ERROR: CAN'T FIND CONFIGURATION FILE (${path}) Please make sure it exists!`
