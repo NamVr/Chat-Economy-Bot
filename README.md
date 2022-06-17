@@ -1,117 +1,219 @@
-<h1 align="center">Welcome to NamVr Discord Bot Template 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-v3.1-blue.svg?cacheSeconds=2592000" />
-  <a href="https://github.com/NamVr/DiscordBot-Template#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+
+
+<div id="top"></div>
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/NamVr/Chat-Economy-Bot">
+    <img src="https://avatars.githubusercontent.com/u/48354248" alt="Logo" width="80" height="80">
   </a>
-  <a href="https://github.com/NamVr/DiscordBot-Template/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
-  </a>
-  <a href="https://twitter.com/namanvrati" target="_blank">
-    <img alt="Twitter: namanvrati" src="https://img.shields.io/twitter/follow/namanvrati.svg?style=social" />
-  </a>
-</p>
 
-> An **open source** `discord.js` bot template which is based on official [discord.js guide](https://discordjs.guide/) to get started on making your very personal discord bot!
+<h3 align="center">NamVr Chat Economy</h3>
 
-### 🏠 [Homepage](https://github.com/NamVr/DiscordBot-Template#readme)
+  <p align="center">
+    An <b>open-source (FOSS) alternative</b> to discord chat economy bots (in popular servers) that has various events to be triggered randomly in your chat, based on confidence scores of chat activity. Events including math equations, unscramble the word, speed clicker etc!
+    <br />
+    <a href="https://github.com/NamVr/Chat-Economy-Bot"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/NamVr/Chat-Economy-Bot">View Demo</a>
+    ·
+    <a href="https://github.com/NamVr/Chat-Economy-Bot/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/NamVr/Chat-Economy-Bot/issues">Request Feature</a>
+  </p>
+</div>
 
-## Introduction
 
-`NamVr` Discord Bot Template is an open source discord.js based bot template to get started on a new bot project. It is classic javascript template, not requiring any external dependencies unlike other famous frameworks. (This is not a framework!)
-You can scale any kind of bot project using this template. (single server based or multiple server based) It all depends on your creativity!
 
-### Features:
+<!-- TABLE OF CONTENTS -->
+<!--<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-This template comes in with many in-built useful and flexible features, such as
 
-#### • **Dynamic Command Handler:**
+-->
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-- My template comes in with a dynamic command handler! Using the command handler, you don't need to indulge in main bot files to create your very own command!
-- You can simply make command groups (categorized as folders) in the [commands](https://github.com/NamVr/DiscordBot-Template/tree/master/commands/) folder.
-- Your JavaScript commands goes inside respective category folders. A sample command is provided as [ping](https://github.com/NamVr/DiscordBot-Template/blob/master/commands/misc/ping.js) command. You can use the same skeleton for all commands you want!
+<!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
 
-#### • **Dynamic Event Handler:**
+Coming Soon!
 
-- All events goes inside the [events](https://github.com/NamVr/DiscordBot-Template/blob/master/events/) folder. You don't need to use `client.on()` in the main `bot.js` file to handle events.
-- Using simple skeleton code for events, you can make any amount of events in the events folder using the event handler.
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-#### • **Dynamic Trigger Handler:**
 
-- Triggers occur when a specific "phrase" is said in a message content. For example, if you want your bot to react with :heart: when someone say `welcome` in their message, you can do that with this trigger handler!
-- Trigger Handler also has the same skeleton structure as of command handler. The trigger handler is associated with the [triggers](https://github.com/NamVr/DiscordBot-Template/tree/master/triggers/) folder. There are trigger categories, like [reactions](https://github.com/NamVr/DiscordBot-Template/tree/master/triggers/reactions) folder, in the trigger folder.
-- A sample trigger command is given in the [`hello.js`](https://github.com/NamVr/DiscordBot-Template/tree/master/triggers/reactions/hello.js) trigger file.
 
-#### • **[NEW] Dynamic Slash Command Handler:**
+### Built With
 
-- My template comes with a dynamic slash command handler with very easy to customize and make slash commands.
-- The commands, in the slashCommands folder, receive an [`CommandInteraction`](https://discord.js.org/#/docs/main/stable/class/CommandInteraction) object. You can see the [documentation of discord.js](https://discord.js.org/#/docs/main/stable/class/CommandInteraction) for all the properties and methods available.
-- **IMPORTANT:** In the template, we are sending the slash commands to discord to be registered only to 1 guild. That is because their are 2 types of slash commands, guild and global. Guild commands are restricted to 1 guild but whenever you update them, they take effect immediately, whereas global commands take upto 1 hour to take effect. So use guild commands in development and global commands for production.
+* [Discord.js](https://discord.js.org/#/)
+* [Node.js](https://nodejs.org/)
+* [Typescript](https://www.typescriptlang.org/)
 
-#### • **[NEW] Dynamic Buttons Interaction Handler:**
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-- This template comes with a dynamic button interaction handler to receive and process button interactions.
-- Buttons can be classified in two category folders.
 
-#### • **[NEW] Dynamic Context Menu Handler:**
 
-- All new addition to discord API is context menus! You can right click a user or message -> Apps to find these options!
-- This template will register all your context menu options and dynamically interact with them! Worth a try.
+<!-- GETTING STARTED -->
+## Getting Started
 
-#### • **Highly Customizable:**
+To get started, you should have `node.js` & `npm` installed. **(Node.js 16.9.0 or newer is required)**
+To get a local/server copy up and running follow these simple example steps.
 
-Using the template is so easy and fun, you would know. As the template does not rely on any external dependencies and written in javascript, it is highly customizable to any extend. There's no end to your creativity!
+### Installation
 
-#### • **Open source and self-hosted:**
+1. Clone the repository to get started.
+   ```sh
+   git clone https://github.com/NamVr/Chat-Economy-Bot.git
+   ```
+2. Install NPM packages.
+   ```sh
+   npm install
+   ```
+3. Initialize your project.
+   ```sh
+   npm run init
+   ```
+   > You have to follow the steps in the `init` script. Put your token, bot-id, client-id, owner-id. The script will automatically create `config.json` & `database` for you. **:warning: This is one time only!**
 
-> It's yours, you have full control.
+4. Setup your `config.json`'s settings according to your server variables. Make sure to also get a **[Wordnik API](https://developer.wordnik.com/docs)** to setup `apis >> wordnik` in the configuration.
+5. You should be all set as of now, start your bot!
+   ```sh
+   npm start
+   ```
 
-## Install
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-```sh
-npm install
-```
 
-## Configuration
 
-- Rename [`config-example.json`](https://github.com/NamVr/DiscordBot-Template/blob/master/config-example.json) to `config.json` and fill the token and other values. Extend config.json according to your needs!
+<!-- USAGE EXAMPLES -->
+## Usage
 
-## Run tests
+Coming Soon!
 
-```sh
-npm run test
-```
+_For more examples, please refer to the [Documentation](https://example.com)_
 
-## Support & Documentation
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-I'm working to make it more professional and easy to use for everyone. There will be a documentation out very soon.
 
-> WIP : https://djs.docs.namanvrati.cf/
 
-## Author
+<!-- ROADMAP -->
+<!--## Roadmap
 
-👤 **Naman Vrati**
+- [ ] Feature 1
+- [ ] Feature 2
+- [ ] Feature 3
+    - [ ] Nested Feature
 
-- Website: https://namanvrati.cf/ [broken lol]
-- Twitter: [@namanvrati](https://twitter.com/namanvrati) [inactive]
-- Github: [@NamVr](https://github.com/NamVr) [follow here]
+See the [open issues](https://github.com/NamVr/Chat-Economy-Bot/issues) for a full list of proposed features (and known issues).
 
-### Contributors
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-👤 Thank you so much to **[Krish Garg](https://github.com/KrishGarg)** and **[Thomas Fournier](https://github.com/GoudronViande24)** for giving awesome contributions to the project.
 
-## 🤝 Contributing
+-->
+<!-- CONTRIBUTING -->
+## Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/NamVr/DiscordBot-Template/issues). You can also take a look at the [contributing guide](https://github.com/NamVr/DiscordBot-Template/blob/master/CONTRIBUTING.md).
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-## Show your support
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+**Don't forget to give the project a star!** Thanks again!
 
-Give a ⭐️ if this project helped you! Star-ring the project gives me encouragement to continue it.
-You can also [sponsor](https://ko-fi.com/namanvrati) the project and get listed as a contributer! Thanks a lot.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📝 License
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-Copyright © 2021 [Naman Vrati](https://github.com/NamVr).<br />
-This project is [ISC](LICENSE) licensed.
 
----
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Naman Vrati - [@namanvrati](https://twitter.com/namanvrati) - info@namanvrati.cf
+
+Project Link: [https://github.com/NamVr/Chat-Economy-Bot](https://github.com/NamVr/Chat-Economy-Bot)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+<!--## Acknowledgments
+
+* []()
+* []()
+* []()
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+-->
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/NamVr/Chat-Economy-Bot.svg?style=for-the-badge
+[contributors-url]: https://github.com/NamVr/Chat-Economy-Bot/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/NamVr/Chat-Economy-Bot.svg?style=for-the-badge
+[forks-url]: https://github.com/NamVr/Chat-Economy-Bot/network/members
+[stars-shield]: https://img.shields.io/github/stars/NamVr/Chat-Economy-Bot.svg?style=for-the-badge
+[stars-url]: https://github.com/NamVr/Chat-Economy-Bot/stargazers
+[issues-shield]: https://img.shields.io/github/issues/NamVr/Chat-Economy-Bot.svg?style=for-the-badge
+[issues-url]: https://github.com/NamVr/Chat-Economy-Bot/issues
+[license-shield]: https://img.shields.io/github/license/NamVr/Chat-Economy-Bot.svg?style=for-the-badge
+[license-url]: https://github.com/NamVr/Chat-Economy-Bot/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/namanvrati
+[product-screenshot]: images/screenshot.png
+
+--------------
+
