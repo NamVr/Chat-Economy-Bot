@@ -11,6 +11,11 @@
 		"heat_per_msg": 10,
 		"cooldown": 30000,
 		"chat_channel": "your-general-channel-id",
-		"bot_channel": "your-bot-channel-id"
+		"bot_channel": "your-bot-channel-id",
+		"win_max": 100,
+		"win_min": 50
+	},
+	"apis": {
+		"wordnik": ""
 	}
 }

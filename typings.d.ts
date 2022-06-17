@@ -385,8 +385,48 @@ export interface ConfigurationFile {
 		 * Bot Channel ID (Ecoshop Channel).
 		 */
 		bot_channel: Discord.Snowflake;
+
+		/**
+		 * Maximum currency awarded to event winner.
+		 */
+		win_max: number;
+
+		/**
+		 * Minimum currency awarded to event winner.
+		 */
+		win_min: number;
+	};
+
+	/**
+	 * Represents API Link/Keys for the application.
+	 */
+	apis: {
+		/**
+		 * API Link for Wordnik (Unscramble The Word)
+		 */
+		wordnik: string;
 	};
 }
+
+/**
+ * Represents a Wordnik Response Object.
+ */
+export interface WordnikResponseObject {
+	/**
+	 * The ID (Index).
+	 */
+	id: number;
+
+	/**
+	 * The Random Word.
+	 */
+	word: string;
+}
+
+/**
+ * Represents a Wordnik Response Data.
+ */
+export interface WordnikResponse extends Array<WordnikResponseObject> {}
 
 /**
  * Represents a Chat-Event (Trigger).

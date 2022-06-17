@@ -1,11 +1,19 @@
+/**
+ * @file Math Equation Event
+ * @author Naman Vrati
+ * @since 1.0.0
+ * @version 2.0.0
+ */
+
 const Discord = require("discord.js");
 const random = require("../functions/get/random-number");
+const manager = require("../functions/database");
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
  */
 module.exports = {
-	name: "Event Name",
+	name: "Math Equation",
 	execute(message) {
 		// Generating 2 random numbers for the event!
 		var num1 = random(0, 50);
@@ -26,7 +34,8 @@ module.exports = {
 			embeds: [
 				new Discord.MessageEmbed()
 					.setColor(`RANDOM`)
-					.setTitle(`What is ${num1} ${choice == 1 ? "+" : "-"} ${num2}?`)
+					.setTitle(this.name + "!")
+					.setDescription(`What is ${num1} ${choice == 1 ? "+" : "-"} ${num2}?`)
 					.setFooter({
 						text: "Be the first one to say the answer to earn some coins for the shop!",
 					}),
@@ -50,7 +59,48 @@ module.exports = {
 		// Execute the rest of the code when the collector has been stopped.
 
 		collector.on("end", (m) => {
-			message.channel.send(`${m.last().author.username} won!`);
+			// If no one answered the question :(
+
+			if (!m.last()) return;
+
+			// Fetch user database and config file.
+
+			const userDB = manager.getUserDB();
+			const config = manager.getConfigFile();
+
+			// Find the winner user in the database.
+
+			let user = userDB.find((f) => f.user_id == m.last().author.id);
+
+			// If the winner user is new (doesn't exists yet)
+
+			if (!user) {
+				// @ts-ignore Non-existent object, created for the sake of properties!
+				user = {
+					user_id: m.last().author.id,
+					balance: 0,
+					won_times: 0,
+					items: {},
+				};
+			}
+
+			// Get random coins for the winner.
+
+			const coins = random(config.settings.win_min, config.settings.win_max);
+
+			// Add coins to the winner's balance & database.
+
+			user.balance += coins;
+			userDB.indexOf(user) != -1
+				? (userDB[userDB.indexOf(user)] = user)
+				: userDB.push(user);
+
+			manager.putUserDB(userDB);
+
+			// Send output of winning.
+
+			message.channel.send(`${m.last().author.username} won ${coins}!!`);
+
 			return;
 		});
 	},

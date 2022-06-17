@@ -155,7 +155,7 @@ rl.on("close", async function () {
 				"npm start"
 			)} to start your bot, and setup your server settings using ${chalk.bold(
 				"/settings"
-			)} command!`
+			)} command, or edit ${chalk.bold("config.json")} directly!`
 		)}`
 	);
 });

@@ -6,6 +6,9 @@
  */
 
 const manager = require("../../functions/database");
+const random = require("../../functions/get/random-number");
+
+const fs = require("fs");
 
 // Initialize LeeksLazyLogger
 
@@ -37,15 +40,14 @@ module.exports = {
 			if (heatConfig.heat >= config.settings.heat_max) {
 				// Heat Event Activated!
 
-				// Finds a random number to choose a random event.
+				// Finds a random event.
 
-				var random = Math.floor(Math.random() * 5);
-				if (random == 0) random += 1;
+				const chat_triggers = fs.readdirSync("./chat-triggers");
+				const randomIndex = random(0, chat_triggers.length - 1);
 
 				// Fetch the random event & execute the event.
 
-				//const event = require(`../chat-triggers/event${random}`);
-				const event = require(`../../chat-triggers/event1`); // Temp: Debug.
+				const event = require(`../../chat-triggers/${chat_triggers[randomIndex]}`);
 
 				// Find the Heat Channel.
 
