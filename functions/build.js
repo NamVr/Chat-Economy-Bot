@@ -208,7 +208,7 @@ const main = async () => {
 	}
 
 	// Call out a delay to complete these operations / output.
-	delay(5000);
+	await delay(5000);
 
 	// Call out all questions.
 	await question1();

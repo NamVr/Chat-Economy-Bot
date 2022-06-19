@@ -111,6 +111,7 @@ module.exports = {
 				)
 		),
 
+	ownerOnly: true,
 	async execute(interaction) {
 		const { options } = interaction;
 

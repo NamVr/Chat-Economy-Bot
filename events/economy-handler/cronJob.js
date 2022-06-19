@@ -6,7 +6,6 @@
  */
 
 const manager = require("../../functions/database");
-const random = require("../../functions/get/random-number");
 
 const fs = require("fs");
 
@@ -19,6 +18,7 @@ const log = new Logger({ keepSilent: true });
  * @type {import('../../typings').ConfigurationFile} Config File.
  */
 const config = require("../../config.json");
+const { Collection } = require("discord.js");
 
 // Main cron job application starts here.
 
@@ -43,11 +43,26 @@ module.exports = {
 				// Finds a random event.
 
 				const chat_triggers = fs.readdirSync("./chat-triggers");
-				const randomIndex = random(0, chat_triggers.length - 1);
+
+				/**
+				 * @type {Collection<string, import("../../typings").ChatTriggerEvent>}
+				 */
+				const modules = new Collection();
+
+				// Loop through all files and store commands in commands collection.
+
+				for (const trigger of chat_triggers) {
+					const module = require(`../../chat-triggers/${trigger}`);
+					modules.set(module.name, module);
+				}
+
+				// Filter only enabled modules (from config.json)
+
+				const enabledModules = modules.filter((m) => m.enabled);
 
 				// Fetch the random event & execute the event.
 
-				const event = require(`../../chat-triggers/${chat_triggers[randomIndex]}`);
+				const event = enabledModules.random();
 
 				// Find the Heat Channel.
 

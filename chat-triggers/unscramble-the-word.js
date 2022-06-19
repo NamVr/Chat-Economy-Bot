@@ -19,6 +19,7 @@ const stringShuffler = require("../functions/get/string-shuffler");
  */
 module.exports = {
 	name: "Unscramble The Word",
+	enabled: manager.getConfigFile().modules.unscramble_the_word,
 	async execute(message) {
 		/**
 		 * @type {import('../typings').WordnikResponse} Wordnik Response Data.

@@ -15,6 +15,7 @@ const manager = require("../functions/database");
  */
 module.exports = {
 	name: "Speed Clicker",
+	enabled: manager.getConfigFile().modules.speed_clicker,
 	async execute(message) {
 		// Send your question to the chat.
 

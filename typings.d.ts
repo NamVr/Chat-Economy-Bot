@@ -80,6 +80,11 @@ export interface SlashInteractionCommand {
 	>;
 
 	/**
+	 * Represents whether this command is an owner only command.
+	 */
+	ownerOnly: boolean;
+
+	/**
 	 * The interaction executor when it is called by the template handler.
 	 * @param interaction The interaction that triggered this command.
 	 */
@@ -406,6 +411,26 @@ export interface ConfigurationFile {
 		 */
 		wordnik: string;
 	};
+
+	/**
+	 * Represents Modules toggles (enabled or disabled).
+	 */
+	modules: {
+		/**
+		 * Whether Math Equation Module is enabled or not.
+		 */
+		math_equation: boolean;
+
+		/**
+		 * Whether Speed Clicker Module is enabled or not.
+		 */
+		speed_clicker: boolean;
+
+		/**
+		 * Whether Unscramble The Word Module is enabled or not.
+		 */
+		unscramble_the_word: boolean;
+	};
 }
 
 /**
@@ -436,6 +461,11 @@ export interface ChatTriggerEvent {
 	 * The event name of the chat-trigger which was interacted with.
 	 */
 	name: string;
+
+	/**
+	 * If the chat-event is enabled to be used or not.
+	 */
+	enabled: boolean;
 
 	/**
 	 * The event executor when it is called by the template handler.

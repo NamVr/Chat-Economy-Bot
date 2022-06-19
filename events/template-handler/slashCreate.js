@@ -11,6 +11,8 @@ const Logger = require("leekslazylogger");
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
+const manager = require("../../functions/database");
+
 module.exports = {
 	name: "interactionCreate",
 
@@ -33,6 +35,24 @@ module.exports = {
 		// If the interaction is not a command in cache.
 
 		if (!command) return;
+
+		// If the command is an owner only command.
+
+		if (
+			command.ownerOnly &&
+			interaction.user.id !== manager.getConfigFile().internal.owner_id
+		) {
+			// Send Error
+
+			await interaction.reply({
+				content: "You are not authorized to run this interaction!",
+				ephemeral: true,
+			});
+
+			// And close the interaction.
+
+			return;
+		}
 
 		// A try to executes the interaction.
 

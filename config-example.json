@@ -17,5 +17,10 @@
 	},
 	"apis": {
 		"wordnik": ""
+	},
+	"modules": {
+		"math_equation": true,
+		"speed_clicker": true,
+		"unscramble_the_word": true
 	}
 }

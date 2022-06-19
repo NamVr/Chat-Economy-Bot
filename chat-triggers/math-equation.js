@@ -14,6 +14,7 @@ const manager = require("../functions/database");
  */
 module.exports = {
 	name: "Math Equation",
+	enabled: manager.getConfigFile().modules.math_equation,
 	execute(message) {
 		// Generating 2 random numbers for the event!
 		var num1 = random(0, 50);
