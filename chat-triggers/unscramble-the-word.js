@@ -13,6 +13,7 @@ const manager = require("../functions/database");
 const randomNumber = require("../functions/get/random-number");
 const JSONResponse = require("../functions/get/json-response");
 const stringShuffler = require("../functions/get/string-shuffler");
+const ChatWin = require("../messages/embeds/chat-win");
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
@@ -115,7 +116,9 @@ module.exports = {
 
 			// Send output of winning.
 
-			message.channel.send(`${m.last().author.username} won ${coins}!!`);
+			message.channel.send({
+				embeds: [ChatWin(m.last().author, this.name, coins)],
+			});
 
 			return;
 		});

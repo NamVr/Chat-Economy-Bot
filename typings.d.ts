@@ -400,6 +400,21 @@ export interface ConfigurationFile {
 		 * Minimum currency awarded to event winner.
 		 */
 		win_min: number;
+
+		/**
+		 * Represents bot's currency settings.
+		 */
+		currency: {
+			/**
+			 * Name of your server's currency.
+			 */
+			name: string;
+
+			/**
+			 * Emoji (symbol) of your server's currency.
+			 */
+			emoji: Discord.EmojiResolvable;
+		};
 	};
 
 	/**

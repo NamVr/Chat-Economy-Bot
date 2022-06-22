@@ -13,7 +13,11 @@
 		"chat_channel": "your-general-channel-id",
 		"bot_channel": "your-bot-channel-id",
 		"win_max": 100,
-		"win_min": 50
+		"win_min": 50,
+		"currency": {
+			"name": "ecoins",
+			"emoji": "💰"
+		}
 	},
 	"apis": {
 		"wordnik": ""

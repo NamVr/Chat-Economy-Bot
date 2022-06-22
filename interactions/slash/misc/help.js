@@ -40,7 +40,7 @@ module.exports = {
 		 * @type {MessageEmbed}
 		 * @description Help command's embed
 		 */
-		const helpEmbed = new MessageEmbed().setColor(0x4286f4);
+		const helpEmbed = new MessageEmbed().setColor("RANDOM");
 
 		if (name) {
 			name = name.toLowerCase();

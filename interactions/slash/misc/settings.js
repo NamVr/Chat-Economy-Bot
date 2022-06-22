@@ -109,6 +109,35 @@ module.exports = {
 						.addChannelTypes(ChannelType.GuildText)
 						.setRequired(true)
 				)
+		)
+		.addSubcommandGroup((group) =>
+			group
+				.setName("currency")
+				.setDescription("Adjust your server's currency settings.")
+				.addSubcommand((subcommand) =>
+					subcommand
+						.setName("name")
+						.setDescription("This is the name of your server's currency.")
+						.addStringOption((option) =>
+							option
+								.setName("value")
+								.setDescription("The new currency name.")
+								.setRequired(true)
+						)
+				)
+				.addSubcommand((subcommand) =>
+					subcommand
+						.setName("emoji")
+						.setDescription(
+							"This is the emoji (symbol) of your server's currency."
+						)
+						.addStringOption((option) =>
+							option
+								.setName("value")
+								.setDescription("The new currency emoji.")
+								.setRequired(true)
+						)
+				)
 		),
 
 	ownerOnly: true,
@@ -118,10 +147,14 @@ module.exports = {
 		// Extract the sub-command used.
 
 		const subCommand = options.getSubcommand();
+		const subCommandGroup = options.getSubcommandGroup(false);
 
-		// Find the value of the sub-command excuted.
+		// Find the value of the sub-command executed.
 
 		let value;
+
+		if (subCommandGroup && subCommandGroup == "currency")
+			value = options.getString("value", true).trim();
 
 		if (subCommand == "cooldown")
 			value = options.getInteger("value", true) * 1000;
@@ -138,11 +171,15 @@ module.exports = {
 
 		// Now we will update the config object with new value
 
-		config[subCommand] = value;
+		if (subCommandGroup && subCommandGroup == "currency") {
+			config.settings.currency[subCommand] = value;
+		} else {
+			config.settings[subCommand] = value;
+		}
 
 		// Now we will write the config to config.json
 
-		manager.putConfigFile(config);
+		await manager.putConfigFile(config);
 
 		// Now follow-up after success!
 

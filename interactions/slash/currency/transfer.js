@@ -109,16 +109,22 @@ module.exports = {
 
 			manager.putUserDB(userDB);
 
+			// Get currency name & emoji.
+
+			const config_currency = manager.getConfigFile().settings.currency;
+			const { name, emoji } = config_currency;
+
 			// Make a stylish embed result!
 
 			const embed = new MessageEmbed()
 				.setTitle(`Transfer Successful!`)
+				.setColor("GREEN")
 				.setDescription(
-					`You have successfully transfered ${amount} to ${user}.`
+					`You have successfully transfered **${amount} ${emoji} ${name}** to ${user}.`
 				)
 				.addField(
 					"Transcation Details:",
-					`Your balance = ${dbUserSender.balance}\n${user.tag}'s balance = ${dbUserReceiver.balance}`
+					`Your balance = ${dbUserSender.balance} ${emoji}\n${user.tag}'s balance = ${dbUserReceiver.balance} ${emoji}`
 				)
 				.setTimestamp();
 

@@ -8,6 +8,7 @@
 const Discord = require("discord.js");
 const random = require("../functions/get/random-number");
 const manager = require("../functions/database");
+const ChatWin = require("../messages/embeds/chat-win");
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
@@ -100,7 +101,9 @@ module.exports = {
 
 			// Send output of winning.
 
-			message.channel.send(`${m.last().author.username} won ${coins}!!`);
+			message.channel.send({
+				embeds: [ChatWin(m.last().author, this.name, coins)],
+			});
 
 			return;
 		});

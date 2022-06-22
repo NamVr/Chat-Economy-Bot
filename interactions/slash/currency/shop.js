@@ -29,12 +29,20 @@ module.exports = {
 	async execute(interaction) {
 		const shopDB = manager.getShopDB();
 
+		// Get currency name & emoji.
+
+		const config_currency = manager.getConfigFile().settings.currency;
+		const { name, emoji } = config_currency;
+
 		// Make a stylish embed result!
 
 		const embed = new MessageEmbed()
 			.setTitle(`${interaction.guild.name}'s Shop!`)
+			.setColor("RANDOM")
 			.setDescription(
-				`${shopDB.map((item) => `${item.name}: ${item.price}💰`).join("\n")}`
+				`${shopDB
+					.map((item) => `${item.name}: ${item.price} ${emoji} ${name}`)
+					.join("\n\n")}`
 			)
 			.setTimestamp();
 

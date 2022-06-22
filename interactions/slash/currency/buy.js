@@ -106,19 +106,25 @@ module.exports = {
 		manager.putShopDB(shopDB);
 		manager.putUserDB(userDB);
 
+		// Get currency name & emoji.
+
+		const config_currency = manager.getConfigFile().settings.currency;
+		const { name, emoji } = config_currency;
+
 		// Make a stylish embed result!
 
 		const embed = new MessageEmbed()
 			.setTitle(`Successful Purchase!`)
 			.setDescription(
-				`You have successfully purchased ${ShopItem.name} for ${ShopItem.price}!`
+				`You have successfully purchased ${ShopItem.name} for **${ShopItem.price} ${emoji} ${name}**!`
 			)
 			.addField(
 				"Transcation Details:",
-				`Old Balance: ${ShopItem.price + dbUser.balance}\nNew Balance: ${
-					dbUser.balance
-				}`
+				`Old Balance: ${
+					ShopItem.price + dbUser.balance
+				} ${emoji}\nNew Balance: ${dbUser.balance} ${emoji}`
 			)
+			.setColor("GREEN")
 			.setTimestamp();
 
 		await interaction.reply({

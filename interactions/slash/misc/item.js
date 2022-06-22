@@ -199,7 +199,13 @@ module.exports = {
 								.setTitle(`${ShopItem.name}`)
 								.setDescription(`${ShopItem.description}`)
 								.setColor("RANDOM")
-								.addField("Price:", `${ShopItem.price}`, true),
+								.addField(
+									"Price:",
+									`${ShopItem.price} ${
+										manager.getConfigFile().settings.currency.emoji
+									}`,
+									true
+								),
 						],
 					});
 

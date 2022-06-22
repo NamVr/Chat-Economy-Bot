@@ -32,6 +32,11 @@ module.exports = {
 
 		const userDB = manager.getUserDB();
 
+		// Get currency name & emoji.
+
+		const config_currency = manager.getConfigFile().settings.currency;
+		const { emoji } = config_currency;
+
 		// Find the user (index) in the database.
 
 		const str = userDB
@@ -42,7 +47,7 @@ module.exports = {
 				(user, position) =>
 					`(${position + 1}) ${client.users.cache.get(user.user_id).tag}: ${
 						user.balance
-					}💰`
+					} ${emoji}`
 			)
 			.join("\n");
 
@@ -51,6 +56,7 @@ module.exports = {
 		const embed = new MessageEmbed()
 			.setTitle(`${interaction.guild.name}'s Leaderboard`)
 			.setDescription(str)
+			.setColor("RANDOM")
 			.setTimestamp();
 
 		await interaction.reply({

@@ -53,11 +53,16 @@ module.exports = {
 			dbUser.balance = 0;
 		}
 
+		// Get currency name & emoji.
+
+		const config_currency = manager.getConfigFile().settings.currency;
+		const { emoji } = config_currency;
+
 		// Make a stylish embed result!
 
 		const embed = new MessageEmbed()
 			.setTitle(`${user.username}'s balance`)
-			.setDescription(`Bank: ${dbUser.balance}`)
+			.setDescription(`**__Bank:__ ${dbUser.balance} ${emoji}**`)
 			.setColor("RANDOM")
 			.setTimestamp();
 
