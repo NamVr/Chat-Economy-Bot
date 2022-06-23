@@ -452,6 +452,11 @@ export interface ConfigurationFile {
 		speed_clicker: boolean;
 
 		/**
+		 * Whether Speed Typer Module is enabled or not.
+		 */
+		speed_typer: boolean;
+
+		/**
 		 * Whether Unscramble The Word Module is enabled or not.
 		 */
 		unscramble_the_word: boolean;

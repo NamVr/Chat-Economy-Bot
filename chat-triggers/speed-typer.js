@@ -1,5 +1,5 @@
 /**
- * @file Unscramble The Word Event
+ * @file Speed Typer Event
  * @author Naman Vrati
  * @since 2.0.0
  * @version 2.0.0
@@ -12,15 +12,14 @@ const Discord = require("discord.js");
 const manager = require("../functions/database");
 const randomNumber = require("../functions/get/random-number");
 const JSONResponse = require("../functions/get/json-response");
-const stringShuffler = require("../functions/get/string-shuffler");
 const ChatWin = require("../messages/embeds/chat-win");
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
  */
 module.exports = {
-	name: "Unscramble The Word",
-	alias: "unscramble_the_word",
+	name: "Speed Typer",
+	alias: "speed_typer",
 
 	async execute(message) {
 		/**
@@ -28,21 +27,18 @@ module.exports = {
 		 */
 
 		const response = await JSONResponse(
-			manager.getConfigFile().apis.wordnik +
-				"hasDictionaryDef=true&minLength=5&maxLength=10&limit=1"
+			manager.getConfigFile().apis.wordnik + "minLength=5&maxLength=10&limit=4"
 		);
 
 		/**
-		 * @description The Actual Word & Answer.
+		 * @description The Actual Text & Answer.
 		 */
-		const answer = response[0].word.toLowerCase();
+		const answer = response.map((r) => r.word).join(" ");
 
 		/**
-		 * @type {string}
-		 * @description The Random Word (Scrambled).
+		 * @description The Sussyfied Text (Question).
 		 */
-
-		const word = stringShuffler(answer);
+		const text = answer.split("").join("​");
 
 		// Send your question to the chat.
 
@@ -50,7 +46,7 @@ module.exports = {
 			.setColor(`RANDOM`)
 			.setTitle(this.name + "!")
 			.setDescription(
-				`I have scrambled a word, unscramble it to win some coins!\n\n> \`${word}\``
+				`There's one sussy message below, the first person to type it wins!\n\n> \`${text}\``
 			)
 			.setFooter({
 				text: "Be the first one to say the answer to earn some coins for the shop!",
@@ -83,7 +79,7 @@ module.exports = {
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`
+							`${embed.description}\n\n> **Nobody typed in time!** Was it that difficult?`
 						),
 					],
 				});
@@ -98,7 +94,7 @@ module.exports = {
 					embed.setDescription(
 						`${embed.description}\n\n> **${
 							m.last().author
-						} was the first to answer!** The answer was \`${answer}\`!`
+						} was the first to type!** GG!`
 					),
 				],
 			});

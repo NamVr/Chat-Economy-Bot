@@ -20,11 +20,12 @@
 		}
 	},
 	"apis": {
-		"wordnik": ""
+		"wordnik": "http://api.wordnik.com/v4/words.json/randomWords?api_key=YOUR_API_KEY&?hasDictionaryDef=true&minCorpusCount=0&hasDictionaryDef=true&"
 	},
 	"modules": {
 		"math_equation": true,
 		"speed_clicker": true,
+		"speed_typer": true,
 		"unscramble_the_word": true
 	}
 }

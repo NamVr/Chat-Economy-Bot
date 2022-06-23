@@ -41,6 +41,7 @@ module.exports = {
 						.addChoices(
 							{ name: "Math Equation", value: "math_equation" },
 							{ name: "Speed Clicker", value: "speed_clicker" },
+							{ name: "Speed Typer", value: "speed_typer" },
 							{ name: "Unscramble The Word", value: "unscramble_the_word" }
 						)
 				)
@@ -68,7 +69,7 @@ module.exports = {
 		if (subCommand && subCommand == "toggle") {
 			/**
 			 * Extract the choice of Module selected.
-			 * @type {"math_equation" | "speed_clicker" | "unscramble_the_word"} The choice.
+			 * @type {"math_equation" | "speed_clicker" | "speed_typer" | "unscramble_the_word"} The choice.
 			 */
 			// @ts-ignore
 			const value = options.getString("module", true);
