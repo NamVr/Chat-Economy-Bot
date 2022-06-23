@@ -34,8 +34,5 @@
 		"discord-api-types": "^0.34.0",
 		"discord.js": "^13.8.0",
 		"leekslazylogger": "^4.1.7"
-	},
-	"devDependencies": {
-		"nodemon": "^2.0.16"
 	}
 }

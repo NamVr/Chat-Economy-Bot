@@ -488,9 +488,10 @@ export interface ChatTriggerEvent {
 	name: string;
 
 	/**
-	 * If the chat-event is enabled to be used or not.
+	 * The config name of the chat-trigger which was interacted with.
+	 * Generally `variable_case` version of `name` property.
 	 */
-	enabled: boolean;
+	alias: string;
 
 	/**
 	 * The event executor when it is called by the template handler.

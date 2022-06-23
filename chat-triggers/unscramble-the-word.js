@@ -20,7 +20,8 @@ const ChatWin = require("../messages/embeds/chat-win");
  */
 module.exports = {
 	name: "Unscramble The Word",
-	enabled: manager.getConfigFile().modules.unscramble_the_word,
+	alias: "unscramble_the_word",
+
 	async execute(message) {
 		/**
 		 * @type {import('../typings').WordnikResponse} Wordnik Response Data.
@@ -42,23 +43,23 @@ module.exports = {
 
 		// Send your question to the chat.
 
-		message.channel.send({
-			embeds: [
-				new Discord.MessageEmbed()
-					.setColor(`RANDOM`)
-					.setTitle(this.name + "!")
-					.setDescription(
-						`I have scrambled a word, unscramble it to win some coins!\n\n> \`${word}\``
-					)
-					.setFooter({
-						text: "Be the first one to say the answer to earn some coins for the shop!",
-					}),
-			],
+		const embed = new Discord.MessageEmbed()
+			.setColor(`RANDOM`)
+			.setTitle(this.name + "!")
+			.setDescription(
+				`I have scrambled a word, unscramble it to win some coins!\n\n> \`${word}\``
+			)
+			.setFooter({
+				text: "Be the first one to say the answer to earn some coins for the shop!",
+			});
+
+		const msg = await message.channel.send({
+			embeds: [embed],
 		});
 
 		// Create a chat filter & collector.
 
-		const filter = (m) => m.content.toLowerCase() == answer.toString();
+		const filter = (m) => m.content.toLowerCase() == answer;
 		const collector = message.channel.createMessageCollector({
 			filter,
 			time: 30000,
@@ -75,7 +76,29 @@ module.exports = {
 		collector.on("end", (m) => {
 			// If no one answered the question :(
 
-			if (!m.last()) return;
+			if (!m.last()) {
+				msg.edit({
+					embeds: [
+						embed.setDescription(
+							`${embed.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`
+						),
+					],
+				});
+
+				return;
+			}
+
+			// Edit the embed after the event ends.
+
+			msg.edit({
+				embeds: [
+					embed.setDescription(
+						`${embed.description}\n\n> **${
+							m.last().author
+						} was the first to answer!** The answer was \`${answer}\`!`
+					),
+				],
+			});
 
 			// Fetch user database and config file.
 

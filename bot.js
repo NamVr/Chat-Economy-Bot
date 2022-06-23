@@ -64,7 +64,7 @@ process.on("unhandledRejection", (error) => {
 // Path Checking For Required Files!
 const requiredFiles = [
 	"./config.json",
-	"./database/heat.json",
+	"./database/shop.json",
 	"./functions/banner.js",
 	"./database/users.json",
 ];

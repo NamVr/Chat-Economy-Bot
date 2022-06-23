@@ -16,22 +16,23 @@ const ChatWin = require("../messages/embeds/chat-win");
  */
 module.exports = {
 	name: "Speed Clicker",
-	enabled: manager.getConfigFile().modules.speed_clicker,
+	alias: "speed_clicker",
+
 	async execute(message) {
 		// Send your question to the chat.
 
+		const embed = new Discord.MessageEmbed()
+			.setColor(`RANDOM`)
+			.setTitle(this.name + "!")
+			.setDescription(
+				"There’s one button below the message, the first person to react wins!"
+			)
+			.setFooter({
+				text: "Be the first one to say the answer to earn some coins for the shop!",
+			});
+
 		const msg = await message.channel.send({
-			embeds: [
-				new Discord.MessageEmbed()
-					.setColor(`RANDOM`)
-					.setTitle(this.name + "!")
-					.setDescription(
-						"There’s one button below the message, the first person to react wins!"
-					)
-					.setFooter({
-						text: "Be the first one to say the answer to earn some coins for the shop!",
-					}),
-			],
+			embeds: [embed],
 			components: [
 				new Discord.MessageActionRow().addComponents(
 					new Discord.MessageButton()
@@ -62,9 +63,37 @@ module.exports = {
 			})
 			.catch((err) => {})
 			.then((m) => {
-				// Disable the button first.
+				// If no one clicked the button :(
+
+				if (!m) {
+					msg.edit({
+						embeds: [
+							embed.setDescription(
+								`${embed.description}\n\n> **Nobody clicked in time!** It was really simple tho.`
+							),
+						],
+						components: [
+							new Discord.MessageActionRow().addComponents(
+								new Discord.MessageButton()
+									.setCustomId("event-clicker")
+									.setLabel("Speed Click!")
+									.setStyle("DANGER")
+									.setDisabled(true)
+							),
+						],
+					});
+
+					return;
+				}
+
+				// Edit the embed after the event ends.
 
 				msg.edit({
+					embeds: [
+						embed.setDescription(
+							`${embed.description}\n\n> **${m.user} was the first to click!** GG!`
+						),
+					],
 					components: [
 						new Discord.MessageActionRow().addComponents(
 							new Discord.MessageButton()
@@ -75,8 +104,6 @@ module.exports = {
 						),
 					],
 				});
-
-				if (!m) return;
 
 				// Fetch user database and config file.
 

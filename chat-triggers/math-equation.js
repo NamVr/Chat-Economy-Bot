@@ -15,8 +15,9 @@ const ChatWin = require("../messages/embeds/chat-win");
  */
 module.exports = {
 	name: "Math Equation",
-	enabled: manager.getConfigFile().modules.math_equation,
-	execute(message) {
+	alias: "math_equation",
+
+	async execute(message) {
 		// Generating 2 random numbers for the event!
 		var num1 = random(0, 50);
 		var num2 = random(0, 50);
@@ -32,16 +33,16 @@ module.exports = {
 
 		// Send your question to the chat.
 
-		message.channel.send({
-			embeds: [
-				new Discord.MessageEmbed()
-					.setColor(`RANDOM`)
-					.setTitle(this.name + "!")
-					.setDescription(`What is ${num1} ${choice == 1 ? "+" : "-"} ${num2}?`)
-					.setFooter({
-						text: "Be the first one to say the answer to earn some coins for the shop!",
-					}),
-			],
+		const embed = new Discord.MessageEmbed()
+			.setColor(`RANDOM`)
+			.setTitle(this.name + "!")
+			.setDescription(`What is ${num1} ${choice == 1 ? "+" : "-"} ${num2}?`)
+			.setFooter({
+				text: "Be the first one to say the answer to earn some coins for the shop!",
+			});
+
+		const msg = await message.channel.send({
+			embeds: [embed],
 		});
 
 		// Create a chat filter & collector.
@@ -63,7 +64,29 @@ module.exports = {
 		collector.on("end", (m) => {
 			// If no one answered the question :(
 
-			if (!m.last()) return;
+			if (!m.last()) {
+				msg.edit({
+					embeds: [
+						embed.setDescription(
+							`${embed.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`
+						),
+					],
+				});
+
+				return;
+			}
+
+			// Edit the embed after the event ends.
+
+			msg.edit({
+				embeds: [
+					embed.setDescription(
+						`${embed.description}\n\n> **${
+							m.last().author
+						} was the first to answer!** The answer was \`${answer}\`!`
+					),
+				],
+			});
 
 			// Fetch user database and config file.
 

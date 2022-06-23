@@ -5,12 +5,7 @@
  * @version 2.0.0
  */
 
-/**
- * @type {import('../../typings').ConfigurationFile} Config File.
- */
-const config = require("../../config.json");
-
-// Main Heat Handling application starts here.
+const manager = require("../../functions/database");
 
 module.exports = {
 	name: "messageCreate",
@@ -24,6 +19,10 @@ module.exports = {
 		// If the message author is a bot, do not affect heat.
 
 		if (message.author.bot) return;
+
+		// Get the config file
+
+		const config = manager.getConfigFile();
 
 		let heat = message.client.economy.heat;
 

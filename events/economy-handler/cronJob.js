@@ -11,10 +11,10 @@ const Logger = require("leekslazylogger");
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-/**
- * @type {import('../../typings').ConfigurationFile} Config File.
- */
-const config = require("../../config.json");
+const { settings } = require("../../config.json");
+const { cooldown } = settings;
+
+const manager = require("../../functions/database");
 
 const fs = require("fs");
 const { Collection } = require("discord.js");
@@ -34,6 +34,9 @@ module.exports = {
 		setInterval(() => {
 			let heat = client.economy.heat;
 
+			// Get config file.
+			const config = manager.getConfigFile();
+
 			// Check if heat has reached it's limit!
 
 			if (heat >= config.settings.heat_max) {
@@ -48,6 +51,12 @@ module.exports = {
 				 */
 				const modules = new Collection();
 
+				/**
+				 * Enabled modules collection.
+				 * @type {Collection<string, import("../../typings").ChatTriggerEvent>}
+				 */
+				const enabledModules = new Collection();
+
 				// Loop through all files and store commands in commands collection.
 
 				for (const trigger of chat_triggers) {
@@ -55,9 +64,12 @@ module.exports = {
 					modules.set(module.name, module);
 				}
 
-				// Filter only enabled modules (from config.json)
+				// Filter only enabled modules (from config.json).
 
-				const enabledModules = modules.filter((m) => m.enabled);
+				modules.forEach((module) => {
+					if (config.modules[module.alias])
+						enabledModules.set(module.name, module);
+				});
 
 				// Fetch the random event & execute the event.
 
@@ -109,6 +121,6 @@ module.exports = {
 
 				client.economy.heat = heat;
 			}
-		}, config.settings.cooldown);
+		}, cooldown);
 	},
 };
