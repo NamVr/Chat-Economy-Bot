@@ -2,6 +2,7 @@
 .vscode/
 /config.json
 /database
+.prettierignore
 
 # Logs
 logs

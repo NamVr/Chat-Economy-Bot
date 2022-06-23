@@ -129,6 +129,13 @@ client.cooldowns = new Collection();
 client.triggers = new Collection();
 client.autocompleteInteractions = new Collection();
 
+// Economy Cache Handler
+
+client.economy = {
+	// You can extend properties as per your liking.
+	heat: 0,
+};
+
 /**********************************************************************/
 // Registration of Message-Based Legacy Commands.
 

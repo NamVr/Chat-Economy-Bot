@@ -16,7 +16,6 @@ const util = require("util");
 
 const shopPath = "./database/shop.json";
 const userPath = "./database/users.json";
-const heatPath = "./database/heat.json";
 const configPath = "./config.json";
 
 /**
@@ -50,39 +49,6 @@ function getShopDB() {
 	// Return the live database!
 
 	return shopDB;
-}
-
-/**
- * Method to fetch the live heat.
- * @returns {import("../../typings").HeatDatabase} The Heat Database.
- */
-function getHeatDB() {
-	// Read the required database file.
-
-	try {
-		var jsonString = fs.readFileSync(heatPath, {
-			encoding: "utf-8",
-		});
-	} catch (error) {
-		log.error(error);
-		return process.exit(1);
-	}
-
-	// Parse the required database file.
-
-	try {
-		/**
-		 * @type {import('../../typings').HeatDatabase}
-		 */
-		var heatDB = JSON.parse(jsonString);
-	} catch (error) {
-		log.error(error);
-		return process.exit(1);
-	}
-
-	// Return the live database!
-
-	return heatDB;
 }
 
 /**
@@ -156,8 +122,8 @@ function getConfigFile() {
 /**
  * Writes a database to local storage.
  * @param {string} path The path of the database.
- * @param {import('../../typings').ShopDatabase | import('../../typings').UserDatabase | import('../../typings').HeatDatabase | import('../../typings').ConfigurationFile} database A database to write.
- * @returns {import('../../typings').ShopDatabase | import('../../typings').UserDatabase | import('../../typings').HeatDatabase | import('../../typings').ConfigurationFile} The database.
+ * @param {import('../../typings').ShopDatabase | import('../../typings').UserDatabase | import('../../typings').ConfigurationFile} database A database to write.
+ * @returns {import('../../typings').ShopDatabase | import('../../typings').UserDatabase | import('../../typings').ConfigurationFile} The database.
  */
 function writeDatabase(path, database) {
 	fs.writeFile(path, JSON.stringify(database, null, 2), (err) => {
@@ -183,20 +149,6 @@ function putShopDB(shopDB) {
 	return new Promise((resolve) => {
 		// @ts-ignore
 		resolve(writeDatabase(shopPath, shopDB));
-	});
-}
-
-/**
- * Method to write heat database.
- * @param {import('../../typings').HeatDatabase} heatDB The Shop Database.
- * @returns {Promise<import("../../typings").HeatDatabase>}
- */
-function putHeatDB(heatDB) {
-	// Now we will write the config to heat.json
-
-	return new Promise((resolve) => {
-		// @ts-ignore
-		resolve(writeDatabase(heatPath, heatDB));
 	});
 }
 
@@ -233,11 +185,9 @@ function putConfigFile(configFile) {
  */
 module.exports = {
 	getShopDB,
-	getHeatDB,
 	getUserDB,
 	getConfigFile,
 	putShopDB,
-	putHeatDB,
 	putUserDB,
 	putConfigFile,
 };

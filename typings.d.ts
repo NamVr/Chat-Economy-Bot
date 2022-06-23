@@ -246,9 +246,19 @@ export interface Client extends Discord.Client {
 	triggers: Discord.Collection<string, TriggerCommand>;
 
 	/**
-	 * Represents a collection of autocomplete interactions
+	 * Represents a collection of autocomplete interactions.
 	 */
 	autocompleteInteractions: Discord.Collection<string, AutocompleteInteraction>;
+
+	/**
+	 * Represents Economy Cache Handling.
+	 */
+	economy: {
+		/**
+		 * Represents Cache Heat.
+		 */
+		heat: number;
+	};
 }
 
 // Custom Typings for NamVr Chat Economy!
@@ -487,14 +497,4 @@ export interface ChatTriggerEvent {
 	 * @param message The message that triggered this command.
 	 */
 	execute(message: Discord.Message & { client: Client }): void | Promise<void>;
-}
-
-/**
- * Represents a Heat Database/File.
- */
-export interface HeatDatabase {
-	/**
-	 * Represents Live Heat.
-	 */
-	heat: number;
 }

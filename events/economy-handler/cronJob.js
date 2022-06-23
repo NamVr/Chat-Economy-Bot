@@ -5,19 +5,18 @@
  * @version 2.0.0
  */
 
-const manager = require("../../functions/database");
-
-const fs = require("fs");
-
 // Initialize LeeksLazyLogger
 
 const Logger = require("leekslazylogger");
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
+
 /**
  * @type {import('../../typings').ConfigurationFile} Config File.
  */
 const config = require("../../config.json");
+
+const fs = require("fs");
 const { Collection } = require("discord.js");
 
 // Main cron job application starts here.
@@ -33,11 +32,11 @@ module.exports = {
 
 	execute(client) {
 		setInterval(() => {
-			const heatConfig = manager.getHeatDB();
+			let heat = client.economy.heat;
 
 			// Check if heat has reached it's limit!
 
-			if (heatConfig.heat >= config.settings.heat_max) {
+			if (heat >= config.settings.heat_max) {
 				// Heat Event Activated!
 
 				// Finds a random event.
@@ -104,11 +103,11 @@ module.exports = {
 
 				// Set new heat to zero.
 
-				heatConfig.heat = 0;
+				heat = 0;
 
 				// Save the configuration.
 
-				manager.putHeatDB(heatConfig);
+				client.economy.heat = heat;
 			}
 		}, config.settings.cooldown);
 	},

@@ -5,18 +5,10 @@
  * @version 2.0.0
  */
 
-const manager = require("../../functions/database");
-
 /**
  * @type {import('../../typings').ConfigurationFile} Config File.
  */
 const config = require("../../config.json");
-
-// Initialize LeeksLazyLogger
-
-const Logger = require("leekslazylogger");
-// @ts-ignore
-const log = new Logger({ keepSilent: true });
 
 // Main Heat Handling application starts here.
 
@@ -33,7 +25,7 @@ module.exports = {
 
 		if (message.author.bot) return;
 
-		const heatConfig = manager.getHeatDB();
+		let heat = message.client.economy.heat;
 
 		// Check if the message is not sent in the heat channel, do not affect heat.
 
@@ -41,11 +33,11 @@ module.exports = {
 
 		// On every message sent, heat gets increased as defined in config.json!
 
-		heatConfig.heat += config.settings.heat_per_msg;
+		heat += config.settings.heat_per_msg;
 
 		// Now it will add heat in heat file.
 
-		manager.putHeatDB(heatConfig);
+		message.client.economy.heat = heat;
 
 		return;
 	},
