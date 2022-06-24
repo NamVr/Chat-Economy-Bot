@@ -12,6 +12,7 @@ const Logger = require("leekslazylogger");
 const log = new Logger({ keepSilent: true });
 
 const manager = require("../../functions/database");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = {
 	name: "interactionCreate",
@@ -24,7 +25,12 @@ module.exports = {
 
 	async execute(interaction) {
 		// Deconstructed client from interaction object.
+
 		const { client } = interaction;
+
+		// Fetch the live configuration file (config.json).
+
+		const config = manager.getConfigFile();
 
 		// Checks if the interaction is a command (to prevent weird bugs)
 
@@ -38,10 +44,7 @@ module.exports = {
 
 		// If the command is an owner only command.
 
-		if (
-			command.ownerOnly &&
-			interaction.user.id !== manager.getConfigFile().internal.owner_id
-		) {
+		if (command.ownerOnly && interaction.user.id !== config.internal.owner_id) {
 			// Send Error
 
 			await interaction.reply({
@@ -54,7 +57,32 @@ module.exports = {
 			return;
 		}
 
-		// A try to executes the interaction.
+		// If the command is ran outside the economy bot channel, and they are not the owner.
+
+		if (
+			interaction.channelId !== config.settings.bot_channel &&
+			interaction.user.id !== config.internal.owner_id
+		) {
+			// Send Error
+
+			await interaction.reply({
+				embeds: [
+					new MessageEmbed()
+						.setTitle(`:x: Access Denied!`)
+						.setDescription(
+							`You can't execute economy commands here! We have a special channel => <#${config.settings.bot_channel}>!`
+						)
+						.setColor("RED"),
+				],
+				ephemeral: true,
+			});
+
+			// And close the interaction.
+
+			return;
+		}
+
+		// A try to execute the interaction.
 
 		try {
 			await command.execute(interaction);
