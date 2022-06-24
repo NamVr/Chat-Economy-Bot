@@ -6,7 +6,7 @@
  */
 
 /**
- * Generates a random number between a given range (Defauly 0-100).
+ * Generates a random number between a given range (Default 0-100).
  * @returns {Number} The random number.
  */
 function randomNumber(min = 0, max = 100) {

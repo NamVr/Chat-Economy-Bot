@@ -1,7 +1,6 @@
 /**
  * @file Sample help command with slash command.
  * @author Naman Vrati
- * @author Thomas Fournier <thomas@artivain.com>
  * @since 3.0.0
  * @version 3.1.0
  */
