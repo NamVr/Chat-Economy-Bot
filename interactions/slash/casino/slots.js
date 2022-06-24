@@ -34,7 +34,11 @@ module.exports = {
 		// Get the currency settings from the database.
 		const currency = manager.getConfigFile().settings.currency;
 
-		// Get a random number in the range of 0-3 of the previous number.
+		/**
+		 * Gets a random number in the range of 0-3 of the previous number.
+		 * @param {Number} number The input number.
+		 * @returns {Number} a number.
+		 */
 		function getNumber(number) {
 			let num;
 			if (number > 3) {
@@ -46,11 +50,13 @@ module.exports = {
 		}
 
 		// Our constants for the random number in the getNumber function.
+
 		const arrayRandom = random(0, 3);
 		const randomRangeL = [-3, -2, -1, 0];
 		const randomRangeH = [0, 1, 2, 3];
 
 		// Get the amount of currency the user wants to bet and the user.
+
 		const amount = interaction.options.getNumber("amount");
 		const gambler = interaction.user;
 
@@ -71,14 +77,18 @@ module.exports = {
 		}
 
 		// Check if the user has enough currency to bet.
+
 		if (amount > user.balance) {
 			await interaction.reply({ content: "You don't have enough currency!" });
 			return;
 		}
 
-		// Get the random numbers for the slots.
-		await interaction.reply({ content: "Starting to spin..." });
+		// Get the random numbers for the slots & start the game.
+
+		await interaction.reply({ content: "*Starting to spin...*" });
 		await delay(2000);
+
+		// Declare required variables for the game.
 
 		let currentState = "";
 		const num1 = random(1, 7);
@@ -88,46 +98,53 @@ module.exports = {
 		const numbers = [num1, num2, num3];
 
 		// Loop through all the numbers and change the message state accordingly.
+
 		for (let i = 0; i < 3; i++) {
 			await delay(1500);
-			if (numbers[i] == 1) {
-				currentState += " 🍒";
-				await interaction.editReply({ content: currentState });
-			} else if (numbers[i] == 2) {
-				currentState += " 🍌";
-				await interaction.editReply({ content: currentState });
-			} else if (numbers[i] == 3) {
-				currentState += " 🍇";
-				await interaction.editReply({ content: currentState });
-			} else if (numbers[i] == 4) {
-				currentState += " 🍊";
-				await interaction.editReply({ content: currentState });
-			} else if (numbers[i] == 5) {
-				currentState += " 🍓";
-				await interaction.editReply({ content: currentState });
-			} else if (numbers[i] == 6) {
-				currentState += " 🍋";
-				await interaction.editReply({ content: currentState });
-			} else if (numbers[i] == 7) {
-				currentState += " 💸";
-				await interaction.editReply({ content: currentState });
+
+			switch (numbers[i]) {
+				case 1:
+					currentState += " 🍒";
+					break;
+				case 2:
+					currentState += " 🍌";
+					break;
+				case 3:
+					currentState += " 🍇";
+					break;
+				case 4:
+					currentState += " 🍊";
+					break;
+				case 5:
+					currentState += " 🍓";
+					break;
+				case 6:
+					currentState += " 🍋";
+					break;
+				case 7:
+					currentState += " 💸";
+					break;
 			}
+
+			// Edit Interaaction with a new slot.
+
+			await interaction.editReply({ content: currentState });
 		}
 
 		// Check if the user won or lost & create embed.
 
-		let embed = new MessageEmbed();
+		let embed = new MessageEmbed().setTitle("You won!").setColor("GREEN");
 
 		if (num1 == num2 && num2 == num3) {
-			// User Won!
+			// User Won Mega-Prize!
 
-			embed.setTitle("You won!");
-			embed.setColor("GREEN");
 			if (num1 == 7) {
+				// User Won Jackpot!
+
 				embed.setDescription(
-					`**You got the jackpot! You won \`${amount * 10}\` ${currency.name} ${
-						currency.emoji
-					}!**\nYour slots rolled: \`${currentState}\``
+					`**You got the **jackpot**! You won \`${amount * 10}\` ${
+						currency.name
+					} ${currency.emoji}!**\nYour slots rolled: \`${currentState}\``
 				);
 				embed.setFooter({
 					text: `You now have ${(user.balance += amount * 10)} ${
@@ -136,14 +153,9 @@ module.exports = {
 				});
 
 				await interaction.editReply({ embeds: [embed] });
-
-				// Update the user in the user database.
-
-				userDB.indexOf(user) != -1
-					? (userDB[userDB.indexOf(user)] = user)
-					: userDB.push(user);
-				manager.putUserDB(userDB);
 			} else if (num1 != 7) {
+				// User Won Semi-Jackpot!
+
 				embed.setDescription(
 					`**You won \`${amount * 5}\` ${currency.name} ${
 						currency.emoji
@@ -154,19 +166,12 @@ module.exports = {
 				});
 
 				await interaction.editReply({ embeds: [embed] });
-
-				// Update the user in the database.
-
-				userDB.indexOf(user) != -1
-					? (userDB[userDB.indexOf(user)] = user)
-					: userDB.push(user);
-				manager.putUserDB(userDB);
 			}
 		}
 
 		if (num1 == num2 || num2 == num3 || num1 == num3) {
-			embed.setTitle("You won!");
-			embed.setColor("GREEN");
+			// User Won Mini-Prize!
+
 			embed.setDescription(
 				`**You won \`${amount * 2}\` ${currency.name} ${
 					currency.emoji
@@ -177,15 +182,8 @@ module.exports = {
 			});
 
 			await interaction.editReply({ embeds: [embed] });
-
-			// Update the user in the database.
-
-			userDB.indexOf(user) != -1
-				? (userDB[userDB.indexOf(user)] = user)
-				: userDB.push(user);
-			manager.putUserDB(userDB);
 		} else {
-			// User Lost
+			// User Lost :(
 
 			embed.setTitle("You lost!");
 			embed.setColor("RED");
@@ -197,15 +195,16 @@ module.exports = {
 			});
 
 			interaction.editReply({ embeds: [embed] });
-
-			// Update the user in the database.
-
-			userDB.indexOf(user) != -1
-				? (userDB[userDB.indexOf(user)] = user)
-				: userDB.push(user);
-
-			manager.putUserDB(userDB);
 		}
+
+		// Update the user in the user database.
+
+		userDB.indexOf(user) != -1
+			? (userDB[userDB.indexOf(user)] = user)
+			: userDB.push(user);
+		manager.putUserDB(userDB);
+
+		// The job is done!
 
 		return;
 	},
