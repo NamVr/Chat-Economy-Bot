@@ -5,33 +5,19 @@
  * @version 2.0.0
  */
 
-const configPath = "./config.json";
-const heatConfigPath = "./database/heat.json";
-const fs = require("fs");
-
 // Initialize LeeksLazyLogger
 
 const Logger = require("leekslazylogger");
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-// We will try to read the configuration file & check if it exists.
+const { settings } = require("../../config.json");
+const { cooldown } = settings;
 
-try {
-	var configString = fs.readFileSync(configPath, { encoding: "utf-8" });
-} catch (error) {
-	log.error(error);
-	process.exit(1);
-}
+const manager = require("../../functions/database");
 
-// We will now parse the configuration file to return an object to be played with.
-
-try {
-	var config = JSON.parse(configString);
-} catch (error) {
-	log.error(error);
-	process.exit(1);
-}
+const fs = require("fs");
+const { Collection } = require("discord.js");
 
 // Main cron job application starts here.
 
@@ -46,48 +32,58 @@ module.exports = {
 
 	execute(client) {
 		setInterval(() => {
-			// Tries reading required heat file. If it can't read, bot will be terminated, because they are required!
+			let heat = client.economy.heat;
 
-			try {
-				var jsonString = fs.readFileSync(heatConfigPath, { encoding: "utf-8" });
-			} catch (error) {
-				log.error(error);
-				return process.exit(1);
-			}
-
-			// Tries parsing required heat file. If it can't read, bot will be terminated, because they are required!
-
-			try {
-				var heatConfig = JSON.parse(jsonString);
-			} catch (error) {
-				log.error(error);
-				return process.exit(1);
-			}
+			// Get config file.
+			const config = manager.getConfigFile();
 
 			// Check if heat has reached it's limit!
 
-			if (heatConfig.heat >= config.heat_max) {
+			if (heat >= config.settings.heat_max) {
 				// Heat Event Activated!
 
-				// Finds a random number to choose a random event.
+				// Finds a random event.
 
-				var random = Math.floor(Math.random() * 5);
-				if (random == 0) random += 1;
+				const chat_triggers = fs.readdirSync("./chat-triggers");
+
+				/**
+				 * @type {Collection<string, import("../../typings").ChatTriggerEvent>}
+				 */
+				const modules = new Collection();
+
+				/**
+				 * Enabled modules collection.
+				 * @type {Collection<string, import("../../typings").ChatTriggerEvent>}
+				 */
+				const enabledModules = new Collection();
+
+				// Loop through all files and store commands in commands collection.
+
+				for (const trigger of chat_triggers) {
+					const module = require(`../../chat-triggers/${trigger}`);
+					modules.set(module.name, module);
+				}
+
+				// Filter only enabled modules (from config.json).
+
+				modules.forEach((module) => {
+					if (config.modules[module.alias])
+						enabledModules.set(module.name, module);
+				});
 
 				// Fetch the random event & execute the event.
 
-				//const event = require(`../chat-triggers/event${random}`);
-				const event = require(`../../chat-triggers/event1`);
+				const event = enabledModules.random();
 
 				// Find the Heat Channel.
 
-				let channel = client.channels.cache.get(config.heat_channel);
+				let channel = client.channels.cache.get(config.settings.chat_channel);
 
 				// Check if your input channel is a Text-Based Channel.
 
 				if (!channel) {
 					log.critical(
-						`${config.heat_channel} does NOT belong to ANY Channel!`
+						`${config.settings.chat_channel} does NOT belong to ANY Channel!`
 					);
 					log.error(
 						"Please fix your configuration file with a correct Heat Channel ID."
@@ -113,28 +109,18 @@ module.exports = {
 					if (!message) {
 						return;
 					}
+					// @ts-ignore
 					event.execute(message);
 				});
 
 				// Set new heat to zero.
 
-				heatConfig.heat = 0;
+				heat = 0;
 
 				// Save the configuration.
 
-				fs.writeFile(
-					heatConfigPath,
-					JSON.stringify(heatConfig, null, 2),
-					(err) => {
-						// IF ERROR BOT WILL BE TERMINATED!
-
-						if (err) {
-							log.error("Error writing file:", err);
-							return process.exit(1);
-						}
-					}
-				);
+				client.economy.heat = heat;
 			}
-		}, config.cooldown);
+		}, cooldown);
 	},
 };

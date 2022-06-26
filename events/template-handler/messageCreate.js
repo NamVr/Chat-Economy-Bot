@@ -8,15 +8,14 @@
 // Declares constants (destructured) to be used in this file.
 
 const Discord = require("discord.js");
-const { prefix, owner } = require("../../config.json");
 
 // Initialize LeeksLazyLogger
 
 const Logger = require("leekslazylogger");
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
-const fs = require("fs");
-const configPath = "./config.json";
+
+const manager = require("../../functions/database");
 
 // Prefix regex, we will use to match in mention prefix.
 
@@ -38,19 +37,9 @@ module.exports = {
 
 		const { client, guild, channel, content, author } = message;
 
-		try {
-			var configString = fs.readFileSync(configPath, { encoding: "utf-8" });
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
+		const config = manager.getConfigFile();
 
-		try {
-			var config = JSON.parse(configString);
-		} catch (error) {
-			log.error(error);
-			return process.exit(1);
-		}
+		const prefix = config.settings.prefix;
 
 		// Checks if the bot is mentioned in the message all alone and triggers onMention trigger.
 		// You can change the behavior as per your liking at ./messages/onMention.js
@@ -124,7 +113,7 @@ module.exports = {
 
 		// Owner Only Property, add in your command properties if true.
 
-		if (command.ownerOnly && message.author.id !== owner) {
+		if (command.ownerOnly && message.author.id !== config.internal.owner_id) {
 			return message.reply({
 				embeds: [
 					new Discord.MessageEmbed()
@@ -151,13 +140,13 @@ module.exports = {
 		}
 
 		// Check if the command is an event, if yes, disable calling it directly.
-		if (message.channel.id !== config.ecoshop_channel) {
+		if (message.channel.id !== config.settings.bot_channel) {
 			return message.channel.send({
 				embeds: [
 					new Discord.MessageEmbed()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(
-							`You can't execute economy commands here! We have a special channel => <#${config.ecoshop_channel}>!`
+							`You can't execute economy commands here! We have a special channel => <#${config.settings.bot_channel}>!`
 						)
 						.setColor("RED"),
 				],
@@ -188,7 +177,7 @@ module.exports = {
 			var reply = `You didn't provide any arguments, ${message.author}!`;
 
 			if (command.usage) {
-				reply += `\nThe proper usage would be: \`${config.prefix}${command.name} ${command.usage}\``;
+				reply += `\nThe proper usage would be: \`${config.settings.prefix}${command.name} ${command.usage}\``;
 			}
 
 			return message.channel.send({

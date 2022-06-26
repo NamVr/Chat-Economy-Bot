@@ -7,7 +7,8 @@
 	"main": "bot.js",
 	"scripts": {
 		"start": "node bot.js",
-		"dev": "nodemon bot.js"
+		"dev": "nodemon bot.js",
+		"init": "node ./functions/build.js"
 	},
 	"repository": {
 		"type": "git",
@@ -30,13 +31,8 @@
 	"dependencies": {
 		"@discordjs/builders": "^0.15.0",
 		"@discordjs/rest": "^0.5.0",
-		"discord-api-types": "^0.33.5",
+		"discord-api-types": "^0.34.0",
 		"discord.js": "^13.8.0",
-		"file-exists": "^5.0.1",
-		"leekslazylogger": "^4.1.7",
-		"random-number": "^0.0.9"
-	},
-	"devDependencies": {
-		"nodemon": "^2.0.16"
+		"leekslazylogger": "^4.1.7"
 	}
 }

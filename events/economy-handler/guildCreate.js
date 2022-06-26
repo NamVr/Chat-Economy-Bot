@@ -5,6 +5,9 @@
  * @version 2.0.0
  */
 
+/**
+ * @type {import('../../typings').ConfigurationFile} Config File.
+ */
 const config = require("../../config.json");
 
 // Initialize LeeksLazyLogger
@@ -44,7 +47,7 @@ module.exports = {
 
 		// Disallow incorrect guild as per configuration.
 
-		if (config.heat_channel != guild.id) {
+		if (config.settings.chat_channel != guild.id) {
 			log.console(
 				"\n ---------------------------------------------------------- \n"
 			);

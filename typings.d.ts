@@ -80,6 +80,11 @@ export interface SlashInteractionCommand {
 	>;
 
 	/**
+	 * Represents whether this command is an owner only command.
+	 */
+	ownerOnly: boolean;
+
+	/**
 	 * The interaction executor when it is called by the template handler.
 	 * @param interaction The interaction that triggered this command.
 	 */
@@ -239,4 +244,263 @@ export interface Client extends Discord.Client {
 	 * Represents a collection of chat-based Trigger Commands.
 	 */
 	triggers: Discord.Collection<string, TriggerCommand>;
+
+	/**
+	 * Represents a collection of autocomplete interactions.
+	 */
+	autocompleteInteractions: Discord.Collection<string, AutocompleteInteraction>;
+
+	/**
+	 * Represents Economy Cache Handling.
+	 */
+	economy: {
+		/**
+		 * Represents Cache Heat.
+		 */
+		heat: number;
+	};
+}
+
+// Custom Typings for NamVr Chat Economy!
+
+/**
+ * Represents a Autocomplete Interaction.
+ */
+export interface AutocompleteInteraction {
+	/**
+	 * The command name of the autocomplete interaction which was interacted with.
+	 */
+	name: string;
+
+	/**
+	 * The interaction executor when it is called by the template handler.
+	 * @param interaction The interaction that triggered this command.
+	 */
+	execute(
+		interaction: Discord.AutocompleteInteraction & { client: Client }
+	): void | Promise<void>;
+}
+
+/**
+ * Represents an Item of Shop Database.
+ */
+export interface ShopItem {
+	/**
+	 * Name of the item
+	 */
+	name: string;
+
+	/**
+	 * Price/Cost of the item (10-100000)
+	 */
+	price: number;
+
+	/**
+	 * Description of the item
+	 */
+	description: string;
+}
+
+/**
+ * Represents a User of User Database.
+ */
+export interface UserItem {
+	/**
+	 * User ID of the User.
+	 */
+	user_id: Discord.Snowflake;
+
+	/**
+	 * Balance of the User.
+	 */
+	balance: number;
+
+	/**
+	 * Number of times the user has won a chat event.
+	 */
+	won_times: number;
+
+	/**
+	 * Storage of Quantity of Items (item_name: number)
+	 */
+	items: Object;
+}
+
+/**
+ * Represents User Database (Users Array).
+ */
+export interface UserDatabase extends Array<UserItem> {}
+
+/**
+ * Represents Shop Database (Items Array).
+ */
+export interface ShopDatabase extends Array<ShopItem> {}
+
+/**
+ * Represents Configuration File (config.json).
+ */
+export interface ConfigurationFile {
+	/**
+	 * Represents internal configuration of the application.
+	 */
+
+	internal: {
+		/**
+		 * Token of the application.
+		 */
+
+		token: string;
+
+		/**
+		 * Owner ID of the application.
+		 */
+		owner_id: Discord.Snowflake;
+
+		/**
+		 * Client ID of the application.
+		 */
+		client_id: Discord.Snowflake;
+
+		/**
+		 * Guild ID of the application.
+		 */
+		guild_id: Discord.Snowflake;
+	};
+
+	/**
+	 * Represents Economy/Bot based configuration of the application.
+	 */
+	settings: {
+		/**
+		 * Prefix of the application.
+		 */
+		prefix: string;
+
+		/**
+		 * Amount of maximum heat (trigger).
+		 */
+		heat_max: number;
+
+		/**
+		 * Amount of heat per message (to be added).
+		 */
+		heat_per_msg: number;
+
+		/**
+		 * Cooldown of Legacy Commands (in ms).
+		 */
+		cooldown: number;
+
+		/**
+		 * Chat Channel ID (Heat Channel).
+		 */
+		chat_channel: Discord.Snowflake;
+
+		/**
+		 * Bot Channel ID (Ecoshop Channel).
+		 */
+		bot_channel: Discord.Snowflake;
+
+		/**
+		 * Maximum currency awarded to event winner.
+		 */
+		win_max: number;
+
+		/**
+		 * Minimum currency awarded to event winner.
+		 */
+		win_min: number;
+
+		/**
+		 * Represents bot's currency settings.
+		 */
+		currency: {
+			/**
+			 * Name of your server's currency.
+			 */
+			name: string;
+
+			/**
+			 * Emoji (symbol) of your server's currency.
+			 */
+			emoji: Discord.EmojiResolvable;
+		};
+	};
+
+	/**
+	 * Represents API Link/Keys for the application.
+	 */
+	apis: {
+		/**
+		 * API Link for Wordnik (Unscramble The Word)
+		 */
+		wordnik: string;
+	};
+
+	/**
+	 * Represents Modules toggles (enabled or disabled).
+	 */
+	modules: {
+		/**
+		 * Whether Math Equation Module is enabled or not.
+		 */
+		math_equation: boolean;
+
+		/**
+		 * Whether Speed Clicker Module is enabled or not.
+		 */
+		speed_clicker: boolean;
+
+		/**
+		 * Whether Speed Typer Module is enabled or not.
+		 */
+		speed_typer: boolean;
+
+		/**
+		 * Whether Unscramble The Word Module is enabled or not.
+		 */
+		unscramble_the_word: boolean;
+	};
+}
+
+/**
+ * Represents a Wordnik Response Object.
+ */
+export interface WordnikResponseObject {
+	/**
+	 * The ID (Index).
+	 */
+	id: number;
+
+	/**
+	 * The Random Word.
+	 */
+	word: string;
+}
+
+/**
+ * Represents a Wordnik Response Data.
+ */
+export interface WordnikResponse extends Array<WordnikResponseObject> {}
+
+/**
+ * Represents a Chat-Event (Trigger).
+ */
+export interface ChatTriggerEvent {
+	/**
+	 * The event name of the chat-trigger which was interacted with.
+	 */
+	name: string;
+
+	/**
+	 * The config name of the chat-trigger which was interacted with.
+	 * Generally `variable_case` version of `name` property.
+	 */
+	alias: string;
+
+	/**
+	 * The event executor when it is called by the template handler.
+	 * @param message The message that triggered this command.
+	 */
+	execute(message: Discord.Message & { client: Client }): void | Promise<void>;
 }

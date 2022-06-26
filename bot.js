@@ -7,15 +7,22 @@
 // Declare constants which will be used throughout the bot.
 
 const fs = require("fs");
+
 const { Client, Collection, Intents } = require("discord.js");
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
-const { token, client_id, guild_id } = require("./config.json");
+
+/**
+ * @type {import('./typings').ConfigurationFile} Config File.
+ */
+const config = require("./config.json");
+const { internal } = config;
+const { token, client_id, guild_id } = internal;
 
 const { version } = require("./package.json");
 
 // Additional Required Modules
-const fileExists = require("file-exists");
+const fileExists = require("./functions/fileExists");
 // Initialize LeeksLazyLogger
 
 const Logger = require("leekslazylogger");
@@ -57,13 +64,13 @@ process.on("unhandledRejection", (error) => {
 // Path Checking For Required Files!
 const requiredFiles = [
 	"./config.json",
-	"./database/heat.json",
+	"./database/shop.json",
 	"./functions/banner.js",
 	"./database/users.json",
 ];
 
 for (const path of requiredFiles) {
-	if (!fileExists.sync(path)) {
+	if (!fileExists(path)) {
 		log.warn("A REQUIRED FILE IS MISSING!");
 		log.error(
 			`ERROR: CAN'T FIND CONFIGURATION FILE (${path}) Please make sure it exists!`
@@ -81,10 +88,6 @@ require("./functions/banner")();
  * @description All event files of the event handler.
  * @type {String[]}
  */
-
-const eventFiles = fs
-	.readdirSync("./events")
-	.filter((file) => file.endsWith(".js"));
 
 // Loop through all files and execute the event when it is actually emmited.
 /**
@@ -124,6 +127,14 @@ client.contextCommands = new Collection();
 client.modalCommands = new Collection();
 client.cooldowns = new Collection();
 client.triggers = new Collection();
+client.autocompleteInteractions = new Collection();
+
+// Economy Cache Handler
+
+client.economy = {
+	// You can extend properties as per your liking.
+	heat: 0,
+};
 
 /**********************************************************************/
 // Registration of Message-Based Legacy Commands.
@@ -167,6 +178,29 @@ for (const module of slashCommands) {
 	for (const commandFile of commandFiles) {
 		const command = require(`./interactions/slash/${module}/${commandFile}`);
 		client.slashCommands.set(command.data.name, command);
+	}
+}
+
+/**********************************************************************/
+// Registration of Autocomplete Interactions.
+
+/**
+ * @type {String[]}
+ * @description All autocomplete interactions.
+ */
+
+const autocompleteInteractions = fs.readdirSync("./interactions/autocomplete");
+
+// Loop through all files and store autocomplete interactions in autocompleteInteractions collection.
+
+for (const module of autocompleteInteractions) {
+	const files = fs
+		.readdirSync(`./interactions/autocomplete/${module}`)
+		.filter((file) => file.endsWith(".js"));
+
+	for (const interactionFile of files) {
+		const interaction = require(`./interactions/autocomplete/${module}/${interactionFile}`);
+		client.autocompleteInteractions.set(interaction.name, interaction);
 	}
 }
 

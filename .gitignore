@@ -1,6 +1,8 @@
 # Custom
-/config.json
 .vscode/
+/config.json
+/database
+.prettierignore
 
 # Logs
 logs

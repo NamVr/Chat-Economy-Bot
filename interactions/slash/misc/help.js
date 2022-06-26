@@ -1,14 +1,13 @@
 /**
  * @file Sample help command with slash command.
  * @author Naman Vrati
- * @author Thomas Fournier <thomas@artivain.com>
  * @since 3.0.0
  * @version 3.1.0
  */
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed, Collection } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 /**
@@ -40,7 +39,7 @@ module.exports = {
 		 * @type {MessageEmbed}
 		 * @description Help command's embed
 		 */
-		const helpEmbed = new MessageEmbed().setColor(0x4286f4);
+		const helpEmbed = new MessageEmbed().setColor("RANDOM");
 
 		if (name) {
 			name = name.toLowerCase();
@@ -51,17 +50,6 @@ module.exports = {
 				const command = commands.get(name).data;
 				if (command.description)
 					helpEmbed.setDescription(command.description + "\n\n**Parameters:**");
-				command.options.forEach((option) => {
-					let content = option.description;
-					if (option.choices) {
-						let choices = "\nChoices: ";
-						option.choices.forEach((choice) => (choices += choice + ", "));
-						choices = choices.slice(0, -2);
-						content += choices;
-					}
-					if (!option.required) content += "\n*Optional*";
-					helpEmbed.addField(option.name, content.trim(), true);
-				});
 			} else {
 				helpEmbed
 					.setDescription(`No slash command with the name \`${name}\` found.`)

@@ -1,6 +1,7 @@
-{
-	"item_name": {
-		"cost": 0,
+[
+	{
+		"name": "item_name",
+		"price": 0,
 		"description": "Description of your item!"
 	}
-}
+]

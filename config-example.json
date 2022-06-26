@@ -1,0 +1,31 @@
+{
+	"internal": {
+		"token": "your-discord-token",
+		"owner_id": "your-user-id",
+		"client_id": "your-bot-id",
+		"guild_id": "your-server-id"
+	},
+	"settings": {
+		"prefix": "!",
+		"heat_max": 100,
+		"heat_per_msg": 10,
+		"cooldown": 30000,
+		"chat_channel": "your-general-channel-id",
+		"bot_channel": "your-bot-channel-id",
+		"win_max": 100,
+		"win_min": 50,
+		"currency": {
+			"name": "ecoins",
+			"emoji": "💰"
+		}
+	},
+	"apis": {
+		"wordnik": "http://api.wordnik.com/v4/words.json/randomWords?api_key=YOUR_API_KEY&?hasDictionaryDef=true&minCorpusCount=0&hasDictionaryDef=true&"
+	},
+	"modules": {
+		"math_equation": true,
+		"speed_clicker": true,
+		"speed_typer": true,
+		"unscramble_the_word": true
+	}
+}

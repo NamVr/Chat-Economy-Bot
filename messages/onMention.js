@@ -4,7 +4,12 @@
  * @since 3.0.0
  */
 
-const { prefix } = require("../config.json");
+/**
+ * @type {import('../typings').ConfigurationFile} Config File.
+ */
+const config = require("../config.json");
+const { settings } = config;
+const { prefix } = settings;
 
 module.exports = {
 	/**
