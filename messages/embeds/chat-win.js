@@ -5,8 +5,8 @@
  * @version 2.0.0
  */
 
-const { MessageEmbed, User } = require("discord.js");
-const manager = require("../../functions/database");
+const { MessageEmbed, User } = require('discord.js');
+const manager = require('../../functions/database');
 const { name, emoji } = manager.getConfigFile().settings.currency;
 
 /**
@@ -21,10 +21,10 @@ const ChatWin = (user, game, amount) => {
 	// Create the ChatWin embed.
 
 	const embed = new MessageEmbed()
-		.setColor("GREEN")
+		.setColor('GREEN')
 		.setTitle(`Congratulations, ${user.username}!`)
 		.setDescription(
-			`You have **won** the ${game}! You have earned **${amount} ${emoji} ${name}**!`
+			`You have **won** the ${game}! You have earned **${amount} ${emoji} ${name}**!`,
 		);
 
 	// Return the embed.

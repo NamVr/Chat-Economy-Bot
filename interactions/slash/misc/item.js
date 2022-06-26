@@ -7,16 +7,16 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require("discord.js");
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
 
-const manager = require("../../../functions/database");
+const manager = require('../../../functions/database');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -24,82 +24,84 @@ const manager = require("../../../functions/database");
 module.exports = {
 	// The data needed to register slash commands to Discord.
 	data: new SlashCommandBuilder()
-		.setName("item")
-		.setDescription("Manage items for the economy of your server!")
+		.setName('item')
+		.setDescription('Manage items for the economy of your server!')
 		.addSubcommand((subcommand) =>
 			subcommand
-				.setName("add")
-				.setDescription("Add an item in your server shop.")
+				.setName('add')
+				.setDescription('Add an item in your server shop.')
 				.addStringOption((option) =>
 					option
-						.setName("name")
-						.setDescription("The name of the item.")
-						.setRequired(true)
+						.setName('name')
+						.setDescription('The name of the item.')
+						.setRequired(true),
 				)
 				.addIntegerOption((option) =>
 					option
-						.setName("price")
-						.setDescription("The price of the item.")
+						.setName('price')
+						.setDescription('The price of the item.')
 						.setMinValue(10)
 						.setMaxValue(100000)
-						.setRequired(true)
+						.setRequired(true),
 				)
 				.addStringOption((option) =>
 					option
-						.setName("description")
-						.setDescription("The description of the item.")
-						.setRequired(true)
-				)
+						.setName('description')
+						.setDescription('The description of the item.')
+						.setRequired(true),
+				),
 		)
 		.addSubcommand((subcommand) =>
 			subcommand
-				.setName("delete")
-				.setDescription("Delete an item in your server shop.")
+				.setName('delete')
+				.setDescription('Delete an item in your server shop.')
 				.addStringOption((option) =>
 					option
-						.setName("name")
-						.setDescription("The name of the item to be deleted.")
+						.setName('name')
+						.setDescription('The name of the item to be deleted.')
 						.setRequired(true)
-						.setAutocomplete(true)
-				)
+						.setAutocomplete(true),
+				),
 		)
 		.addSubcommand((subcommand) =>
 			subcommand
-				.setName("info")
-				.setDescription("Get information of an item in your server shop.")
+				.setName('info')
+				.setDescription(
+					'Get information of an item in your server shop.',
+				)
 				.addStringOption((option) =>
 					option
-						.setName("name")
-						.setDescription("The name of the item to be showed.")
+						.setName('name')
+						.setDescription('The name of the item to be showed.')
 						.setRequired(true)
-						.setAutocomplete(true)
-				)
+						.setAutocomplete(true),
+				),
 		)
 		.addSubcommand((subcommand) =>
 			subcommand
-				.setName("update")
-				.setDescription("Update an item in your server shop.")
+				.setName('update')
+				.setDescription('Update an item in your server shop.')
 				.addStringOption((option) =>
 					option
-						.setName("name")
-						.setDescription("The name of the item to be updated.")
+						.setName('name')
+						.setDescription('The name of the item to be updated.')
 						.setRequired(true)
-						.setAutocomplete(true)
+						.setAutocomplete(true),
 				)
 				.addIntegerOption((option) =>
 					option
-						.setName("price")
-						.setDescription("The new price of the item.")
+						.setName('price')
+						.setDescription('The new price of the item.')
 						.setMinValue(10)
 						.setMaxValue(100000)
-						.setRequired(true)
+						.setRequired(true),
 				)
 				.addStringOption((option) =>
 					option
-						.setName("description")
-						.setDescription("The new description of the item.")
-						.setRequired(true)
-				)
+						.setName('description')
+						.setDescription('The new description of the item.')
+						.setRequired(true),
+				),
 		),
 
 	ownerOnly: true,
@@ -119,12 +121,12 @@ module.exports = {
 
 		// Now we will update the config object with new value
 
-		if (subCommand == "add" || subCommand == "update") {
+		if (subCommand == 'add' || subCommand == 'update') {
 			// Fetching Interaction Values
 
-			values.name = options.getString("name", true).trim();
-			values.price = options.getInteger("price", true);
-			values.description = options.getString("description").trim();
+			values.name = options.getString('name', true).trim();
+			values.price = options.getInteger('price', true);
+			values.description = options.getString('description').trim();
 
 			// Finding Item from the database (if exists)
 
@@ -132,13 +134,14 @@ module.exports = {
 
 			// If the subcommand is "add"
 
-			if (subCommand == "add") {
+			if (subCommand == 'add') {
 				if (ShopItem) {
 					// ERROR: Item already exists while using "add" subcommand.
 
 					await interaction.reply({
 						ephemeral: true,
-						content: "ERROR, the item you are trying to add already exists!",
+						content:
+							'ERROR, the item you are trying to add already exists!',
 					});
 
 					return;
@@ -153,7 +156,7 @@ module.exports = {
 
 					// We will reply at the end to ensure all operations are done.
 				}
-			} else if (subCommand == "update") {
+			} else if (subCommand == 'update') {
 				if (ShopItem) {
 					// Item already exists, update the item in database.
 
@@ -167,7 +170,7 @@ module.exports = {
 					await interaction.reply({
 						ephemeral: true,
 						content:
-							"ERROR, the item you are trying to update does not exists!",
+							'ERROR, the item you are trying to update does not exists!',
 					});
 
 					return;
@@ -175,21 +178,21 @@ module.exports = {
 			}
 		}
 
-		if (subCommand == "delete" || subCommand == "info") {
-			values.name = options.getString("name").trim();
+		if (subCommand == 'delete' || subCommand == 'info') {
+			values.name = options.getString('name').trim();
 
 			const ShopItem = shopDB.find((item) => item.name == values.name);
 
 			if (ShopItem) {
 				// Iteam already exists, proceed.
 
-				if (subCommand == "delete") {
+				if (subCommand == 'delete') {
 					// Delete the item from the database.
 
 					shopDB.splice(shopDB.indexOf(ShopItem), 1);
 
 					// We will reply at the end to ensure all operations are done.
-				} else if (subCommand == "info") {
+				} else if (subCommand == 'info') {
 					// Show information of the item from the database.
 
 					await interaction.reply({
@@ -198,13 +201,14 @@ module.exports = {
 							new MessageEmbed()
 								.setTitle(`${ShopItem.name}`)
 								.setDescription(`${ShopItem.description}`)
-								.setColor("RANDOM")
+								.setColor('RANDOM')
 								.addField(
-									"Price:",
+									'Price:',
 									`${ShopItem.price} ${
-										manager.getConfigFile().settings.currency.emoji
+										manager.getConfigFile().settings
+											.currency.emoji
 									}`,
-									true
+									true,
 								),
 						],
 					});
@@ -217,9 +221,9 @@ module.exports = {
 				await interaction.reply({
 					ephemeral: true,
 					content: `ERROR, the item ${
-						subCommand == "info"
-							? "for which you are asking information" // Case: info subcommand.
-							: "you want to delete" // Case: delete subcommand.
+						subCommand == 'info'
+							? 'for which you are asking information' // Case: info subcommand.
+							: 'you want to delete' // Case: delete subcommand.
 					} does not exists!`,
 				});
 

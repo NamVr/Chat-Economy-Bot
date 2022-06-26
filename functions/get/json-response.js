@@ -7,7 +7,7 @@
 
 // Extract fetch.
 
-const { fetch } = require("undici");
+const { fetch } = require('undici');
 
 /**
  * Fetch JSON Response using API Link.

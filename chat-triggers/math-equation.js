@@ -5,17 +5,17 @@
  * @version 2.0.0
  */
 
-const Discord = require("discord.js");
-const random = require("../functions/get/random-number");
-const manager = require("../functions/database");
-const ChatWin = require("../messages/embeds/chat-win");
+const Discord = require('discord.js');
+const random = require('../functions/get/random-number');
+const manager = require('../functions/database');
+const ChatWin = require('../messages/embeds/chat-win');
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
  */
 module.exports = {
-	name: "Math Equation",
-	alias: "math_equation",
+	name: 'Math Equation',
+	alias: 'math_equation',
 
 	async execute(message) {
 		// Generating 2 random numbers for the event!
@@ -35,10 +35,12 @@ module.exports = {
 
 		const embed = new Discord.MessageEmbed()
 			.setColor(`RANDOM`)
-			.setTitle(this.name + "!")
-			.setDescription(`What is ${num1} ${choice == 1 ? "+" : "-"} ${num2}?`)
+			.setTitle(this.name + '!')
+			.setDescription(
+				`What is ${num1} ${choice == 1 ? '+' : '-'} ${num2}?`,
+			)
 			.setFooter({
-				text: "Be the first one to say the answer to earn some coins for the shop!",
+				text: 'Be the first one to say the answer to earn some coins for the shop!',
 			});
 
 		const msg = await message.channel.send({
@@ -55,20 +57,20 @@ module.exports = {
 
 		// When the answer has been answered, call off the collector on first answer.
 
-		collector.on("collect", () => {
+		collector.on('collect', () => {
 			collector.stop();
 		});
 
 		// Execute the rest of the code when the collector has been stopped.
 
-		collector.on("end", (m) => {
+		collector.on('end', (m) => {
 			// If no one answered the question :(
 
 			if (!m.last()) {
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`
+							`${embed.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`,
 						),
 					],
 				});
@@ -83,7 +85,7 @@ module.exports = {
 					embed.setDescription(
 						`${embed.description}\n\n> **${
 							m.last().author
-						} was the first to answer!** The answer was \`${answer}\`!`
+						} was the first to answer!** The answer was \`${answer}\`!`,
 					),
 				],
 			});
@@ -105,13 +107,17 @@ module.exports = {
 					user_id: m.last().author.id,
 					balance: 0,
 					won_times: 0,
+					last_daily: 0,
 					items: {},
 				};
 			}
 
 			// Get random coins for the winner.
 
-			const coins = random(config.settings.win_min, config.settings.win_max);
+			const coins = random(
+				config.settings.win_min,
+				config.settings.win_max,
+			);
 
 			// Add coins to the winner's balance & database.
 

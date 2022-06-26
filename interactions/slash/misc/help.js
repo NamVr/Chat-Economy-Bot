@@ -7,8 +7,8 @@
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require("discord.js");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -16,14 +16,14 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 module.exports = {
 	// The data needed to register slash commands to Discord.
 	data: new SlashCommandBuilder()
-		.setName("help")
+		.setName('help')
 		.setDescription(
-			"List all commands of bot or info about a specific command."
+			'List all commands of bot or info about a specific command.',
 		)
 		.addStringOption((option) =>
 			option
-				.setName("command")
-				.setDescription("The specific command to see the info of.")
+				.setName('command')
+				.setDescription('The specific command to see the info of.'),
 		),
 
 	async execute(interaction) {
@@ -33,13 +33,13 @@ module.exports = {
 		 * @type {string}
 		 * @description The "command" argument
 		 */
-		let name = interaction.options.getString("command");
+		let name = interaction.options.getString('command');
 
 		/**
 		 * @type {MessageEmbed}
 		 * @description Help command's embed
 		 */
-		const helpEmbed = new MessageEmbed().setColor("RANDOM");
+		const helpEmbed = new MessageEmbed().setColor('RANDOM');
 
 		if (name) {
 			name = name.toLowerCase();
@@ -49,18 +49,26 @@ module.exports = {
 			if (commands.has(name)) {
 				const command = commands.get(name).data;
 				if (command.description)
-					helpEmbed.setDescription(command.description + "\n\n**Parameters:**");
+					helpEmbed.setDescription(
+						command.description + '\n\n**Parameters:**',
+					);
 			} else {
 				helpEmbed
-					.setDescription(`No slash command with the name \`${name}\` found.`)
-					.setColor("YELLOW");
+					.setDescription(
+						`No slash command with the name \`${name}\` found.`,
+					)
+					.setColor('YELLOW');
 			}
 		} else {
 			// Give a list of all the commands
 			helpEmbed
-				.setTitle("List of all my slash commands")
+				.setTitle('List of all my slash commands')
 				.setDescription(
-					"`" + commands.map((command) => command.data.name).join("`, `") + "`"
+					'`' +
+						commands
+							.map((command) => command.data.name)
+							.join('`, `') +
+						'`',
 				);
 		}
 

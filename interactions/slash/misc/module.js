@@ -7,17 +7,17 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { ChannelType } = require("discord-api-types/v10");
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { ChannelType } = require('discord-api-types/v10');
 
-const manager = require("../../../functions/database");
-const { MessageEmbed } = require("discord.js");
+const manager = require('../../../functions/database');
+const { MessageEmbed } = require('discord.js');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -25,31 +25,34 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
 	// The data needed to register slash commands to Discord.
 	data: new SlashCommandBuilder()
-		.setName("module")
+		.setName('module')
 		.setDescription(
-			"List of all available modules (chat-games) of your server!"
+			'List of all available modules (chat-games) of your server!',
 		)
 		.addSubcommand((subcommand) =>
 			subcommand
-				.setName("toggle")
-				.setDescription("Enable/Disable any module.")
+				.setName('toggle')
+				.setDescription('Enable/Disable any module.')
 				.addStringOption((option) =>
 					option
-						.setName("module")
-						.setDescription("The module you want to toggle.")
+						.setName('module')
+						.setDescription('The module you want to toggle.')
 						.setRequired(true)
 						.addChoices(
-							{ name: "Math Equation", value: "math_equation" },
-							{ name: "Speed Clicker", value: "speed_clicker" },
-							{ name: "Speed Typer", value: "speed_typer" },
-							{ name: "Unscramble The Word", value: "unscramble_the_word" }
-						)
-				)
+							{ name: 'Math Equation', value: 'math_equation' },
+							{ name: 'Speed Clicker', value: 'speed_clicker' },
+							{ name: 'Speed Typer', value: 'speed_typer' },
+							{
+								name: 'Unscramble The Word',
+								value: 'unscramble_the_word',
+							},
+						),
+				),
 		)
 		.addSubcommand((subcommand) =>
 			subcommand
-				.setName("info")
-				.setDescription("Shows current information about all modules.")
+				.setName('info')
+				.setDescription('Shows current information about all modules.'),
 		),
 
 	ownerOnly: true,
@@ -66,13 +69,13 @@ module.exports = {
 
 		// Check if the toggle sub-command was used or not.
 
-		if (subCommand && subCommand == "toggle") {
+		if (subCommand && subCommand == 'toggle') {
 			/**
 			 * Extract the choice of Module selected.
 			 * @type {"math_equation" | "speed_clicker" | "speed_typer" | "unscramble_the_word"} The choice.
 			 */
 			// @ts-ignore
-			const value = options.getString("module", true);
+			const value = options.getString('module', true);
 
 			// Get current configuration value for the choice.
 
@@ -97,21 +100,21 @@ module.exports = {
 
 		// Check if the info sub-command was used or not.
 
-		if (subCommand && subCommand == "info") {
+		if (subCommand && subCommand == 'info') {
 			let information = [];
 
 			for (const module in config.modules) {
 				information.push(
-					`**${module}**: ${config.modules[module] ? "✅" : "❌"}`
+					`**${module}**: ${config.modules[module] ? '✅' : '❌'}`,
 				);
 			}
 
 			// Create a stylish embed for check!
 
 			const embed = new MessageEmbed()
-				.setColor("RANDOM")
-				.setTitle("Current Module Settings")
-				.setDescription(information.join("\n"));
+				.setColor('RANDOM')
+				.setTitle('Current Module Settings')
+				.setDescription(information.join('\n'));
 
 			// Now follow-up after success!
 

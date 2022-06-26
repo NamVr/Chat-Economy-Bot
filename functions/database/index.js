@@ -7,16 +7,16 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-const fs = require("fs");
-const util = require("util");
+const fs = require('fs');
+const util = require('util');
 
-const shopPath = "./database/shop.json";
-const userPath = "./database/users.json";
-const configPath = "./config.json";
+const shopPath = './database/shop.json';
+const userPath = './database/users.json';
+const configPath = './config.json';
 
 /**
  * Method to fetch the live shop database.
@@ -27,7 +27,7 @@ function getShopDB() {
 
 	try {
 		var jsonString = fs.readFileSync(shopPath, {
-			encoding: "utf-8",
+			encoding: 'utf-8',
 		});
 	} catch (error) {
 		log.error(error);
@@ -60,7 +60,7 @@ function getUserDB() {
 
 	try {
 		var jsonString = fs.readFileSync(userPath, {
-			encoding: "utf-8",
+			encoding: 'utf-8',
 		});
 	} catch (error) {
 		log.error(error);
@@ -93,7 +93,7 @@ function getConfigFile() {
 
 	try {
 		var jsonString = fs.readFileSync(configPath, {
-			encoding: "utf-8",
+			encoding: 'utf-8',
 		});
 	} catch (error) {
 		log.error(error);
@@ -130,7 +130,7 @@ function writeDatabase(path, database) {
 		// IF ERROR BOT WILL BE TERMINATED!
 
 		if (err) {
-			log.error("Error writing file:", err);
+			log.error('Error writing file:', err);
 			return process.exit(1);
 		}
 	});

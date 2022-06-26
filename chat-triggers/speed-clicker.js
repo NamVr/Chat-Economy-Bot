@@ -5,30 +5,30 @@
  * @version 2.0.0
  */
 
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 
-const random = require("../functions/get/random-number");
-const manager = require("../functions/database");
-const ChatWin = require("../messages/embeds/chat-win");
+const random = require('../functions/get/random-number');
+const manager = require('../functions/database');
+const ChatWin = require('../messages/embeds/chat-win');
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
  */
 module.exports = {
-	name: "Speed Clicker",
-	alias: "speed_clicker",
+	name: 'Speed Clicker',
+	alias: 'speed_clicker',
 
 	async execute(message) {
 		// Send your question to the chat.
 
 		const embed = new Discord.MessageEmbed()
 			.setColor(`RANDOM`)
-			.setTitle(this.name + "!")
+			.setTitle(this.name + '!')
 			.setDescription(
-				"There’s one button below the message, the first person to react wins!"
+				'There’s one button below the message, the first person to react wins!',
 			)
 			.setFooter({
-				text: "Be the first one to say the answer to earn some coins for the shop!",
+				text: 'Be the first one to say the answer to earn some coins for the shop!',
 			});
 
 		const msg = await message.channel.send({
@@ -36,9 +36,9 @@ module.exports = {
 			components: [
 				new Discord.MessageActionRow().addComponents(
 					new Discord.MessageButton()
-						.setCustomId("event-clicker")
-						.setLabel("Speed Click!")
-						.setStyle("PRIMARY")
+						.setCustomId('event-clicker')
+						.setLabel('Speed Click!')
+						.setStyle('PRIMARY'),
 				),
 			],
 		});
@@ -55,12 +55,11 @@ module.exports = {
 
 		// Create a collector.
 
-		msg
-			.awaitMessageComponent({
-				filter,
-				componentType: "BUTTON",
-				time: 30000,
-			})
+		msg.awaitMessageComponent({
+			filter,
+			componentType: 'BUTTON',
+			time: 30000,
+		})
 			.catch((err) => {})
 			.then((m) => {
 				// If no one clicked the button :(
@@ -69,16 +68,16 @@ module.exports = {
 					msg.edit({
 						embeds: [
 							embed.setDescription(
-								`${embed.description}\n\n> **Nobody clicked in time!** It was really simple tho.`
+								`${embed.description}\n\n> **Nobody clicked in time!** It was really simple tho.`,
 							),
 						],
 						components: [
 							new Discord.MessageActionRow().addComponents(
 								new Discord.MessageButton()
-									.setCustomId("event-clicker")
-									.setLabel("Speed Click!")
-									.setStyle("DANGER")
-									.setDisabled(true)
+									.setCustomId('event-clicker')
+									.setLabel('Speed Click!')
+									.setStyle('DANGER')
+									.setDisabled(true),
 							),
 						],
 					});
@@ -91,16 +90,16 @@ module.exports = {
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **${m.user} was the first to click!** GG!`
+							`${embed.description}\n\n> **${m.user} was the first to click!** GG!`,
 						),
 					],
 					components: [
 						new Discord.MessageActionRow().addComponents(
 							new Discord.MessageButton()
-								.setCustomId("event-clicker")
-								.setLabel("Speed Click!")
-								.setStyle("SUCCESS")
-								.setDisabled(true)
+								.setCustomId('event-clicker')
+								.setLabel('Speed Click!')
+								.setStyle('SUCCESS')
+								.setDisabled(true),
 						),
 					],
 				});
@@ -122,13 +121,17 @@ module.exports = {
 						user_id: m.user.id,
 						balance: 0,
 						won_times: 0,
+						last_daily: 0,
 						items: {},
 					};
 				}
 
 				// Get random coins for the winner.
 
-				const coins = random(config.settings.win_min, config.settings.win_max);
+				const coins = random(
+					config.settings.win_min,
+					config.settings.win_max,
+				);
 
 				// Add coins to the winner's balance & database.
 

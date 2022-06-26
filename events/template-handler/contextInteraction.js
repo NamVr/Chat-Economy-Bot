@@ -7,12 +7,12 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 module.exports = {
-	name: "interactionCreate",
+	name: 'interactionCreate',
 
 	/**
 	 * @description Executes when an interaction is created and handle it.
@@ -32,9 +32,9 @@ module.exports = {
 
 		// Checks if the interaction target was a user
 
-		if (interaction.targetType === "USER") {
+		if (interaction.targetType === 'USER') {
 			const command = client.contextCommands.get(
-				"USER " + interaction.commandName
+				'USER ' + interaction.commandName,
 			);
 
 			// A try to execute the interaction.
@@ -45,16 +45,17 @@ module.exports = {
 			} catch (err) {
 				log.error(err);
 				await interaction.reply({
-					content: "There was an issue while executing that context command!",
+					content:
+						'There was an issue while executing that context command!',
 					ephemeral: true,
 				});
 				return;
 			}
 		}
 		// Checks if the interaction target was a user
-		else if (interaction.targetType === "MESSAGE") {
+		else if (interaction.targetType === 'MESSAGE') {
 			const command = client.contextCommands.get(
-				"MESSAGE " + interaction.commandName
+				'MESSAGE ' + interaction.commandName,
 			);
 
 			// A try to execute the interaction.
@@ -65,7 +66,8 @@ module.exports = {
 			} catch (err) {
 				log.error(err);
 				await interaction.reply({
-					content: "There was an issue while executing that context command!",
+					content:
+						'There was an issue while executing that context command!',
 					ephemeral: true,
 				});
 				return;
@@ -76,7 +78,7 @@ module.exports = {
 		// Possible Fix is a restart!
 		else {
 			return log.warn(
-				"Something weird happening in context menu. Received a context menu of unknown type."
+				'Something weird happening in context menu. Received a context menu of unknown type.',
 			);
 		}
 	},

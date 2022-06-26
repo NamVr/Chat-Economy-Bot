@@ -7,12 +7,12 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 module.exports = {
-	name: "interactionCreate",
+	name: 'interactionCreate',
 
 	/**
 	 * @description Executes when an interaction is created and handle it.
@@ -29,7 +29,7 @@ module.exports = {
 		if (!interaction.isAutocomplete()) return;
 
 		const request = client.autocompleteInteractions.get(
-			interaction.commandName
+			interaction.commandName,
 		);
 
 		// If the interaction is not a request in cache.

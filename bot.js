@@ -6,26 +6,26 @@
 
 // Declare constants which will be used throughout the bot.
 
-const fs = require("fs");
+const fs = require('fs');
 
-const { Client, Collection, Intents } = require("discord.js");
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
+const { Client, Collection, Intents } = require('discord.js');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 
 /**
  * @type {import('./typings').ConfigurationFile} Config File.
  */
-const config = require("./config.json");
+const config = require('./config.json');
 const { internal } = config;
 const { token, client_id, guild_id } = internal;
 
-const { version } = require("./package.json");
+const { version } = require('./package.json');
 
 // Additional Required Modules
-const fileExists = require("./functions/fileExists");
+const fileExists = require('./functions/fileExists');
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
@@ -42,44 +42,44 @@ const client = new Client({
 
 /**********************************************************************/
 // Error Notifier / Handler!
-process.on("unhandledRejection", (error) => {
+process.on('unhandledRejection', (error) => {
 	log.critical(
-		"**********************************************************************"
+		'**********************************************************************',
 	);
 	log.notice(
-		"YOU NEED TO INCLUDE THIS INFORMATION IF YOU ASK FOR HELP ABOUT THE BELOW ERROR:"
+		'YOU NEED TO INCLUDE THIS INFORMATION IF YOU ASK FOR HELP ABOUT THE BELOW ERROR:',
 	);
 	log.notice(
-		`NamVr Chat Economy v${version}, Node v${process.versions.node} on ${process.platform}`
+		`NamVr Chat Economy v${version}, Node v${process.versions.node} on ${process.platform}`,
 	);
-	log.warn("NCE BOT ENCOUNTERED AN ERROR!");
+	log.warn('NCE BOT ENCOUNTERED AN ERROR!');
 	if (error instanceof Error) log.warn(`Uncaught ${error.name}`);
 	log.error(error);
 	log.critical(
-		"**********************************************************************"
+		'**********************************************************************',
 	);
 });
 
 /**********************************************************************/
 // Path Checking For Required Files!
 const requiredFiles = [
-	"./config.json",
-	"./database/shop.json",
-	"./functions/banner.js",
-	"./database/users.json",
+	'./config.json',
+	'./database/shop.json',
+	'./functions/banner.js',
+	'./database/users.json',
 ];
 
 for (const path of requiredFiles) {
 	if (!fileExists(path)) {
-		log.warn("A REQUIRED FILE IS MISSING!");
+		log.warn('A REQUIRED FILE IS MISSING!');
 		log.error(
-			`ERROR: CAN'T FIND CONFIGURATION FILE (${path}) Please make sure it exists!`
+			`ERROR: CAN'T FIND CONFIGURATION FILE (${path}) Please make sure it exists!`,
 		);
 		process.exit(1);
 	}
 }
 
-require("./functions/banner")();
+require('./functions/banner')();
 
 /**********************************************************************/
 // Below we will be making an event handler!
@@ -95,22 +95,24 @@ require("./functions/banner")();
  * @description All command categories aka folders.
  */
 
-const eventFolders = fs.readdirSync("./events");
+const eventFolders = fs.readdirSync('./events');
 
 // Loop through all files and store commands in commands collection.
 
 for (const folder of eventFolders) {
 	const eventFiles = fs
 		.readdirSync(`./events/${folder}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 	for (const file of eventFiles) {
 		const event = require(`./events/${folder}/${file}`);
 		if (event.once) {
-			client.once(event.name, (...args) => event.execute(...args, client));
+			client.once(event.name, (...args) =>
+				event.execute(...args, client),
+			);
 		} else {
 			client.on(
 				event.name,
-				async (...args) => await event.execute(...args, client)
+				async (...args) => await event.execute(...args, client),
 			);
 		}
 	}
@@ -144,14 +146,14 @@ client.economy = {
  * @description All command categories aka folders.
  */
 
-const commandFolders = fs.readdirSync("./commands");
+const commandFolders = fs.readdirSync('./commands');
 
 // Loop through all files and store commands in commands collection.
 
 for (const folder of commandFolders) {
 	const commandFiles = fs
 		.readdirSync(`./commands/${folder}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 	for (const file of commandFiles) {
 		const command = require(`./commands/${folder}/${file}`);
 		client.commands.set(command.name, command);
@@ -166,14 +168,14 @@ for (const folder of commandFolders) {
  * @description All slash commands.
  */
 
-const slashCommands = fs.readdirSync("./interactions/slash");
+const slashCommands = fs.readdirSync('./interactions/slash');
 
 // Loop through all files and store slash-commands in slashCommands collection.
 
 for (const module of slashCommands) {
 	const commandFiles = fs
 		.readdirSync(`./interactions/slash/${module}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 
 	for (const commandFile of commandFiles) {
 		const command = require(`./interactions/slash/${module}/${commandFile}`);
@@ -189,14 +191,14 @@ for (const module of slashCommands) {
  * @description All autocomplete interactions.
  */
 
-const autocompleteInteractions = fs.readdirSync("./interactions/autocomplete");
+const autocompleteInteractions = fs.readdirSync('./interactions/autocomplete');
 
 // Loop through all files and store autocomplete interactions in autocompleteInteractions collection.
 
 for (const module of autocompleteInteractions) {
 	const files = fs
 		.readdirSync(`./interactions/autocomplete/${module}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 
 	for (const interactionFile of files) {
 		const interaction = require(`./interactions/autocomplete/${module}/${interactionFile}`);
@@ -212,14 +214,14 @@ for (const module of autocompleteInteractions) {
  * @description All Context Menu commands.
  */
 
-const contextMenus = fs.readdirSync("./interactions/context-menus");
+const contextMenus = fs.readdirSync('./interactions/context-menus');
 
 // Loop through all files and store context-menus in contextMenus collection.
 
 for (const folder of contextMenus) {
 	const files = fs
 		.readdirSync(`./interactions/context-menus/${folder}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 	for (const file of files) {
 		const menu = require(`./interactions/context-menus/${folder}/${file}`);
 		const keyName = `${folder.toUpperCase()} ${menu.data.name}`;
@@ -235,14 +237,14 @@ for (const folder of contextMenus) {
  * @description All button commands.
  */
 
-const buttonCommands = fs.readdirSync("./interactions/buttons");
+const buttonCommands = fs.readdirSync('./interactions/buttons');
 
 // Loop through all files and store button-commands in buttonCommands collection.
 
 for (const module of buttonCommands) {
 	const commandFiles = fs
 		.readdirSync(`./interactions/buttons/${module}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 
 	for (const commandFile of commandFiles) {
 		const command = require(`./interactions/buttons/${module}/${commandFile}`);
@@ -258,14 +260,14 @@ for (const module of buttonCommands) {
  * @description All modal commands.
  */
 
-const modalCommands = fs.readdirSync("./interactions/modals");
+const modalCommands = fs.readdirSync('./interactions/modals');
 
 // Loop through all files and store modal-commands in modalCommands collection.
 
 for (const module of modalCommands) {
 	const commandFiles = fs
 		.readdirSync(`./interactions/modals/${module}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 
 	for (const commandFile of commandFiles) {
 		const command = require(`./interactions/modals/${module}/${commandFile}`);
@@ -281,14 +283,14 @@ for (const module of modalCommands) {
  * @description All Select Menu commands.
  */
 
-const selectMenus = fs.readdirSync("./interactions/select-menus");
+const selectMenus = fs.readdirSync('./interactions/select-menus');
 
 // Loop through all files and store select-menus in selectMenus collection.
 
 for (const module of selectMenus) {
 	const commandFiles = fs
 		.readdirSync(`./interactions/select-menus/${module}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 	for (const commandFile of commandFiles) {
 		const command = require(`./interactions/select-menus/${module}/${commandFile}`);
 		client.selectCommands.set(command.id, command);
@@ -298,7 +300,7 @@ for (const module of selectMenus) {
 /**********************************************************************/
 // Registration of Slash-Commands in Discord API
 
-const rest = new REST({ version: "9" }).setToken(token);
+const rest = new REST({ version: '9' }).setToken(token);
 
 const commandJsonData = [
 	...Array.from(client.slashCommands.values()).map((c) => c.data.toJSON()),
@@ -307,7 +309,7 @@ const commandJsonData = [
 
 (async () => {
 	try {
-		log.notice("Started refreshing application (/) commands.");
+		log.notice('Started refreshing application (/) commands.');
 
 		await rest.put(
 			/**
@@ -327,10 +329,10 @@ const commandJsonData = [
 
 			// Routes.applicationGuildCommands(client_id)
 
-			{ body: commandJsonData }
+			{ body: commandJsonData },
 		);
 
-		log.success("Successfully reloaded application (/) commands.");
+		log.success('Successfully reloaded application (/) commands.');
 	} catch (error) {
 		log.error(error);
 	}
@@ -344,14 +346,14 @@ const commandJsonData = [
  * @description All trigger categories aka folders.
  */
 
-const triggerFolders = fs.readdirSync("./triggers");
+const triggerFolders = fs.readdirSync('./triggers');
 
 // Loop through all files and store triggers in triggers collection.
 
 for (const folder of triggerFolders) {
 	const triggerFiles = fs
 		.readdirSync(`./triggers/${folder}`)
-		.filter((file) => file.endsWith(".js"));
+		.filter((file) => file.endsWith('.js'));
 	for (const file of triggerFiles) {
 		const trigger = require(`./triggers/${folder}/${file}`);
 		client.triggers.set(trigger.name, trigger);

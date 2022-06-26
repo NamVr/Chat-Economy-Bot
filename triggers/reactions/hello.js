@@ -8,7 +8,7 @@
 
 module.exports = {
 	// I don't need this feature, so I'm not using it.
-	name: ["super-secret-sussy-keyword"],
+	name: ['super-secret-sussy-keyword'],
 
 	/**
 	 * @description Executes when it is triggered by trigger handler.
@@ -21,7 +21,7 @@ module.exports = {
 		// Put all your trigger code over here. This code will be executed when any of the element in the "name" array is found in the message content.
 
 		message.channel.send({
-			content: "Oh, you discovered the sus-secret!",
+			content: 'Oh, you discovered the sus-secret!',
 		});
 	},
 };

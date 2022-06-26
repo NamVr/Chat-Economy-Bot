@@ -7,22 +7,22 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-const { settings } = require("../../config.json");
+const { settings } = require('../../config.json');
 const { cooldown } = settings;
 
-const manager = require("../../functions/database");
+const manager = require('../../functions/database');
 
-const fs = require("fs");
-const { Collection } = require("discord.js");
+const fs = require('fs');
+const { Collection } = require('discord.js');
 
 // Main cron job application starts here.
 
 module.exports = {
-	name: "ready",
+	name: 'ready',
 	once: true,
 
 	/**
@@ -44,7 +44,7 @@ module.exports = {
 
 				// Finds a random event.
 
-				const chat_triggers = fs.readdirSync("./chat-triggers");
+				const chat_triggers = fs.readdirSync('./chat-triggers');
 
 				/**
 				 * @type {Collection<string, import("../../typings").ChatTriggerEvent>}
@@ -77,24 +77,26 @@ module.exports = {
 
 				// Find the Heat Channel.
 
-				let channel = client.channels.cache.get(config.settings.chat_channel);
+				let channel = client.channels.cache.get(
+					config.settings.chat_channel,
+				);
 
 				// Check if your input channel is a Text-Based Channel.
 
 				if (!channel) {
 					log.critical(
-						`${config.settings.chat_channel} does NOT belong to ANY Channel!`
+						`${config.settings.chat_channel} does NOT belong to ANY Channel!`,
 					);
 					log.error(
-						"Please fix your configuration file with a correct Heat Channel ID."
+						'Please fix your configuration file with a correct Heat Channel ID.',
 					);
 					process.exit(1);
 				}
 
-				if (channel.type != "GUILD_TEXT" && channel.type != "DM") {
+				if (channel.type != 'GUILD_TEXT' && channel.type != 'DM') {
 					log.critical(`${channel.name} is NOT a Text Channel!`);
 					log.error(
-						"Please fix your configuration file (config.json) and setup the correct Heat Channel ID."
+						'Please fix your configuration file (config.json) and setup the correct Heat Channel ID.',
 					);
 					process.exit(1);
 				}

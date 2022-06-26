@@ -7,15 +7,15 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-const manager = require("../../functions/database");
-const { MessageEmbed } = require("discord.js");
+const manager = require('../../functions/database');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-	name: "interactionCreate",
+	name: 'interactionCreate',
 
 	/**
 	 * @description Executes when an interaction is created and handle it.
@@ -44,11 +44,14 @@ module.exports = {
 
 		// If the command is an owner only command.
 
-		if (command.ownerOnly && interaction.user.id !== config.internal.owner_id) {
+		if (
+			command.ownerOnly &&
+			interaction.user.id !== config.internal.owner_id
+		) {
 			// Send Error
 
 			await interaction.reply({
-				content: "You are not authorized to run this interaction!",
+				content: 'You are not authorized to run this interaction!',
 				ephemeral: true,
 			});
 
@@ -70,9 +73,9 @@ module.exports = {
 					new MessageEmbed()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(
-							`You can't execute economy commands here! We have a special channel => <#${config.settings.bot_channel}>!`
+							`You can't execute economy commands here! We have a special channel => <#${config.settings.bot_channel}>!`,
 						)
-						.setColor("RED"),
+						.setColor('RED'),
 				],
 				ephemeral: true,
 			});
@@ -89,7 +92,7 @@ module.exports = {
 		} catch (err) {
 			log.error(err);
 			await interaction.reply({
-				content: "There was an issue while executing that command!",
+				content: 'There was an issue while executing that command!',
 				ephemeral: true,
 			});
 		}

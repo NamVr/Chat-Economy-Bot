@@ -7,12 +7,12 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 module.exports = {
-	name: "messageCreate",
+	name: 'messageCreate',
 
 	/**
 	 * @description Executes when a message is created and handle it.
@@ -52,7 +52,8 @@ module.exports = {
 
 						log.error(error);
 						message.reply({
-							content: "there was an error trying to execute that trigger!",
+							content:
+								'there was an error trying to execute that trigger!',
 						});
 					}
 

@@ -7,17 +7,17 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-const manager = require("../../../functions/database");
+const manager = require('../../../functions/database');
 
 /**
  * @type {import("../../../typings").AutocompleteInteraction}
  */
 module.exports = {
-	name: "item",
+	name: 'item',
 
 	async execute(interaction) {
 		const shopDB = manager.getShopDB();
@@ -34,12 +34,12 @@ module.exports = {
 
 		const filtered = choices.filter((choice) =>
 			// @ts-ignore
-			choice.startsWith(focusedValue)
+			choice.startsWith(focusedValue),
 		);
 
 		// Respond the request here.
 		await interaction.respond(
-			filtered.map((choice) => ({ name: choice, value: choice }))
+			filtered.map((choice) => ({ name: choice, value: choice })),
 		);
 
 		return;

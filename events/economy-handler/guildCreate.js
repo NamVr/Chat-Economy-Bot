@@ -8,16 +8,16 @@
 /**
  * @type {import('../../typings').ConfigurationFile} Config File.
  */
-const config = require("../../config.json");
+const config = require('../../config.json');
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 module.exports = {
-	name: "guildCreate",
+	name: 'guildCreate',
 
 	/**
 	 * @description Executes when bot is invited to a new guild (server).
@@ -32,16 +32,16 @@ module.exports = {
 
 		if (guildCount > 1) {
 			log.console(
-				"\n ---------------------------------------------------------- \n"
+				'\n ---------------------------------------------------------- \n',
 			);
-			log.notice("BOT CAN JOIN ONLY 1 SERVER TO WORK PROPERLY!");
+			log.notice('BOT CAN JOIN ONLY 1 SERVER TO WORK PROPERLY!');
 			log.warn(
-				"[Automatic Server Detection] Make sure to make your bot private, so only you can add it in your desired server."
+				'[Automatic Server Detection] Make sure to make your bot private, so only you can add it in your desired server.',
 			);
 			guild.leave();
 			log.error(`BOT LEFT ${guild.name} AUTOMATICALLY!`);
 			log.console(
-				"\n ---------------------------------------------------------- \n"
+				'\n ---------------------------------------------------------- \n',
 			);
 		}
 
@@ -49,16 +49,16 @@ module.exports = {
 
 		if (config.settings.chat_channel != guild.id) {
 			log.console(
-				"\n ---------------------------------------------------------- \n"
+				'\n ---------------------------------------------------------- \n',
 			);
-			log.notice("BOT IS INVITED TO AN INVALID GUILD!");
+			log.notice('BOT IS INVITED TO AN INVALID GUILD!');
 			log.warn(
-				"[Automatic Server Detection] Make sure to invite your bot to the correct server, or change your server ID in config.json file."
+				'[Automatic Server Detection] Make sure to invite your bot to the correct server, or change your server ID in config.json file.',
 			);
 			guild.leave();
 			log.error(`BOT LEFT ${guild.name} AUTOMATICALLY!`);
 			log.console(
-				"\n ---------------------------------------------------------- \n"
+				'\n ---------------------------------------------------------- \n',
 			);
 		}
 	},

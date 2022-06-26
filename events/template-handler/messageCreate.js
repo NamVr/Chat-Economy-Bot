@@ -7,24 +7,24 @@
 
 // Declares constants (destructured) to be used in this file.
 
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-const manager = require("../../functions/database");
+const manager = require('../../functions/database');
 
 // Prefix regex, we will use to match in mention prefix.
 
 const escapeRegex = (string) => {
-	return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 };
 
 module.exports = {
-	name: "messageCreate",
+	name: 'messageCreate',
 
 	/**
 	 * @description Executes when a message is created and handle it.
@@ -48,7 +48,7 @@ module.exports = {
 			message.content == `<@${client.user.id}>` ||
 			message.content == `<@!${client.user.id}>`
 		) {
-			require("../../messages/onMention").execute(message);
+			require('../../messages/onMention').execute(message);
 			return;
 		}
 
@@ -64,7 +64,7 @@ module.exports = {
 		 */
 
 		const prefixRegex = new RegExp(
-			`^(<@!?${client.user.id}>|${escapeRegex(checkPrefix)})\\s*`
+			`^(<@!?${client.user.id}>|${escapeRegex(checkPrefix)})\\s*`,
 		);
 
 		// Checks if message content in lower case starts with bot's mention.
@@ -104,7 +104,7 @@ module.exports = {
 		const command =
 			client.commands.get(commandName) ||
 			client.commands.find(
-				(cmd) => cmd.aliases && cmd.aliases.includes(commandName)
+				(cmd) => cmd.aliases && cmd.aliases.includes(commandName),
 			);
 
 		// It it's not a command, return :)
@@ -113,28 +113,31 @@ module.exports = {
 
 		// Owner Only Property, add in your command properties if true.
 
-		if (command.ownerOnly && message.author.id !== config.internal.owner_id) {
+		if (
+			command.ownerOnly &&
+			message.author.id !== config.internal.owner_id
+		) {
 			return message.reply({
 				embeds: [
 					new Discord.MessageEmbed()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(
-							`You can't run this command! Please refrain from trying.`
+							`You can't run this command! Please refrain from trying.`,
 						)
-						.setColor("RED"),
+						.setColor('RED'),
 				],
 			});
 		}
 
 		// Guild Only Property, add in your command properties if true.
 
-		if (command.guildOnly && message.channel.type === "DM") {
+		if (command.guildOnly && message.channel.type === 'DM') {
 			return message.reply({
 				embeds: [
 					new Discord.MessageEmbed()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(`You can't run this command in DMs!`)
-						.setColor("RED"),
+						.setColor('RED'),
 				],
 			});
 		}
@@ -146,16 +149,16 @@ module.exports = {
 					new Discord.MessageEmbed()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(
-							`You can't execute economy commands here! We have a special channel => <#${config.settings.bot_channel}>!`
+							`You can't execute economy commands here! We have a special channel => <#${config.settings.bot_channel}>!`,
 						)
-						.setColor("RED"),
+						.setColor('RED'),
 				],
 			});
 		}
 
 		// Author perms property
 
-		if (command.permissions && message.channel.type !== "DM") {
+		if (command.permissions && message.channel.type !== 'DM') {
 			const authorPerms = message.channel.permissionsFor(message.author);
 			if (!authorPerms || !authorPerms.has(command.permissions)) {
 				return message.reply({
@@ -163,9 +166,9 @@ module.exports = {
 						new Discord.MessageEmbed()
 							.setTitle(`:x: Access Denied!`)
 							.setDescription(
-								`You don't have enough permissions to run this command! Try contacting an admin?`
+								`You don't have enough permissions to run this command! Try contacting an admin?`,
 							)
-							.setColor("RED"),
+							.setColor('RED'),
 					],
 				});
 			}
@@ -185,7 +188,7 @@ module.exports = {
 					new Discord.MessageEmbed()
 						.setTitle(`:x: Arguments Error!`)
 						.setDescription(reply)
-						.setColor("RED"),
+						.setColor('RED'),
 				],
 			});
 		}
@@ -203,7 +206,8 @@ module.exports = {
 		const cooldownAmount = (command.cooldown || 3) * 1000;
 
 		if (timestamps.has(message.author.id)) {
-			const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+			const expirationTime =
+				timestamps.get(message.author.id) + cooldownAmount;
 
 			if (now < expirationTime) {
 				const timeLeft = (expirationTime - now) / 1000;
@@ -211,13 +215,13 @@ module.exports = {
 					embeds: [
 						new Discord.MessageEmbed()
 							.setTitle(`:x: Spam is never cool, dude.`)
-							.setColor("RED")
+							.setColor('RED')
 							.setDescription(
 								`Please wait ${timeLeft.toFixed(
-									1
+									1,
 								)} more second(s) before reusing the \`${
 									command.name
-								}\` command.`
+								}\` command.`,
 							),
 					],
 				});
@@ -235,7 +239,7 @@ module.exports = {
 		} catch (error) {
 			log.error(error);
 			message.reply({
-				content: "There was an error trying to execute that command!",
+				content: 'There was an error trying to execute that command!',
 			});
 		}
 	},

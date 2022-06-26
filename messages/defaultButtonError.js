@@ -12,9 +12,9 @@ module.exports = {
 	 */
 
 	async execute(interaction) {
-		if (interaction.customId.startsWith("event")) return;
+		if (interaction.customId.startsWith('event')) return;
 		await interaction.reply({
-			content: "There was an issue while fetching this button!",
+			content: 'There was an issue while fetching this button!',
 			ephemeral: true,
 		});
 		return;

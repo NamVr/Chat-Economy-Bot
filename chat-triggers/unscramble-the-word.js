@@ -7,20 +7,20 @@
 
 // Read necessary modules
 
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 
-const manager = require("../functions/database");
-const randomNumber = require("../functions/get/random-number");
-const JSONResponse = require("../functions/get/json-response");
-const stringShuffler = require("../functions/get/string-shuffler");
-const ChatWin = require("../messages/embeds/chat-win");
+const manager = require('../functions/database');
+const randomNumber = require('../functions/get/random-number');
+const JSONResponse = require('../functions/get/json-response');
+const stringShuffler = require('../functions/get/string-shuffler');
+const ChatWin = require('../messages/embeds/chat-win');
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
  */
 module.exports = {
-	name: "Unscramble The Word",
-	alias: "unscramble_the_word",
+	name: 'Unscramble The Word',
+	alias: 'unscramble_the_word',
 
 	async execute(message) {
 		/**
@@ -29,7 +29,7 @@ module.exports = {
 
 		const response = await JSONResponse(
 			manager.getConfigFile().apis.wordnik +
-				"hasDictionaryDef=true&minLength=5&maxLength=10&limit=1"
+				'hasDictionaryDef=true&minLength=5&maxLength=10&limit=1',
 		);
 
 		/**
@@ -48,12 +48,12 @@ module.exports = {
 
 		const embed = new Discord.MessageEmbed()
 			.setColor(`RANDOM`)
-			.setTitle(this.name + "!")
+			.setTitle(this.name + '!')
 			.setDescription(
-				`I have scrambled a word, unscramble it to win some coins!\n\n> \`${word}\``
+				`I have scrambled a word, unscramble it to win some coins!\n\n> \`${word}\``,
 			)
 			.setFooter({
-				text: "Be the first one to say the answer to earn some coins for the shop!",
+				text: 'Be the first one to say the answer to earn some coins for the shop!',
 			});
 
 		const msg = await message.channel.send({
@@ -70,20 +70,20 @@ module.exports = {
 
 		// When the answer has been answered, call off the collector on first answer.
 
-		collector.on("collect", () => {
+		collector.on('collect', () => {
 			collector.stop();
 		});
 
 		// Execute the rest of the code when the collector has been stopped.
 
-		collector.on("end", (m) => {
+		collector.on('end', (m) => {
 			// If no one answered the question :(
 
 			if (!m.last()) {
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`
+							`${embed.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`,
 						),
 					],
 				});
@@ -98,7 +98,7 @@ module.exports = {
 					embed.setDescription(
 						`${embed.description}\n\n> **${
 							m.last().author
-						} was the first to answer!** The answer was \`${answer}\`!`
+						} was the first to answer!** The answer was \`${answer}\`!`,
 					),
 				],
 			});
@@ -120,6 +120,7 @@ module.exports = {
 					user_id: m.last().author.id,
 					balance: 0,
 					won_times: 0,
+					last_daily: 0,
 					items: {},
 				};
 			}
@@ -128,7 +129,7 @@ module.exports = {
 
 			const coins = randomNumber(
 				config.settings.win_min,
-				config.settings.win_max
+				config.settings.win_max,
 			);
 
 			// Add coins to the winner's balance & database.

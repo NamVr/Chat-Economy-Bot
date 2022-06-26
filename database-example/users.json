@@ -1,6 +1,7 @@
 [
 	{
 		"user_id": "discord-id",
+		"last_daily": 0,
 		"balance": 0,
 		"won_times": 0,
 		"items": {

@@ -19,6 +19,11 @@
 			"emoji": "💰"
 		}
 	},
+	"commands": {
+		"daily": {
+			"amount": 1000
+		}
+	},
 	"apis": {
 		"wordnik": "http://api.wordnik.com/v4/words.json/randomWords?api_key=YOUR_API_KEY&?hasDictionaryDef=true&minCorpusCount=0&hasDictionaryDef=true&"
 	},

@@ -7,16 +7,16 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require("discord.js");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const manager = require("../../../functions/database");
+const manager = require('../../../functions/database');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -24,21 +24,23 @@ const manager = require("../../../functions/database");
 module.exports = {
 	// The data needed to register slash commands to Discord.
 	data: new SlashCommandBuilder()
-		.setName("buy")
-		.setDescription("Purchase something from the shop.")
+		.setName('buy')
+		.setDescription('Purchase something from the shop.')
 		.addStringOption((option) =>
 			option
-				.setName("item")
-				.setDescription("Select your desired item you want to purchase.")
+				.setName('item')
+				.setDescription(
+					'Select your desired item you want to purchase.',
+				)
 				.setRequired(true)
-				.setAutocomplete(true)
+				.setAutocomplete(true),
 		),
 
 	async execute(interaction) {
 		/**
 		 * @description The "item" argument
 		 */
-		const item_name = interaction.options.getString("item", true);
+		const item_name = interaction.options.getString('item', true);
 
 		const shopDB = manager.getShopDB();
 		const userDB = manager.getUserDB();
@@ -52,6 +54,7 @@ module.exports = {
 				user_id: interaction.user.id,
 				balance: 0,
 				won_times: 0,
+				last_daily: 0,
 				items: {},
 			};
 			dbUser.balance = 0;
@@ -65,7 +68,8 @@ module.exports = {
 			// ERROR: Shop Item does not exists, what are you buying?
 
 			await interaction.reply({
-				content: "This shop item does not exists. What are you trying to buy?",
+				content:
+					'This shop item does not exists. What are you trying to buy?',
 				ephemeral: true,
 			});
 
@@ -79,9 +83,9 @@ module.exports = {
 				await interaction.reply({
 					content: `You have insufficient balance to purchase this item.\nYou have ${
 						dbUser.balance
-					} balance, which is ${ShopItem.price - dbUser.balance} short to buy ${
-						ShopItem.name
-					} (${ShopItem.price})!`,
+					} balance, which is ${
+						ShopItem.price - dbUser.balance
+					} short to buy ${ShopItem.name} (${ShopItem.price})!`,
 					ephemeral: true,
 				});
 
@@ -116,15 +120,15 @@ module.exports = {
 		const embed = new MessageEmbed()
 			.setTitle(`Successful Purchase!`)
 			.setDescription(
-				`You have successfully purchased ${ShopItem.name} for **${ShopItem.price} ${emoji} ${name}**!`
+				`You have successfully purchased ${ShopItem.name} for **${ShopItem.price} ${emoji} ${name}**!`,
 			)
 			.addField(
-				"Transcation Details:",
+				'Transcation Details:',
 				`Old Balance: ${
 					ShopItem.price + dbUser.balance
-				} ${emoji}\nNew Balance: ${dbUser.balance} ${emoji}`
+				} ${emoji}\nNew Balance: ${dbUser.balance} ${emoji}`,
 			)
-			.setColor("GREEN")
+			.setColor('GREEN')
 			.setTimestamp();
 
 		await interaction.reply({
