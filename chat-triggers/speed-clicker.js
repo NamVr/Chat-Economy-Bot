@@ -121,7 +121,7 @@ module.exports = {
 						user_id: m.user.id,
 						balance: 0,
 						won_times: 0,
-						last_daily: 0,
+
 						items: {},
 					};
 				}

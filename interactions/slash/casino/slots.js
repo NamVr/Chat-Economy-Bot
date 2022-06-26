@@ -72,7 +72,7 @@ module.exports = {
 				user_id: gambler.id,
 				balance: 0,
 				won_times: 0,
-				last_daily: 0,
+
 				items: {},
 			};
 		}

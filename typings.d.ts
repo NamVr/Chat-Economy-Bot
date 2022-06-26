@@ -324,9 +324,24 @@ export interface UserItem {
 	won_times: number;
 
 	/**
-	 * Timestamp of the last daily "command" claim.
+	 * Represents Time-Based Data (daily/weekly commands).
 	 */
-	last_daily: number;
+	time_data: {
+		/**
+		 * Represents Data for Daily Command.
+		 */
+		daily: {
+			/**
+			 * Timestamp of the last daily "command" claim.
+			 */
+			last: number;
+
+			/**
+			 * Streak count of daily "command" claim.
+			 */
+			streak: number;
+		};
+	};
 
 	/**
 	 * Storage of Quantity of Items (item_name: number)
@@ -447,6 +462,11 @@ export interface ConfigurationFile {
 			 * Amount to be credited daily.
 			 */
 			amount: number;
+
+			/**
+			 * Amount to be bonus for daily streaks.
+			 */
+			streak: number;
 		};
 	};
 

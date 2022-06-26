@@ -21,7 +21,8 @@
 	},
 	"commands": {
 		"daily": {
-			"amount": 1000
+			"amount": 1000,
+			"streak": 0
 		}
 	},
 	"apis": {

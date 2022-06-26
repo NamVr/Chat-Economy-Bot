@@ -45,7 +45,7 @@ module.exports = {
 				user_id: interaction.user.id,
 				balance: 0,
 				won_times: 0,
-				last_daily: 0,
+
 				items: {},
 			};
 		}
@@ -53,7 +53,9 @@ module.exports = {
 		// Check if daily is available.
 
 		const currentTimestamp = +new Date();
-		const dbTimestamp = dbUser.last_daily;
+		const dbTimestamp = dbUser.time_data.daily.last;
+		let streak = dbUser.time_data.daily.streak;
+		let streakReset = false;
 
 		const embed = new MessageEmbed();
 
@@ -71,6 +73,26 @@ module.exports = {
 		} else {
 			// Daily Available!
 
+			// Check Streak Validity - Whether daily command is used within 24 hours of next reset.
+
+			if (currentTimestamp < dbTimestamp + 2 * 24 * 60 * 60 * 1000) {
+				// Streak Available
+
+				if (!streak) {
+					streak = 1;
+				} else {
+					streak += 1;
+				}
+			} else {
+				// Streak Reset
+
+				// Check if they lost the streak just now or not.
+
+				if (streak == 0) streakReset = false;
+				if (streak != 0) streakReset = true;
+
+				streak = 0;
+			}
 			embed
 				.setTitle(`Daily ${config_currency.name}!`)
 				.setColor('RANDOM')
@@ -82,15 +104,22 @@ module.exports = {
 					}!**\n\nYou can claim your next daily **<t:${
 						((currentTimestamp + 24 * 60 * 60 * 1000) / 1000) | 0
 					}:R>**.`,
-				)
-				.setFooter({
-					text: 'Enjoying the game?',
+				);
+
+			if (streakReset) {
+				embed.setFooter({
+					text: 'You lost your streak, fam!',
 				});
+			} else {
+				embed.setFooter({
+					text: `You are now on a ${streak} day streak!`,
+				});
+			}
 
 			// Update the balance in the database.
 
 			dbUser.balance += config_command.amount;
-			dbUser.last_daily = currentTimestamp;
+			dbUser.time_data.daily.last = currentTimestamp;
 			userDB.indexOf(dbUser) != -1
 				? (userDB[userDB.indexOf(dbUser)] = dbUser)
 				: userDB.push(dbUser);

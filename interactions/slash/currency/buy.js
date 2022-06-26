@@ -54,7 +54,7 @@ module.exports = {
 				user_id: interaction.user.id,
 				balance: 0,
 				won_times: 0,
-				last_daily: 0,
+
 				items: {},
 			};
 			dbUser.balance = 0;
