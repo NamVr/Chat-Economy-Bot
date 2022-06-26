@@ -37,18 +37,7 @@ module.exports = {
 
 		// Get the user from the database.
 
-		let dbUser = userDB.find((m) => m.user_id == interaction.user.id);
-
-		if (!dbUser) {
-			// @ts-ignore Non-existent object, created for the sake of properties!
-			dbUser = {
-				user_id: interaction.user.id,
-				balance: 0,
-				won_times: 0,
-
-				items: {},
-			};
-		}
+		const dbUser = userDB.find((m) => m.user_id == interaction.user.id);
 
 		// Check if daily is available.
 

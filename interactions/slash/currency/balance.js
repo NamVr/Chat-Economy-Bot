@@ -17,6 +17,7 @@ const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
+const { DatabaseUser } = require('../../../functions/database/create');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -47,16 +48,10 @@ module.exports = {
 		// Find the user (index) in the database.
 
 		let dbUser = userDB.find((m) => m.user_id == user.id);
-		if (!dbUser) {
-			// @ts-ignore Non-existent object, created for the sake of properties!
-			dbUser = {
-				user_id: interaction.user.id,
-				balance: 0,
-				won_times: 0,
 
-				items: {},
-			};
-		}
+		// If the user is not in database.
+
+		if (!dbUser) dbUser = new DatabaseUser(user.id);
 
 		// Get currency name & emoji.
 

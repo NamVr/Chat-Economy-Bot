@@ -47,18 +47,7 @@ module.exports = {
 
 		// Find the user (index) in the database.
 
-		let dbUser = userDB.find((m) => m.user_id == interaction.user.id);
-		if (!dbUser) {
-			// @ts-ignore Non-existent object, created for the sake of properties!
-			dbUser = {
-				user_id: interaction.user.id,
-				balance: 0,
-				won_times: 0,
-
-				items: {},
-			};
-			dbUser.balance = 0;
-		}
+		const dbUser = userDB.find((m) => m.user_id == interaction.user.id);
 
 		// Find the shop item (index) in the database.
 

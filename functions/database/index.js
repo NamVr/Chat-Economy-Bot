@@ -126,15 +126,18 @@ function getConfigFile() {
  * @returns {import('../../typings').ShopDatabase | import('../../typings').UserDatabase | import('../../typings').ConfigurationFile} The database.
  */
 function writeDatabase(path, database) {
-	fs.writeFile(path, JSON.stringify(database, null, 2), (err) => {
+	try {
+		fs.writeFileSync(path, JSON.stringify(database, null, 2), {
+			encoding: 'utf-8',
+		});
+	} catch (err) {
 		// IF ERROR BOT WILL BE TERMINATED!
 
 		if (err) {
 			log.error('Error writing file:', err);
 			return process.exit(1);
 		}
-	});
-
+	}
 	return database;
 }
 
