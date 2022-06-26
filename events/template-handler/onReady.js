@@ -7,12 +7,12 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 module.exports = {
-	name: "ready",
+	name: 'ready',
 	once: true,
 
 	/**
@@ -21,7 +21,7 @@ module.exports = {
 	 */
 	execute(client) {
 		log.success(
-			`Ready! Logged in as ${client.user.tag}\n**********************************************************************\n`
+			`Ready! Logged in as ${client.user.tag}\n**********************************************************************\n`,
 		);
 	},
 };

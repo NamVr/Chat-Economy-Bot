@@ -7,16 +7,16 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require("discord.js");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const manager = require("../../../functions/database");
+const manager = require('../../../functions/database');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -24,8 +24,8 @@ const manager = require("../../../functions/database");
 module.exports = {
 	// The data needed to register slash commands to Discord.
 	data: new SlashCommandBuilder()
-		.setName("leaderboard")
-		.setDescription("Displays the hall of fame!"),
+		.setName('leaderboard')
+		.setDescription('Displays the hall of fame!'),
 
 	async execute(interaction) {
 		const { client } = interaction;
@@ -45,18 +45,18 @@ module.exports = {
 			.slice(0, 9)
 			.map(
 				(user, position) =>
-					`(${position + 1}) ${client.users.cache.get(user.user_id).tag}: ${
-						user.balance
-					} ${emoji}`
+					`(${position + 1}) ${
+						client.users.cache.get(user.user_id).tag
+					}: ${user.balance} ${emoji}`,
 			)
-			.join("\n");
+			.join('\n');
 
 		// Make a stylish embed result!
 
 		const embed = new MessageEmbed()
 			.setTitle(`${interaction.guild.name}'s Leaderboard`)
 			.setDescription(str)
-			.setColor("RANDOM")
+			.setColor('RANDOM')
 			.setTimestamp();
 
 		await interaction.reply({

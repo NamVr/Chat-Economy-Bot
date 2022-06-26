@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-	id: "sample",
+	id: 'sample',
 
 	/**
 	 * @description Executes when the modal with ID "sample" is submitted.
@@ -15,7 +15,7 @@ module.exports = {
 
 	async execute(interaction) {
 		await interaction.reply({
-			content: "This was a reply from modal handler!",
+			content: 'This was a reply from modal handler!',
 		});
 		return;
 	},

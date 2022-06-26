@@ -6,7 +6,7 @@
 
 module.exports = {
 	data: {
-		name: "sample",
+		name: 'sample',
 		type: 2, // 2 is for user context menus
 	},
 
@@ -18,7 +18,7 @@ module.exports = {
 
 	async execute(interaction) {
 		await interaction.reply({
-			content: "I am a sample user context menu.",
+			content: 'I am a sample user context menu.',
 		});
 		return;
 	},

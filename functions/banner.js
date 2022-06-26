@@ -7,11 +7,11 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
-const { version, homepage } = require("../package.json");
+const { version, homepage } = require('../package.json');
 
 module.exports = () => {
 	log.success(`
@@ -24,6 +24,6 @@ module.exports = () => {
 	#     #    #    #    #    #       #       #    # 
     `);
 	log.notice(`[NCE] NamVr Chat Economy Discord Bot v${version} by NamVr!`);
-	log.success(homepage + "\n");
-	log.success("Sponsor this project @ https://ko-fi.com/namanvrati" + "\n");
+	log.success(homepage + '\n');
+	log.success('Sponsor this project @ https://ko-fi.com/namanvrati' + '\n');
 };

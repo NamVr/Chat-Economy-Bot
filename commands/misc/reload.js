@@ -7,19 +7,19 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // "fs" declared is used in reloading command cache of the specified command.
-const fs = require("fs");
+const fs = require('fs');
 
 /**
  * @type {import('../../typings').LegacyCommand}
  */
 module.exports = {
-	name: "reload",
-	description: "Reloads a command",
+	name: 'reload',
+	description: 'Reloads a command',
 	args: true,
 	ownerOnly: true,
 
@@ -35,7 +35,7 @@ module.exports = {
 			message.client.commands.get(commandName) ||
 			message.client.commands.find(
 				// @ts-ignore
-				(cmd) => cmd.aliases && cmd.aliases.includes(commandName)
+				(cmd) => cmd.aliases && cmd.aliases.includes(commandName),
 			);
 
 		// Command returns if there is no such command with the specific command name or alias.
@@ -50,7 +50,7 @@ module.exports = {
 		 * @description Array of all command categories aka folders.
 		 */
 
-		const commandFolders = fs.readdirSync("./commands");
+		const commandFolders = fs.readdirSync('./commands');
 
 		/**
 		 * @type {String | undefined}
@@ -58,7 +58,9 @@ module.exports = {
 		 */
 
 		const folderName = commandFolders.find((folder) =>
-			fs.readdirSync(`./commands/${folder}`).includes(`${command.name}.js`)
+			fs
+				.readdirSync(`./commands/${folder}`)
+				.includes(`${command.name}.js`),
 		);
 
 		// Deletes current cache of that specified command.

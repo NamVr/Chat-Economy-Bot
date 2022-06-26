@@ -79,9 +79,9 @@ Coming Soon!
 
 ### Built With
 
-- [Discord.js](https://discord.js.org/#/)
-- [Node.js](https://nodejs.org/)
-- [Typescript](https://www.typescriptlang.org/)
+-   [Discord.js](https://discord.js.org/#/)
+-   [Node.js](https://nodejs.org/)
+-   [Typescript](https://www.typescriptlang.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -95,26 +95,26 @@ To get a local/server copy up and running follow these simple example steps.
 ### Installation
 
 1. Clone the repository to get started.
-   ```sh
-   git clone https://github.com/NamVr/Chat-Economy-Bot.git
-   ```
+    ```sh
+    git clone https://github.com/NamVr/Chat-Economy-Bot.git
+    ```
 2. Install NPM packages.
-   ```sh
-   npm install
-   ```
+    ```sh
+    npm install
+    ```
 3. Initialize your project.
 
-   ```sh
-   npm run init
-   ```
+    ```sh
+    npm run init
+    ```
 
-   > You have to follow the steps in the `init` script. Put your token, bot-id, client-id, owner-id. The script will automatically create `config.json` & `database` for you. **:warning: This is one time only!**
+    > You have to follow the steps in the `init` script. Put your token, bot-id, client-id, owner-id. The script will automatically create `config.json` & `database` for you. **:warning: This is one time only!**
 
 4. Setup your `config.json`'s settings according to your server variables. Make sure to also get a **[Wordnik API](https://developer.wordnik.com/docs)** to setup `apis >> wordnik` in the configuration.
 5. You should be all set as of now, start your bot!
-   ```sh
-   npm start
-   ```
+    ```sh
+    npm start
+    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

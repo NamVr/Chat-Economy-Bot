@@ -5,10 +5,10 @@
  * @version 2.0.0
  */
 
-const manager = require("../../functions/database");
+const manager = require('../../functions/database');
 
 module.exports = {
-	name: "messageCreate",
+	name: 'messageCreate',
 
 	/**
 	 * @description Executes whenever a new message is sent to handle heat!

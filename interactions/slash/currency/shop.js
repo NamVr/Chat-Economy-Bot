@@ -7,16 +7,16 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require("discord.js");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const manager = require("../../../functions/database");
+const manager = require('../../../functions/database');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -24,8 +24,8 @@ const manager = require("../../../functions/database");
 module.exports = {
 	// The data needed to register slash commands to Discord.
 	data: new SlashCommandBuilder()
-		.setName("shop")
-		.setDescription("Displays the server shop!"),
+		.setName('shop')
+		.setDescription('Displays the server shop!'),
 	async execute(interaction) {
 		const shopDB = manager.getShopDB();
 
@@ -38,11 +38,14 @@ module.exports = {
 
 		const embed = new MessageEmbed()
 			.setTitle(`${interaction.guild.name}'s Shop!`)
-			.setColor("RANDOM")
+			.setColor('RANDOM')
 			.setDescription(
 				`${shopDB
-					.map((item) => `${item.name}: ${item.price} ${emoji} ${name}`)
-					.join("\n\n")}`
+					.map(
+						(item) =>
+							`${item.name}: ${item.price} ${emoji} ${name}`,
+					)
+					.join('\n\n')}`,
 			)
 			.setTimestamp();
 

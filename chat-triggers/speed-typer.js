@@ -7,19 +7,19 @@
 
 // Read necessary modules
 
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 
-const manager = require("../functions/database");
-const randomNumber = require("../functions/get/random-number");
-const JSONResponse = require("../functions/get/json-response");
-const ChatWin = require("../messages/embeds/chat-win");
+const manager = require('../functions/database');
+const randomNumber = require('../functions/get/random-number');
+const JSONResponse = require('../functions/get/json-response');
+const ChatWin = require('../messages/embeds/chat-win');
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
  */
 module.exports = {
-	name: "Speed Typer",
-	alias: "speed_typer",
+	name: 'Speed Typer',
+	alias: 'speed_typer',
 
 	async execute(message) {
 		/**
@@ -27,29 +27,30 @@ module.exports = {
 		 */
 
 		const response = await JSONResponse(
-			manager.getConfigFile().apis.wordnik + "minLength=5&maxLength=10&limit=4"
+			manager.getConfigFile().apis.wordnik +
+				'minLength=5&maxLength=10&limit=4',
 		);
 
 		/**
 		 * @description The Actual Text & Answer.
 		 */
-		const answer = response.map((r) => r.word).join(" ");
+		const answer = response.map((r) => r.word).join(' ');
 
 		/**
 		 * @description The Sussyfied Text (Question).
 		 */
-		const text = answer.split("").join("​");
+		const text = answer.split('').join('​');
 
 		// Send your question to the chat.
 
 		const embed = new Discord.MessageEmbed()
 			.setColor(`RANDOM`)
-			.setTitle(this.name + "!")
+			.setTitle(this.name + '!')
 			.setDescription(
-				`There's one sussy message below, the first person to type it wins!\n\n> \`${text}\``
+				`There's one sussy message below, the first person to type it wins!\n\n> \`${text}\``,
 			)
 			.setFooter({
-				text: "Be the first one to say the answer to earn some coins for the shop!",
+				text: 'Be the first one to say the answer to earn some coins for the shop!',
 			});
 
 		const msg = await message.channel.send({
@@ -66,20 +67,20 @@ module.exports = {
 
 		// When the answer has been answered, call off the collector on first answer.
 
-		collector.on("collect", () => {
+		collector.on('collect', () => {
 			collector.stop();
 		});
 
 		// Execute the rest of the code when the collector has been stopped.
 
-		collector.on("end", (m) => {
+		collector.on('end', (m) => {
 			// If no one answered the question :(
 
 			if (!m.last()) {
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **Nobody typed in time!** Was it that difficult?`
+							`${embed.description}\n\n> **Nobody typed in time!** Was it that difficult?`,
 						),
 					],
 				});
@@ -94,7 +95,7 @@ module.exports = {
 					embed.setDescription(
 						`${embed.description}\n\n> **${
 							m.last().author
-						} was the first to type!** GG!`
+						} was the first to type!** GG!`,
 					),
 				],
 			});
@@ -116,6 +117,7 @@ module.exports = {
 					user_id: m.last().author.id,
 					balance: 0,
 					won_times: 0,
+
 					items: {},
 				};
 			}
@@ -124,7 +126,7 @@ module.exports = {
 
 			const coins = randomNumber(
 				config.settings.win_min,
-				config.settings.win_max
+				config.settings.win_max,
 			);
 
 			// Add coins to the winner's balance & database.

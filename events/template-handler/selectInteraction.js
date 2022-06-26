@@ -7,12 +7,12 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 module.exports = {
-	name: "interactionCreate",
+	name: 'interactionCreate',
 
 	/**
 	 * @description Executes when an interaction is created and handle it.
@@ -34,7 +34,9 @@ module.exports = {
 		// You can modify the error message at ./messages/defaultSelectError.js file!
 
 		if (!command) {
-			await require("../../messages/defaultSelectError").execute(interaction);
+			await require('../../messages/defaultSelectError').execute(
+				interaction,
+			);
 			return;
 		}
 
@@ -46,7 +48,8 @@ module.exports = {
 		} catch (err) {
 			log.error(err);
 			await interaction.reply({
-				content: "There was an issue while executing that select menu option!",
+				content:
+					'There was an issue while executing that select menu option!',
 				ephemeral: true,
 			});
 			return;

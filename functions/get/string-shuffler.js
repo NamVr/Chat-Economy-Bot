@@ -14,7 +14,7 @@
 function stringShuffler(string) {
 	// Split the string by each letter and store it in 'a' (array).
 
-	var a = string.split(""),
+	var a = string.split(''),
 		n = a.length;
 
 	// Loop till the length of the string, randomize the strings.
@@ -25,7 +25,7 @@ function stringShuffler(string) {
 		a[i] = a[j];
 		a[j] = tmp;
 	}
-	return a.join("");
+	return a.join('');
 }
 
 /**

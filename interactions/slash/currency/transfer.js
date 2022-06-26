@@ -7,16 +7,16 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require("discord.js");
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
-const manager = require("../../../functions/database");
+const manager = require('../../../functions/database');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -24,31 +24,31 @@ const manager = require("../../../functions/database");
 module.exports = {
 	// The data needed to register slash commands to Discord.
 	data: new SlashCommandBuilder()
-		.setName("transfer")
-		.setDescription("Shares your user balance.")
+		.setName('transfer')
+		.setDescription('Shares your user balance.')
 		.addUserOption((option) =>
 			option
-				.setName("user")
+				.setName('user')
 				.setRequired(true)
-				.setDescription("The user you are trying to send money.")
+				.setDescription('The user you are trying to send money.'),
 		)
 		.addIntegerOption((option) =>
 			option
-				.setName("amount")
+				.setName('amount')
 				.setRequired(true)
-				.setDescription("The total amount you are trying to share.")
+				.setDescription('The total amount you are trying to share.'),
 		),
 
 	async execute(interaction) {
 		/**
 		 * @description The "user" argument
 		 */
-		let user = interaction.options.getUser("user", true);
+		let user = interaction.options.getUser('user', true);
 
 		/**
 		 * @description the "amount" argument
 		 */
-		let amount = interaction.options.getInteger("amount", true);
+		let amount = interaction.options.getInteger('amount', true);
 
 		if (user.id == interaction.user.id) {
 			await interaction.reply({
@@ -72,6 +72,7 @@ module.exports = {
 				user_id: interaction.user.id,
 				balance: 0,
 				won_times: 0,
+
 				items: {},
 			};
 		}
@@ -81,6 +82,7 @@ module.exports = {
 				user_id: user.id,
 				balance: 0,
 				won_times: 0,
+
 				items: {},
 			};
 		}
@@ -89,7 +91,7 @@ module.exports = {
 			// ERROR: Insufficient balance!
 
 			await interaction.reply({
-				content: "You have insufficient balance to share/transfer!",
+				content: 'You have insufficient balance to share/transfer!',
 			});
 
 			return;
@@ -118,13 +120,13 @@ module.exports = {
 
 			const embed = new MessageEmbed()
 				.setTitle(`Transfer Successful!`)
-				.setColor("GREEN")
+				.setColor('GREEN')
 				.setDescription(
-					`You have successfully transfered **${amount} ${emoji} ${name}** to ${user}.`
+					`You have successfully transfered **${amount} ${emoji} ${name}** to ${user}.`,
 				)
 				.addField(
-					"Transcation Details:",
-					`Your balance = ${dbUserSender.balance} ${emoji}\n${user.tag}'s balance = ${dbUserReceiver.balance} ${emoji}`
+					'Transcation Details:',
+					`Your balance = ${dbUserSender.balance} ${emoji}\n${user.tag}'s balance = ${dbUserReceiver.balance} ${emoji}`,
 				)
 				.setTimestamp();
 

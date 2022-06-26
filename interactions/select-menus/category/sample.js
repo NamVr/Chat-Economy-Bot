@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-	id: "sample",
+	id: 'sample',
 
 	/**
 	 * @description Executes when a select menu option with ID "sample" is clicked.
@@ -15,7 +15,7 @@ module.exports = {
 
 	async execute(interaction) {
 		await interaction.reply({
-			content: "This was a reply from select menu handler!",
+			content: 'This was a reply from select menu handler!',
 		});
 		return;
 	},

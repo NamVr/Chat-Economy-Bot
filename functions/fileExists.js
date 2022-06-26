@@ -5,7 +5,7 @@
  * @version 2.0.0
  */
 
-const fs = require("fs");
+const fs = require('fs');
 
 /**
  * Checks if a file or directory exists or not.

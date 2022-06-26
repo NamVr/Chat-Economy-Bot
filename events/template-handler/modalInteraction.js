@@ -7,12 +7,12 @@
 
 // Initialize LeeksLazyLogger
 
-const Logger = require("leekslazylogger");
+const Logger = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 module.exports = {
-	name: "interactionCreate",
+	name: 'interactionCreate',
 
 	/**
 	 * @description Executes when an interaction is created and handle it.
@@ -34,7 +34,9 @@ module.exports = {
 		// You can modify the error message at ./messages/defaultModalError.js file!
 
 		if (!command) {
-			await require("../../messages/defaultModalError").execute(interaction);
+			await require('../../messages/defaultModalError').execute(
+				interaction,
+			);
 			return;
 		}
 
@@ -46,7 +48,7 @@ module.exports = {
 		} catch (err) {
 			log.error(err);
 			await interaction.reply({
-				content: "There was an issue while understanding this modal!",
+				content: 'There was an issue while understanding this modal!',
 				ephemeral: true,
 			});
 			return;

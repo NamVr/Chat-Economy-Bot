@@ -9,7 +9,7 @@
  * @type {import('../../typings').LegacyCommand}
  */
 module.exports = {
-	name: "ping",
+	name: 'ping',
 
 	execute(message, args) {
 		message.channel.send({ content: "Pong. Yes I'm alive and working!" });

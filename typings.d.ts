@@ -1,5 +1,5 @@
-import * as Discord from "discord.js";
-import * as Builders from "@discordjs/builders";
+import * as Discord from 'discord.js';
+import * as Builders from '@discordjs/builders';
 
 /**
  * Represents a chat-based Message Command.
@@ -57,7 +57,7 @@ export interface LegacyCommand {
 	 */
 	execute(
 		message: Discord.Message & { client: Client },
-		args: string[]
+		args: string[],
 	): void | Promise<void>;
 }
 
@@ -89,7 +89,7 @@ export interface SlashInteractionCommand {
 	 * @param interaction The interaction that triggered this command.
 	 */
 	execute(
-		interaction: Discord.CommandInteraction & { client: Client }
+		interaction: Discord.CommandInteraction & { client: Client },
 	): void | Promise<void>;
 }
 
@@ -107,7 +107,7 @@ export interface ButtonInteractionCommand {
 	 * @param interaction The interaction that triggered this command.
 	 */
 	execute(
-		interaction: Discord.ButtonInteraction & { client: Client }
+		interaction: Discord.ButtonInteraction & { client: Client },
 	): void | Promise<void>;
 }
 
@@ -125,7 +125,7 @@ export interface SelectInteractionCommand {
 	 * @param interaction The interaction that triggered this command.
 	 */
 	execute(
-		interaction: Discord.SelectMenuInteraction & { client: Client }
+		interaction: Discord.SelectMenuInteraction & { client: Client },
 	): void | Promise<void>;
 }
 
@@ -160,7 +160,7 @@ export interface ContextInteractionCommand {
 	 * @param interaction The interaction that triggered this command.
 	 */
 	execute(
-		interaction: Discord.ContextMenuInteraction & { client: Client }
+		interaction: Discord.ContextMenuInteraction & { client: Client },
 	): void | Promise<void>;
 }
 
@@ -178,7 +178,7 @@ export interface ModalInteractionCommand {
 	 * @param interaction The interaction that triggered this command.
 	 */
 	execute(
-		interaction: Discord.ModalSubmitInteraction & { client: Client }
+		interaction: Discord.ModalSubmitInteraction & { client: Client },
 	): void | Promise<void>;
 }
 
@@ -197,7 +197,7 @@ export interface TriggerCommand {
 	 */
 	execute(
 		message: Discord.Message & { client: Client },
-		args: string[]
+		args: string[],
 	): void | Promise<void>;
 }
 
@@ -248,7 +248,10 @@ export interface Client extends Discord.Client {
 	/**
 	 * Represents a collection of autocomplete interactions.
 	 */
-	autocompleteInteractions: Discord.Collection<string, AutocompleteInteraction>;
+	autocompleteInteractions: Discord.Collection<
+		string,
+		AutocompleteInteraction
+	>;
 
 	/**
 	 * Represents Economy Cache Handling.
@@ -277,7 +280,7 @@ export interface AutocompleteInteraction {
 	 * @param interaction The interaction that triggered this command.
 	 */
 	execute(
-		interaction: Discord.AutocompleteInteraction & { client: Client }
+		interaction: Discord.AutocompleteInteraction & { client: Client },
 	): void | Promise<void>;
 }
 
@@ -319,6 +322,26 @@ export interface UserItem {
 	 * Number of times the user has won a chat event.
 	 */
 	won_times: number;
+
+	/**
+	 * Represents Time-Based Data (daily/weekly commands).
+	 */
+	time_data: {
+		/**
+		 * Represents Data for Daily Command.
+		 */
+		daily: {
+			/**
+			 * Timestamp of the last daily "command" claim.
+			 */
+			last: number;
+
+			/**
+			 * Streak count of daily "command" claim.
+			 */
+			streak: number;
+		};
+	};
 
 	/**
 	 * Storage of Quantity of Items (item_name: number)
@@ -428,6 +451,26 @@ export interface ConfigurationFile {
 	};
 
 	/**
+	 * Represents specific command settings for the application.
+	 */
+	commands: {
+		/**
+		 * Represents Daily Command Settings.
+		 */
+		daily: {
+			/**
+			 * Amount to be credited daily.
+			 */
+			amount: number;
+
+			/**
+			 * Amount to be bonus for daily streaks.
+			 */
+			streak: number;
+		};
+	};
+
+	/**
 	 * Represents API Link/Keys for the application.
 	 */
 	apis: {
@@ -502,5 +545,7 @@ export interface ChatTriggerEvent {
 	 * The event executor when it is called by the template handler.
 	 * @param message The message that triggered this command.
 	 */
-	execute(message: Discord.Message & { client: Client }): void | Promise<void>;
+	execute(
+		message: Discord.Message & { client: Client },
+	): void | Promise<void>;
 }
