@@ -12,6 +12,7 @@ const Logger = require('leekslazylogger');
 const log = new Logger({ keepSilent: true });
 
 const manager = require('../../functions/database');
+const { DatabaseUser } = require('../../functions/database/create');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
@@ -28,9 +29,10 @@ module.exports = {
 
 		const { client } = interaction;
 
-		// Fetch the live configuration file (config.json).
+		// Fetch the live configuration file (config.json) & User Database.
 
 		const config = manager.getConfigFile();
+		const userDB = manager.getUserDB();
 
 		// Checks if the interaction is a command (to prevent weird bugs)
 
@@ -83,6 +85,20 @@ module.exports = {
 			// And close the interaction.
 
 			return;
+		}
+
+		// Check if the user is registered or not, and register if possible.
+
+		let dbUser = userDB.find((f) => f.user_id == interaction.user.id);
+
+		if (!dbUser) {
+			// Create a new DatabaseUser & push the user into it.
+
+			dbUser = new DatabaseUser(interaction.user.id);
+			userDB.push(dbUser);
+
+			// Register in the database.
+			await manager.putUserDB(userDB);
 		}
 
 		// A try to execute the interaction.

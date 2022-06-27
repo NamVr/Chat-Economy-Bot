@@ -63,19 +63,7 @@ module.exports = {
 		const userDB = manager.getUserDB();
 
 		// Check if the user exists in the database.
-		let user = userDB.find((f) => f.user_id == gambler.id);
-
-		// If the user is new (doesn't exist yet) then create a new user.
-		if (!user) {
-			// @ts-ignore Non-existent object, created for the sake of properties!
-			user = {
-				user_id: gambler.id,
-				balance: 0,
-				won_times: 0,
-
-				items: {},
-			};
-		}
+		const user = userDB.find((f) => f.user_id == gambler.id);
 
 		// Check if the user has enough currency to bet.
 

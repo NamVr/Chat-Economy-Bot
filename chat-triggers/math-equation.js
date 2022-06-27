@@ -9,6 +9,7 @@ const Discord = require('discord.js');
 const random = require('../functions/get/random-number');
 const manager = require('../functions/database');
 const ChatWin = require('../messages/embeds/chat-win');
+const { DatabaseUser } = require('../functions/database/create');
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
@@ -99,18 +100,9 @@ module.exports = {
 
 			let user = userDB.find((f) => f.user_id == m.last().author.id);
 
-			// If the winner user is new (doesn't exists yet)
+			// If user is not in database.
 
-			if (!user) {
-				// @ts-ignore Non-existent object, created for the sake of properties!
-				user = {
-					user_id: m.last().author.id,
-					balance: 0,
-					won_times: 0,
-
-					items: {},
-				};
-			}
+			if (!user) user = new DatabaseUser(m.last().author.id);
 
 			// Get random coins for the winner.
 

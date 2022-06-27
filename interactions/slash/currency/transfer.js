@@ -17,6 +17,7 @@ const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
+const { DatabaseUser } = require('../../../functions/database/create');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -63,29 +64,12 @@ module.exports = {
 
 		// Find the user (index) in the database.
 
-		let dbUserSender = userDB.find((m) => m.user_id == interaction.user.id);
+		const dbUserSender = userDB.find(
+			(m) => m.user_id == interaction.user.id,
+		);
 		let dbUserReceiver = userDB.find((m) => m.user_id == user.id);
 
-		if (!dbUserSender) {
-			// @ts-ignore Non-existent object, created for the sake of properties!
-			dbUserSender = {
-				user_id: interaction.user.id,
-				balance: 0,
-				won_times: 0,
-
-				items: {},
-			};
-		}
-		if (!dbUserReceiver) {
-			// @ts-ignore Non-existent object, created for the sake of properties!
-			dbUserReceiver = {
-				user_id: user.id,
-				balance: 0,
-				won_times: 0,
-
-				items: {},
-			};
-		}
+		if (!dbUserReceiver) dbUserReceiver = new DatabaseUser(user.id);
 
 		if (amount > dbUserSender.balance) {
 			// ERROR: Insufficient balance!
