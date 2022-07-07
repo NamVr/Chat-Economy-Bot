@@ -1,8 +1,10 @@
 /**
  * @file Guild Handler
- * @author Naman Vrati
+ * @author NamVr
  * @since 1.0.0
  * @version 2.0.0
+ * @author mrcode2008
+ * @since 2.0.0
  */
 
 /**
@@ -31,7 +33,7 @@ module.exports = {
 		// Disallow more than one guild.
 
 		if (guildCount > 1) {
-			log.console(
+			console.log(
 				'\n ---------------------------------------------------------- \n',
 			);
 			log.notice('BOT CAN JOIN ONLY 1 SERVER TO WORK PROPERLY!');
@@ -40,7 +42,7 @@ module.exports = {
 			);
 			guild.leave();
 			log.error(`BOT LEFT ${guild.name} AUTOMATICALLY!`);
-			log.console(
+			console.log(
 				'\n ---------------------------------------------------------- \n',
 			);
 		}
@@ -48,7 +50,7 @@ module.exports = {
 		// Disallow incorrect guild as per configuration.
 
 		if (config.settings.chat_channel != guild.id) {
-			log.console(
+			console.log(
 				'\n ---------------------------------------------------------- \n',
 			);
 			log.notice('BOT IS INVITED TO AN INVALID GUILD!');
@@ -57,7 +59,7 @@ module.exports = {
 			);
 			guild.leave();
 			log.error(`BOT LEFT ${guild.name} AUTOMATICALLY!`);
-			log.console(
+			console.log(
 				'\n ---------------------------------------------------------- \n',
 			);
 		}
