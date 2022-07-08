@@ -2,7 +2,7 @@
  * @file Daily command.
  * @author Naman Vrati
  * @since 2.0.1
- * @version 2.0.1
+ * @version 2.0.3
  */
 
 // Initialize LeeksLazyLogger
@@ -34,6 +34,12 @@ module.exports = {
 		const config = manager.getConfigFile();
 		const config_currency = config.settings.currency;
 		const config_command = config.commands.daily;
+
+		/**
+		 * The Final Amount to be added in user database.
+		 * @description Base Amount + (Streak Bonus * Number of Streak Days)
+		 */
+		let amountFinal = config_command.amount;
 
 		// Get the user from the database.
 
@@ -72,6 +78,10 @@ module.exports = {
 				} else {
 					streak += 1;
 				}
+
+				// Also add extra streak amount!
+
+				amountFinal += config_command.streak * streak;
 			} else {
 				// Streak Reset
 
@@ -86,7 +96,7 @@ module.exports = {
 				.setTitle(`Daily ${config_currency.name}!`)
 				.setColor('RANDOM')
 				.setDescription(
-					`You're given **\`${config_command.amount}\` ${
+					`You're given **\`${amountFinal}\` ${
 						config_currency.emoji
 					} ${
 						config_currency.name
@@ -107,8 +117,9 @@ module.exports = {
 
 			// Update the balance in the database.
 
-			dbUser.balance += config_command.amount;
+			dbUser.balance += amountFinal;
 			dbUser.time_data.daily.last = currentTimestamp;
+			dbUser.time_data.daily.streak = streak;
 			userDB.indexOf(dbUser) != -1
 				? (userDB[userDB.indexOf(dbUser)] = dbUser)
 				: userDB.push(dbUser);

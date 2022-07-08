@@ -20,6 +20,12 @@ module.exports = {
 	 * @param {import('../../typings').Client} client Main Application Client
 	 */
 	execute(client) {
+		// Database Verification - on each restart!
+
+		require('../../functions/database/verify')();
+
+		// Application Startup Success Message.
+
 		log.success(
 			`Ready! Logged in as ${client.user.tag}\n**********************************************************************\n`,
 		);
