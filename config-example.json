@@ -26,12 +26,14 @@
 		}
 	},
 	"apis": {
-		"wordnik": "http://api.wordnik.com/v4/words.json/randomWords?api_key=YOUR_API_KEY&?hasDictionaryDef=true&minCorpusCount=0&hasDictionaryDef=true&"
+		"wordnik": "http://api.wordnik.com/v4/words.json/randomWords?api_key=YOUR_API_KEY&?hasDictionaryDef=true&minCorpusCount=0&hasDictionaryDef=true&",
+		"opentdb": "https://opentdb.com/api.php?amount=1&type=multiple&encode=base64"
 	},
 	"modules": {
 		"math_equation": true,
 		"speed_clicker": true,
 		"speed_typer": true,
-		"unscramble_the_word": true
+		"unscramble_the_word": true,
+		"trivia_night": true
 	}
 }

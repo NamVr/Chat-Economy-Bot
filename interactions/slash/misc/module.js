@@ -2,7 +2,7 @@
  * @file Modules command for economy bot.
  * @author Naman Vrati
  * @since 2.0.0
- * @version 2.0.0
+ * @version 2.0.4
  */
 
 // Initialize LeeksLazyLogger
@@ -46,6 +46,7 @@ module.exports = {
 								name: 'Unscramble The Word',
 								value: 'unscramble_the_word',
 							},
+							{ name: 'Trivia Night', value: 'trivia_night' },
 						),
 				),
 		)
@@ -72,7 +73,7 @@ module.exports = {
 		if (subCommand && subCommand == 'toggle') {
 			/**
 			 * Extract the choice of Module selected.
-			 * @type {"math_equation" | "speed_clicker" | "speed_typer" | "unscramble_the_word"} The choice.
+			 * @type {"math_equation" | "speed_clicker" | "speed_typer" | "unscramble_the_word" | "trivia_night"} The choice.
 			 */
 			// @ts-ignore
 			const value = options.getString('module', true);

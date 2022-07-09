@@ -478,6 +478,11 @@ export interface ConfigurationFile {
 		 * API Link for Wordnik (Unscramble The Word)
 		 */
 		wordnik: string;
+
+		/**
+		 * API Link for Open Trivia Database (Trivia Night)
+		 */
+		opentdb: string;
 	};
 
 	/**
@@ -503,6 +508,11 @@ export interface ConfigurationFile {
 		 * Whether Unscramble The Word Module is enabled or not.
 		 */
 		unscramble_the_word: boolean;
+
+		/**
+		 * Whether Trivia Night Module is enabled or not.
+		 */
+		trivia_night: boolean;
 	};
 }
 
@@ -525,6 +535,56 @@ export interface WordnikResponseObject {
  * Represents a Wordnik Response Data.
  */
 export interface WordnikResponse extends Array<WordnikResponseObject> {}
+
+/**
+ * Represents a OpenTDB Response Object.
+ */
+export interface OpenTDBResponseObject {
+	/**
+	 * The category of the question (eg General Knowledge).
+	 */
+	category: string;
+
+	/**
+	 * The type of the question (Multiple Choice).
+	 */
+	type: string;
+
+	/**
+	 * The difficultly of the question (eg Medium).
+	 */
+	difficulty: string;
+
+	/**
+	 * The actual trivia question.
+	 */
+	question: string;
+
+	/**
+	 * The correct answer to the question.
+	 */
+	correct_answer: string;
+
+	/**
+	 * The incorrect answers to the question.
+	 */
+	incorrect_answers: Array<string>;
+}
+
+/**
+ * Represents a OpenTDB Response Data.
+ */
+export interface OpenTDBResponse {
+	/**
+	 * The Response Code from the API.
+	 */
+	response_code: number;
+
+	/**
+	 * The Results Array Response From the API.
+	 */
+	results: Array<OpenTDBResponseObject>;
+}
 
 /**
  * Represents a Chat-Event (Trigger).
