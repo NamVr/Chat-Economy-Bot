@@ -10,7 +10,7 @@ const random = require('../functions/get/random-number');
 const manager = require('../functions/database');
 const ChatWin = require('../messages/embeds/chat-win');
 const JSONResponse = require('../functions/get/json-response');
-const arrayShuffler = require('../functions/get/array-shiffler');
+const arrayShuffler = require('../functions/get/array-shuffler');
 const { DatabaseUser } = require('../functions/database/create');
 
 /**
