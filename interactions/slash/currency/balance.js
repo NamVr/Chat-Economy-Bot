@@ -32,6 +32,7 @@ module.exports = {
 				.setName('user')
 				.setDescription('To check a balance of a specific user.'),
 		),
+	cooldown: 5,
 
 	async execute(interaction) {
 		/**

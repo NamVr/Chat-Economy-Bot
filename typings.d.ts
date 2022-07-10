@@ -85,6 +85,11 @@ export interface SlashInteractionCommand {
 	ownerOnly: boolean;
 
 	/**
+	 * The cooldown in seconds of this command.
+	 */
+	cooldown?: number;
+
+	/**
 	 * The interaction executor when it is called by the template handler.
 	 * @param interaction The interaction that triggered this command.
 	 */

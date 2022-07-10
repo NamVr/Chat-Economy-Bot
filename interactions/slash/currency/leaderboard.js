@@ -26,6 +26,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('leaderboard')
 		.setDescription('Displays the hall of fame!'),
+	cooldown: 5,
 
 	async execute(interaction) {
 		const { client } = interaction;

@@ -39,6 +39,7 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The total amount you are trying to share.'),
 		),
+	cooldown: 5,
 
 	async execute(interaction) {
 		/**

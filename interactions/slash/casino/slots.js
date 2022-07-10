@@ -29,6 +29,7 @@ module.exports = {
 				.setDescription('The amount you want to bet.')
 				.setRequired(true),
 		),
+	cooldown: 10,
 
 	async execute(interaction) {
 		// Get the currency settings from the database.

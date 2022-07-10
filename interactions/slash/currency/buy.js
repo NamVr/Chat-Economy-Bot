@@ -35,6 +35,7 @@ module.exports = {
 				.setRequired(true)
 				.setAutocomplete(true),
 		),
+	cooldown: 5,
 
 	async execute(interaction) {
 		/**

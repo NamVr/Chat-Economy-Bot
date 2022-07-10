@@ -26,6 +26,8 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('daily')
 		.setDescription('Collect your daily income!'),
+	cooldown: 5,
+
 	async execute(interaction) {
 		const userDB = manager.getUserDB();
 

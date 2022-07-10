@@ -26,6 +26,8 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('shop')
 		.setDescription('Displays the server shop!'),
+	cooldown: 5,
+
 	async execute(interaction) {
 		const shopDB = manager.getShopDB();
 
