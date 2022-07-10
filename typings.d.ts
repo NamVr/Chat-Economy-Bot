@@ -473,6 +473,31 @@ export interface ConfigurationFile {
 			 */
 			streak: number;
 		};
+
+		/**
+		 * Represents Beg Command Settings.
+		 */
+		beg: {
+			/**
+			 * Maximum (Positive) Amount to be added.
+			 */
+			positive_max: number;
+
+			/**
+			 * Minimum (Positive) Amount to be added.
+			 */
+			positive_min: number;
+
+			/**
+			 * Maximum (Negative) Amount to be removed.
+			 */
+			negative_max: number;
+
+			/**
+			 * Minimum (Negative) Amount to be removed.
+			 */
+			negative_min: number;
+		};
 	};
 
 	/**

@@ -23,6 +23,12 @@
 		"daily": {
 			"amount": 1000,
 			"streak": 0
+		},
+		"beg": {
+			"positive_max": 100,
+			"positive_min": 10,
+			"negative_max": 0,
+			"negative_min": -20
 		}
 	},
 	"apis": {
