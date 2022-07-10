@@ -1,13 +1,13 @@
 /**
  * @file Beg command.
  * @author Naman Vrati
- * @since 2.0.0
+ * @since 2.0.5
  * @version 2.0.5
  */
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed, Collection } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const random = require('../../../functions/get/random-number');

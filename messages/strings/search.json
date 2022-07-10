@@ -1,0 +1,9 @@
+[
+	["car", "You found **{{amount}}**, I wonder who left that door opened 😏"],
+	["bed", "You found **{{amount}}**, who even left that there in open, lol."],
+	[
+		"dumpster",
+		"So you started looking the dumpster, and found **{{amount}}**, GG!"
+	],
+	["sewer", "You found **{{amount}}**, why the heck is this down here.."]
+]

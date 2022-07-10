@@ -29,6 +29,11 @@
 			"positive_min": 10,
 			"negative_max": 0,
 			"negative_min": -20
+		},
+		"search": {
+			"min": 10,
+			"max": 100,
+			"wallet_lost": 25
 		}
 	},
 	"apis": {

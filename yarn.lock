@@ -115,15 +115,15 @@
   "resolved" "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.33.5.tgz"
   "version" "0.33.5"
 
-"discord-api-types@^0.34.0":
-  "integrity" "sha512-xwlhwiLZ11+8+ou1JlPOLJkwpu8qklm+aUm9JF06YC59fSo4CD7gQqsbUBxqevqheLx+WhRgJOHjDbjI0Q+Ecw=="
-  "resolved" "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.34.0.tgz"
-  "version" "0.34.0"
+"discord-api-types@^0.36.1":
+  "integrity" "sha512-PTDinUU574hXA9Ko9wrftL1iww1raNiRVKjuPIWQ5Li1g7vQPArpZWw9x01kh/IXLPdzSAJ6H8T0eAYzxzFzIg=="
+  "resolved" "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.36.1.tgz"
+  "version" "0.36.1"
 
-"discord.js@^13.8.0":
-  "integrity" "sha512-EPAA/2VLycYN5wSzavqa4iJ6qj3UtQFtHw5TH/60Fj29ymfEsCQVn//o1mTpwDxzwb+rPIrWhkxKIGGnjfv0Iw=="
-  "resolved" "https://registry.npmjs.org/discord.js/-/discord.js-13.8.0.tgz"
-  "version" "13.8.0"
+"discord.js@^13.8.1":
+  "integrity" "sha512-jOsD+4tEZWWx0RHVyH+FBcqoTrsL+d5Mm5p+ULQOdU0qSaxhLNkWYig+yDHNZoND7nlkXX3qi+BW+gO5erWylg=="
+  "resolved" "https://registry.npmjs.org/discord.js/-/discord.js-13.8.1.tgz"
+  "version" "13.8.1"
   dependencies:
     "@discordjs/builders" "^0.14.0"
     "@discordjs/collection" "^0.7.0"

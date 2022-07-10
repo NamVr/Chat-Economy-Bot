@@ -498,6 +498,26 @@ export interface ConfigurationFile {
 			 */
 			negative_min: number;
 		};
+
+		/**
+		 * Represents Search Command Settings.
+		 */
+		search: {
+			/**
+			 * Minimum currency awarded to winner.
+			 */
+			min: number;
+
+			/**
+			 * Maximum currency awarded to winner.
+			 */
+			max: number;
+
+			/**
+			 * Percentage of amount of wallet to loose after dying (0-100).
+			 */
+			wallet_lost: number;
+		};
 	};
 
 	/**
