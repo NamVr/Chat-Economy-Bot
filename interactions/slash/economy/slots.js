@@ -3,7 +3,7 @@
  * @author StormPacer
  * @author Naman Vrati
  * @since 2.0.0
- * @version 2.0.0
+ * @version 2.0.5
  */
 
 // Deconstructed the constants we need in this file.

@@ -1,6 +1,6 @@
 {
 	"name": "namvr-chateconomy",
-	"version": "2.0.4",
+	"version": "2.0.5",
 	"types": "./typings.d.ts",
 	"description": "An open-source discord chat economy bot that has various events to be triggered randomly in your chat.",
 	"funding": "https://ko-fi.com/namanvrati",
