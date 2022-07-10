@@ -210,18 +210,17 @@ module.exports = {
 				timestamps.get(message.author.id) + cooldownAmount;
 
 			if (now < expirationTime) {
-				const timeLeft = (expirationTime - now) / 1000;
 				return message.reply({
 					embeds: [
 						new Discord.MessageEmbed()
 							.setTitle(`:x: Spam is never cool, dude.`)
 							.setColor('RED')
 							.setDescription(
-								`Please wait ${timeLeft.toFixed(
-									1,
-								)} more second(s) before reusing the \`${
+								`Please wait, you can reuse the \`${
 									command.name
-								}\` command.`,
+								}\` command <t:${
+									(expirationTime / 1000) | 0
+								}:R>.`,
 							),
 					],
 				});

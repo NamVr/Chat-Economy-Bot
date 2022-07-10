@@ -104,18 +104,17 @@ module.exports = {
 				timestamps.get(interaction.user.id) + cooldownAmount;
 
 			if (now < expirationTime) {
-				const timeLeft = (expirationTime - now) / 1000;
 				return interaction.reply({
 					embeds: [
 						new MessageEmbed()
 							.setTitle(`:x: Spam is never cool, dude.`)
 							.setColor('RED')
 							.setDescription(
-								`Please wait ${timeLeft.toFixed(
-									1,
-								)} more second(s) before reusing the \`${
+								`Please wait, you can reuse the \`${
 									command.data.name
-								}\` command.`,
+								}\` command <t:${
+									(expirationTime / 1000) | 0
+								}:R>.`,
 							),
 					],
 				});
