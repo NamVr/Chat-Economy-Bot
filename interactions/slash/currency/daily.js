@@ -2,7 +2,7 @@
  * @file Daily command.
  * @author Naman Vrati
  * @since 2.0.1
- * @version 2.0.3
+ * @version 2.0.5
  */
 
 // Initialize LeeksLazyLogger
@@ -26,6 +26,8 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('daily')
 		.setDescription('Collect your daily income!'),
+	cooldown: 5,
+
 	async execute(interaction) {
 		const userDB = manager.getUserDB();
 

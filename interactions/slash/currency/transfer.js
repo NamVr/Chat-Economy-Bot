@@ -2,7 +2,7 @@
  * @file Transfer balance command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.0
+ * @version 2.0.5
  */
 
 // Initialize LeeksLazyLogger
@@ -39,6 +39,7 @@ module.exports = {
 				.setRequired(true)
 				.setDescription('The total amount you are trying to share.'),
 		),
+	cooldown: 5,
 
 	async execute(interaction) {
 		/**

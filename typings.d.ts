@@ -85,6 +85,11 @@ export interface SlashInteractionCommand {
 	ownerOnly: boolean;
 
 	/**
+	 * The cooldown in seconds of this command.
+	 */
+	cooldown?: number;
+
+	/**
 	 * The interaction executor when it is called by the template handler.
 	 * @param interaction The interaction that triggered this command.
 	 */
@@ -467,6 +472,71 @@ export interface ConfigurationFile {
 			 * Amount to be bonus for daily streaks.
 			 */
 			streak: number;
+		};
+
+		/**
+		 * Represents Beg Command Settings.
+		 */
+		beg: {
+			/**
+			 * Maximum (Positive) Amount to be added.
+			 */
+			positive_max: number;
+
+			/**
+			 * Minimum (Positive) Amount to be added.
+			 */
+			positive_min: number;
+
+			/**
+			 * Maximum (Negative) Amount to be removed.
+			 */
+			negative_max: number;
+
+			/**
+			 * Minimum (Negative) Amount to be removed.
+			 */
+			negative_min: number;
+		};
+
+		/**
+		 * Represents Search Command Settings.
+		 */
+		search: {
+			/**
+			 * Minimum currency awarded to winner.
+			 */
+			min: number;
+
+			/**
+			 * Maximum currency awarded to winner.
+			 */
+			max: number;
+
+			/**
+			 * Percentage of amount of wallet to loose after dying (0-100).
+			 */
+			wallet_lost: number;
+		};
+
+		/**
+		 * Represents Work Command Settings.
+		 */
+		work: {
+			/**
+			 * Minimum currency awarded to winner.
+			 */
+			min: number;
+
+			/**
+			 * Maximum currency awarded to winner.
+			 */
+			max: number;
+
+			/**
+			 * Percentage of amount of wallet to loose after dying (0-100).
+			 */
+			wallet_lost: number;
 		};
 	};
 

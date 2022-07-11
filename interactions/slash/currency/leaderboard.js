@@ -2,7 +2,7 @@
  * @file Leaderboard command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.0
+ * @version 2.0.5
  */
 
 // Initialize LeeksLazyLogger
@@ -26,6 +26,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('leaderboard')
 		.setDescription('Displays the hall of fame!'),
+	cooldown: 5,
 
 	async execute(interaction) {
 		const { client } = interaction;

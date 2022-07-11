@@ -13,7 +13,7 @@ const log = new Logger({ keepSilent: true });
 
 const manager = require('../../functions/database');
 const { DatabaseUser } = require('../../functions/database/create');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Collection } = require('discord.js');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -86,6 +86,46 @@ module.exports = {
 
 			return;
 		}
+
+		// Cooldowns
+
+		const { cooldowns } = client;
+
+		if (!cooldowns.has(command.data.name)) {
+			cooldowns.set(command.data.name, new Collection());
+		}
+
+		const now = Date.now();
+		const timestamps = cooldowns.get(command.data.name);
+		const cooldownAmount = (command.cooldown || 3) * 1000;
+
+		if (timestamps.has(interaction.user.id)) {
+			const expirationTime =
+				timestamps.get(interaction.user.id) + cooldownAmount;
+
+			if (now < expirationTime) {
+				return interaction.reply({
+					embeds: [
+						new MessageEmbed()
+							.setTitle(`:x: Spam is never cool, dude.`)
+							.setColor('RED')
+							.setDescription(
+								`Please wait, you can reuse the \`${
+									command.data.name
+								}\` command <t:${
+									(expirationTime / 1000) | 0
+								}:R>.`,
+							),
+					],
+				});
+			}
+		}
+
+		timestamps.set(interaction.user.id, now);
+		setTimeout(
+			() => timestamps.delete(interaction.user.id),
+			cooldownAmount,
+		);
 
 		// Check if the user is registered or not, and register if possible.
 

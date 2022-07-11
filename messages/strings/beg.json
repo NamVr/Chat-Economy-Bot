@@ -1,0 +1,32 @@
+{
+	"positive": [
+		"Oh you poor beggar! Take {{amount}} and a 🍭 lol.",
+		"Fine! Take this and go away, uh! \n\n{{amount}} gets credited to your balance!",
+		"Take my money! You got {{amount}}."
+	],
+	"negative": [
+		"Imagine Begging LMAO!\n\nYou lost {{amount}} this time!",
+		"Honestly stop asking me, ARH!\n\n*Slaps*, you lost {{amount}}!",
+		"I'm calling the police now.\n\nGets pulled over, you are fined for {{amount}} :(",
+		"You know who I am? **Your nightmare**\n\nYou lost {{amount}} sadly."
+	],
+	"title_names": [
+		"Mr Beast",
+		"Rick Astley",
+		"Mark Rober",
+		"Jeff",
+		"Your ex",
+		"Bill Gates",
+		"Elon Musk",
+		"Drake",
+		"Billie",
+		"NamVr",
+		"Bongo Cat",
+		"Da Bois",
+		"Katy Perry",
+		"Nightmare",
+		"Simpson",
+		"Zuck",
+		"That guy you hate"
+	]
+}

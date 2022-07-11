@@ -2,7 +2,7 @@
  * @file Buy command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.0
+ * @version 2.0.5
  */
 
 // Initialize LeeksLazyLogger
@@ -35,6 +35,7 @@ module.exports = {
 				.setRequired(true)
 				.setAutocomplete(true),
 		),
+	cooldown: 5,
 
 	async execute(interaction) {
 		/**
