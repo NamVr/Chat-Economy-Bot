@@ -56,7 +56,7 @@ module.exports = {
 		} else {
 			// Negative :(
 
-			amount = -user.balance * (searchConfig.wallet_lost / 100);
+			amount = -(user.balance * (searchConfig.wallet_lost / 100)) | 0;
 		}
 
 		// Create Message & Get 3 random strings.
@@ -174,7 +174,7 @@ module.exports = {
 							.find((a) => a[0] == selected)[1]
 							.replace(
 								'{{amount}}',
-								`${amount} ${currency.emoji}`,
+								`**${amount} ${currency.emoji}**`,
 							),
 					)
 					.setFooter({ text: 'May consider yourself lucky!' });

@@ -1,0 +1,26 @@
+{
+	"positive": [
+		[
+			"Teacher",
+			"The students understood their lesson well, hm!\nHere's your {{amount}} for today!"
+		],
+		[
+			"Docter",
+			"He can finally breathe well!\n\n{{amount}} gets credited to your balance!"
+		],
+		[
+			"Firefighter",
+			"Yet another disaster you managed to save, take my money! You got {{amount}}."
+		]
+	],
+	"negative": [
+		[
+			"Driver",
+			"Him: Hey! Stop right there!\nYou: What happened, si-r-r?\nHim: You really thought I won't notice, didn't you?\nYou: Com'on it was just 65 in a 60-\n\nYou are fined with {{amount}} this time!"
+		],
+		[
+			"Police Officer",
+			"Are you trying to disguise? How did you even thought you can get around here??\n\nGets caught, you are fined for {{amount}} :("
+		]
+	]
+}

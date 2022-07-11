@@ -518,6 +518,26 @@ export interface ConfigurationFile {
 			 */
 			wallet_lost: number;
 		};
+
+		/**
+		 * Represents Work Command Settings.
+		 */
+		work: {
+			/**
+			 * Minimum currency awarded to winner.
+			 */
+			min: number;
+
+			/**
+			 * Maximum currency awarded to winner.
+			 */
+			max: number;
+
+			/**
+			 * Percentage of amount of wallet to loose after dying (0-100).
+			 */
+			wallet_lost: number;
+		};
 	};
 
 	/**

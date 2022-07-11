@@ -34,6 +34,11 @@
 			"min": 10,
 			"max": 100,
 			"wallet_lost": 25
+		},
+		"work": {
+			"min": 50,
+			"max": 100,
+			"wallet_lost": 10
 		}
 	},
 	"apis": {
