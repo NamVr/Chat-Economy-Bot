@@ -22,7 +22,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('work')
 		.setDescription('Work at your job to earn some money!'),
-	cooldown: 3,
+	cooldown: 60 * 60,
 
 	async execute(interaction) {
 		// Get the currency settings from the database.
