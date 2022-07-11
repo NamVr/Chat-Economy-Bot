@@ -51,7 +51,7 @@ module.exports = {
 			amount = -(user.balance * (workConfig.wallet_lost / 100)) | 0;
 		}
 
-		// Display the results.
+		// Generate the results.
 
 		const embed = new MessageEmbed();
 
@@ -90,6 +90,8 @@ module.exports = {
 					)}`,
 				);
 		}
+
+		// Display the results.
 
 		await interaction.reply({
 			embeds: [embed],
