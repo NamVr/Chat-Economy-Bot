@@ -3,228 +3,194 @@
 
 
 "@discordjs/builders@^0.14.0":
-  "integrity" "sha512-+fqLIqa9wN3R+kvlld8sgG0nt04BAZxdCDP4t2qZ9TJsquLWA+xMtT8Waibb3d4li4AQS+IOfjiHAznv/dhHgQ=="
-  "resolved" "https://registry.npmjs.org/@discordjs/builders/-/builders-0.14.0.tgz"
-  "version" "0.14.0"
+  version "0.14.0"
+  resolved "https://registry.npmjs.org/@discordjs/builders/-/builders-0.14.0.tgz"
   dependencies:
     "@sapphire/shapeshift" "^3.1.0"
     "@sindresorhus/is" "^4.6.0"
-    "discord-api-types" "^0.33.3"
-    "fast-deep-equal" "^3.1.3"
-    "ts-mixer" "^6.0.1"
-    "tslib" "^2.4.0"
+    discord-api-types "^0.33.3"
+    fast-deep-equal "^3.1.3"
+    ts-mixer "^6.0.1"
+    tslib "^2.4.0"
 
 "@discordjs/builders@^0.15.0":
-  "integrity" "sha512-w1UfCPzx2iKycn6qh/f0c+PcDpcTHzHr7TXALXu/a4gKHGamiSg3lP8GhYswweSJk/Q5cbFLHZUsnoY3MVKNAg=="
-  "resolved" "https://registry.npmjs.org/@discordjs/builders/-/builders-0.15.0.tgz"
-  "version" "0.15.0"
+  version "0.15.0"
+  resolved "https://registry.npmjs.org/@discordjs/builders/-/builders-0.15.0.tgz"
   dependencies:
     "@sapphire/shapeshift" "^3.1.0"
     "@sindresorhus/is" "^4.6.0"
-    "discord-api-types" "^0.33.3"
-    "fast-deep-equal" "^3.1.3"
-    "ts-mixer" "^6.0.1"
-    "tslib" "^2.4.0"
+    discord-api-types "^0.33.3"
+    fast-deep-equal "^3.1.3"
+    ts-mixer "^6.0.1"
+    tslib "^2.4.0"
 
 "@discordjs/collection@^0.7.0":
-  "integrity" "sha512-R5i8Wb8kIcBAFEPLLf7LVBQKBDYUL+ekb23sOgpkpyGT+V4P7V83wTxcsqmX+PbqHt4cEHn053uMWfRqh/Z/nA=="
-  "resolved" "https://registry.npmjs.org/@discordjs/collection/-/collection-0.7.0.tgz"
-  "version" "0.7.0"
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/@discordjs/collection/-/collection-0.7.0.tgz"
 
 "@discordjs/rest@^0.5.0":
-  "integrity" "sha512-S4E1YNz1UxgUfMPpMeqzPPkCfXE877zOsvKM5WEmwIhcpz1PQV7lzqlEOuz194UuwOJLLjQFBgQELnQfCX9UfA=="
-  "resolved" "https://registry.npmjs.org/@discordjs/rest/-/rest-0.5.0.tgz"
-  "version" "0.5.0"
+  version "0.5.0"
+  resolved "https://registry.npmjs.org/@discordjs/rest/-/rest-0.5.0.tgz"
   dependencies:
     "@discordjs/collection" "^0.7.0"
     "@sapphire/async-queue" "^1.3.1"
     "@sapphire/snowflake" "^3.2.2"
-    "discord-api-types" "^0.33.3"
-    "tslib" "^2.4.0"
-    "undici" "^5.4.0"
+    discord-api-types "^0.33.3"
+    tslib "^2.4.0"
+    undici "^5.4.0"
 
 "@eartharoid/deep-merge@^0.0.2":
-  "integrity" "sha512-t7kmNd6m7BOGxf25tE1YBhPZbgMEsXZT0tQyVV/Mlo+rcPEmiEEc6HV1DBnYm63MvMpgTk4o6yBkeAJYCMzvNg=="
-  "resolved" "https://registry.npmjs.org/@eartharoid/deep-merge/-/deep-merge-0.0.2.tgz"
-  "version" "0.0.2"
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/@eartharoid/deep-merge/-/deep-merge-0.0.2.tgz"
 
 "@eartharoid/dtf@^2.0.1":
-  "integrity" "sha512-H0oLRShkVqTskVRA8KMMIHjtwAu6Yc6GkxQm9cLPWMA7V0ZOxD5rg2PaZuQfDbt6UAk2sp7qb+k4ih5EHc/Jgg=="
-  "resolved" "https://registry.npmjs.org/@eartharoid/dtf/-/dtf-2.0.1.tgz"
-  "version" "2.0.1"
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@eartharoid/dtf/-/dtf-2.0.1.tgz"
 
 "@sapphire/async-queue@^1.3.1":
-  "integrity" "sha512-FFTlPOWZX1kDj9xCAsRzH5xEJfawg1lNoYAA+ecOWJMHOfiZYb1uXOI3ne9U4UILSEPwfE68p3T9wUHwIQfR0g=="
-  "resolved" "https://registry.npmjs.org/@sapphire/async-queue/-/async-queue-1.3.1.tgz"
-  "version" "1.3.1"
+  version "1.3.1"
+  resolved "https://registry.npmjs.org/@sapphire/async-queue/-/async-queue-1.3.1.tgz"
 
 "@sapphire/shapeshift@^3.1.0":
-  "integrity" "sha512-PkxFXd3QJ1qAPS05Dy2UkVGYPm/asF1Ugt2Xyzmv4DHzO3+G7l+873C4XFFcJ9M5Je+eCMC7SSifgPTSur5QuA=="
-  "resolved" "https://registry.npmjs.org/@sapphire/shapeshift/-/shapeshift-3.1.0.tgz"
-  "version" "3.1.0"
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/@sapphire/shapeshift/-/shapeshift-3.1.0.tgz"
 
 "@sapphire/snowflake@^3.2.2":
-  "integrity" "sha512-ula2O0kpSZtX9rKXNeQMrHwNd7E4jPDJYUXmEGTFdMRfyfMw+FPyh04oKMjAiDuOi64bYgVkOV3MjK+loImFhQ=="
-  "resolved" "https://registry.npmjs.org/@sapphire/snowflake/-/snowflake-3.2.2.tgz"
-  "version" "3.2.2"
+  version "3.2.2"
+  resolved "https://registry.npmjs.org/@sapphire/snowflake/-/snowflake-3.2.2.tgz"
 
 "@sindresorhus/is@^4.6.0":
-  "integrity" "sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw=="
-  "resolved" "https://registry.npmjs.org/@sindresorhus/is/-/is-4.6.0.tgz"
-  "version" "4.6.0"
+  version "4.6.0"
+  resolved "https://registry.npmjs.org/@sindresorhus/is/-/is-4.6.0.tgz"
 
 "@types/node-fetch@^2.6.1":
-  "integrity" "sha512-oMqjURCaxoSIsHSr1E47QHzbmzNR5rK8McHuNb11BOM9cHcIK3Avy0s/b2JlXHoQGTYS3NsvWzV1M0iK7l0wbA=="
-  "resolved" "https://registry.npmjs.org/@types/node-fetch/-/node-fetch-2.6.1.tgz"
-  "version" "2.6.1"
+  version "2.6.1"
+  resolved "https://registry.npmjs.org/@types/node-fetch/-/node-fetch-2.6.1.tgz"
   dependencies:
     "@types/node" "*"
-    "form-data" "^3.0.0"
+    form-data "^3.0.0"
 
 "@types/node@*":
-  "integrity" "sha512-vu1SrqBjbbZ3J6vwY17jBs8Sr/BKA+/a/WtjRG+whKg1iuLFOosq872EXS0eXWILdO36DHQQeku/ZcL6hz2fpg=="
-  "resolved" "https://registry.npmjs.org/@types/node/-/node-17.0.35.tgz"
-  "version" "17.0.35"
+  version "17.0.35"
+  resolved "https://registry.npmjs.org/@types/node/-/node-17.0.35.tgz"
 
 "@types/ws@^8.5.3":
-  "integrity" "sha512-6YOoWjruKj1uLf3INHH7D3qTXwFfEsg1kf3c0uDdSBJwfa/llkwIjrAGV7j7mVgGNbzTQ3HiHKKDXl6bJPD97w=="
-  "resolved" "https://registry.npmjs.org/@types/ws/-/ws-8.5.3.tgz"
-  "version" "8.5.3"
+  version "8.5.3"
+  resolved "https://registry.npmjs.org/@types/ws/-/ws-8.5.3.tgz"
   dependencies:
     "@types/node" "*"
 
-"asynckit@^0.4.0":
-  "integrity" "sha1-x57Zf380y48robyXkLzDZkdLS3k="
-  "resolved" "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
-  "version" "0.4.0"
+asynckit@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
 
-"combined-stream@^1.0.8":
-  "integrity" "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg=="
-  "resolved" "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz"
-  "version" "1.0.8"
+combined-stream@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz"
   dependencies:
-    "delayed-stream" "~1.0.0"
+    delayed-stream "~1.0.0"
 
-"delayed-stream@~1.0.0":
-  "integrity" "sha1-3zrhmayt+31ECqrgsp4icrJOxhk="
-  "resolved" "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz"
-  "version" "1.0.0"
+delayed-stream@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz"
 
-"discord-api-types@^0.33.3":
-  "integrity" "sha512-dvO5M52v7m7Dy96+XUnzXNsQ/0npsYpU6dL205kAtEDueswoz3aU3bh1UMoK4cQmcGtB1YRyLKqp+DXi05lzFg=="
-  "resolved" "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.33.5.tgz"
-  "version" "0.33.5"
+discord-api-types@^0.33.3:
+  version "0.33.5"
+  resolved "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.33.5.tgz"
 
-"discord-api-types@^0.36.1":
-  "integrity" "sha512-PTDinUU574hXA9Ko9wrftL1iww1raNiRVKjuPIWQ5Li1g7vQPArpZWw9x01kh/IXLPdzSAJ6H8T0eAYzxzFzIg=="
-  "resolved" "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.36.1.tgz"
-  "version" "0.36.1"
+discord-api-types@^0.36.1:
+  version "0.36.1"
+  resolved "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.36.1.tgz"
 
-"discord.js@^13.8.1":
-  "integrity" "sha512-jOsD+4tEZWWx0RHVyH+FBcqoTrsL+d5Mm5p+ULQOdU0qSaxhLNkWYig+yDHNZoND7nlkXX3qi+BW+gO5erWylg=="
-  "resolved" "https://registry.npmjs.org/discord.js/-/discord.js-13.8.1.tgz"
-  "version" "13.8.1"
+discord.js@^13.8.1:
+  version "13.8.1"
+  resolved "https://registry.npmjs.org/discord.js/-/discord.js-13.8.1.tgz"
   dependencies:
     "@discordjs/builders" "^0.14.0"
     "@discordjs/collection" "^0.7.0"
     "@sapphire/async-queue" "^1.3.1"
     "@types/node-fetch" "^2.6.1"
     "@types/ws" "^8.5.3"
-    "discord-api-types" "^0.33.3"
-    "form-data" "^4.0.0"
-    "node-fetch" "^2.6.1"
-    "ws" "^8.7.0"
+    discord-api-types "^0.33.3"
+    form-data "^4.0.0"
+    node-fetch "^2.6.1"
+    ws "^8.7.0"
 
-"fast-deep-equal@^3.1.3":
-  "integrity" "sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q=="
-  "resolved" "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
-  "version" "3.1.3"
+fast-deep-equal@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
 
-"form-data@^3.0.0":
-  "integrity" "sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg=="
-  "resolved" "https://registry.npmjs.org/form-data/-/form-data-3.0.1.tgz"
-  "version" "3.0.1"
+form-data@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/form-data/-/form-data-3.0.1.tgz"
   dependencies:
-    "asynckit" "^0.4.0"
-    "combined-stream" "^1.0.8"
-    "mime-types" "^2.1.12"
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
 
-"form-data@^4.0.0":
-  "integrity" "sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww=="
-  "resolved" "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz"
-  "version" "4.0.0"
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz"
   dependencies:
-    "asynckit" "^0.4.0"
-    "combined-stream" "^1.0.8"
-    "mime-types" "^2.1.12"
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
 
-"leeks.js@^0.2.4":
-  "integrity" "sha512-yFR6BtcTA/5s2FJAVkPn2VEzqO76DqBIdkC+1vNyersz1Hw0DxhunRu7bI7/XKxwrNy8x0K4e1p4YQKIGRCBww=="
-  "resolved" "https://registry.npmjs.org/leeks.js/-/leeks.js-0.2.4.tgz"
-  "version" "0.2.4"
+leeks.js@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.npmjs.org/leeks.js/-/leeks.js-0.2.4.tgz"
 
-"leekslazylogger@^4.1.7":
-  "integrity" "sha512-eBWzkF6VWR+2WK0mdZbiJyilyfwy5LQG+7vepa+t/zozyt7PH+xKtvx2ELHyh2RMXYE/rtOdEhN579rbsS1xFg=="
-  "resolved" "https://registry.npmjs.org/leekslazylogger/-/leekslazylogger-4.1.7.tgz"
-  "version" "4.1.7"
+leekslazylogger@^4.1.7:
+  version "4.1.7"
+  resolved "https://registry.npmjs.org/leekslazylogger/-/leekslazylogger-4.1.7.tgz"
   dependencies:
     "@eartharoid/deep-merge" "^0.0.2"
     "@eartharoid/dtf" "^2.0.1"
-    "leeks.js" "^0.2.4"
+    leeks.js "^0.2.4"
 
-"mime-db@1.48.0":
-  "integrity" "sha512-FM3QwxV+TnZYQ2aRqhlKBMHxk10lTbMt3bBkMAp54ddrNeVSfcQYOOKuGuy3Ddrm38I04If834fOUSq1yzslJQ=="
-  "resolved" "https://registry.npmjs.org/mime-db/-/mime-db-1.48.0.tgz"
-  "version" "1.48.0"
+mime-db@1.48.0:
+  version "1.48.0"
+  resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.48.0.tgz"
 
-"mime-types@^2.1.12":
-  "integrity" "sha512-XGZnNzm3QvgKxa8dpzyhFTHmpP3l5YNusmne07VUOXxou9CqUqYa/HBy124RqtVh/O2pECas/MOcsDgpilPOPg=="
-  "resolved" "https://registry.npmjs.org/mime-types/-/mime-types-2.1.31.tgz"
-  "version" "2.1.31"
+mime-types@^2.1.12:
+  version "2.1.31"
+  resolved "https://registry.npmjs.org/mime-types/-/mime-types-2.1.31.tgz"
   dependencies:
-    "mime-db" "1.48.0"
+    mime-db "1.48.0"
 
-"node-fetch@^2.6.1":
-  "integrity" "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ=="
-  "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz"
-  "version" "2.6.7"
+node-fetch@^2.6.1:
+  version "2.6.7"
+  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz"
   dependencies:
-    "whatwg-url" "^5.0.0"
+    whatwg-url "^5.0.0"
 
-"tr46@~0.0.3":
-  "integrity" "sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o="
-  "resolved" "https://registry.npmjs.org/tr46/-/tr46-0.0.3.tgz"
-  "version" "0.0.3"
+tr46@~0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npmjs.org/tr46/-/tr46-0.0.3.tgz"
 
-"ts-mixer@^6.0.1":
-  "integrity" "sha512-hvE+ZYXuINrx6Ei6D6hz+PTim0Uf++dYbK9FFifLNwQj+RwKquhQpn868yZsCtJYiclZF1u8l6WZxxKi+vv7Rg=="
-  "resolved" "https://registry.npmjs.org/ts-mixer/-/ts-mixer-6.0.1.tgz"
-  "version" "6.0.1"
+ts-mixer@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/ts-mixer/-/ts-mixer-6.0.1.tgz"
 
-"tslib@^2.4.0":
-  "integrity" "sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ=="
-  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
-  "version" "2.4.0"
+tslib@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
 
-"undici@^5.4.0":
-  "integrity" "sha512-MEvryPLf18HvlCbLSzCW0U00IMftKGI5udnjrQbC5D4P0Hodwffhv+iGfWuJwg16Y/TK11ZFK8i+BPVW2z/eAw=="
-  "resolved" "https://registry.npmjs.org/undici/-/undici-5.5.1.tgz"
-  "version" "5.5.1"
+undici@^5.4.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.8.0.tgz#dec9a8ccd90e5a1d81d43c0eab6503146d649a4f"
 
-"webidl-conversions@^3.0.0":
-  "integrity" "sha1-JFNCdeKnvGvnvIZhHMFq4KVlSHE="
-  "resolved" "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz"
-  "version" "3.0.1"
+webidl-conversions@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz"
 
-"whatwg-url@^5.0.0":
-  "integrity" "sha1-lmRU6HZUYuN2RNNib2dCzotwll0="
-  "resolved" "https://registry.npmjs.org/whatwg-url/-/whatwg-url-5.0.0.tgz"
-  "version" "5.0.0"
+whatwg-url@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/whatwg-url/-/whatwg-url-5.0.0.tgz"
   dependencies:
-    "tr46" "~0.0.3"
-    "webidl-conversions" "^3.0.0"
+    tr46 "~0.0.3"
+    webidl-conversions "^3.0.0"
 
-"ws@^8.7.0":
-  "integrity" "sha512-c2gsP0PRwcLFzUiA8Mkr37/MI7ilIlHQxaEAtd0uNMbVMoy8puJyafRlm0bV9MbGSabUPeLrRRaqIBcFcA2Pqg=="
-  "resolved" "https://registry.npmjs.org/ws/-/ws-8.7.0.tgz"
-  "version" "8.7.0"
+ws@^8.7.0:
+  version "8.7.0"
+  resolved "https://registry.npmjs.org/ws/-/ws-8.7.0.tgz"
