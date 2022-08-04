@@ -35,7 +35,7 @@ module.exports = {
 		/**
 		 * @description The Actual Text & Answer.
 		 */
-		const answer = response.map((r) => r.word).join(' ');
+		const answer = response.map((r) => r.word.toLowerCase()).join(' ');
 
 		/**
 		 * @description The Sussyfied Text (Question).
