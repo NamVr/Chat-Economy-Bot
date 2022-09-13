@@ -29,7 +29,7 @@ module.exports = {
 				'There’s one button below the message, the first person to react wins!',
 			)
 			.setFooter({
-				text: 'Be the first one to say the answer to earn some coins for the shop!',
+				text: 'Be the first one to click the button to earn some coins for the shop!',
 			});
 
 		const msg = await message.channel.send({
