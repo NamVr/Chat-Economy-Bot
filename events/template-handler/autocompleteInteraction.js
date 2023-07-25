@@ -9,7 +9,7 @@ const Discord = require('discord.js');
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
