@@ -1,18 +1,20 @@
 /**
  * @file Button Interaction Handler
  * @author Naman Vrati
- * @since 3.0.0
- * @version 3.2.2
+ * @since 1.0.0
+ * @version 3.0.0
  */
+
+const Discord = require('discord.js');
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 module.exports = {
-	name: 'interactionCreate',
+	name: Discord.Events.InteractionCreate,
 
 	/**
 	 * @description Executes when an interaction is created and handle it.

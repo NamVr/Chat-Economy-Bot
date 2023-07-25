@@ -2,17 +2,19 @@
  * @file Ready Event File.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 3.2.2
+ * @version 3.0.0
  */
+
+const Discord = require('discord.js');
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 module.exports = {
-	name: 'ready',
+	name: Discord.Events.ClientReady,
 	once: true,
 
 	/**

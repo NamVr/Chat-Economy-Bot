@@ -2,16 +2,14 @@
  * @file Message Based Commands Handler
  * @author Naman Vrati
  * @since 1.0.0
- * @version 3.2.2
+ * @version 3.0.0
  */
-
-// Declares constants (destructured) to be used in this file.
 
 const Discord = require('discord.js');
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
@@ -24,7 +22,7 @@ const escapeRegex = (string) => {
 };
 
 module.exports = {
-	name: 'messageCreate',
+	name: Discord.Events.MessageCreate,
 
 	/**
 	 * @description Executes when a message is created and handle it.
@@ -119,25 +117,28 @@ module.exports = {
 		) {
 			return message.reply({
 				embeds: [
-					new Discord.MessageEmbed()
+					new Discord.EmbedBuilder()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(
 							`You can't run this command! Please refrain from trying.`,
 						)
-						.setColor('RED'),
+						.setColor('Red'),
 				],
 			});
 		}
 
 		// Guild Only Property, add in your command properties if true.
 
-		if (command.guildOnly && message.channel.type === 'DM') {
+		if (
+			command.guildOnly &&
+			message.channel.type === Discord.ChannelType.DM
+		) {
 			return message.reply({
 				embeds: [
-					new Discord.MessageEmbed()
+					new Discord.EmbedBuilder()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(`You can't run this command in DMs!`)
-						.setColor('RED'),
+						.setColor('Red'),
 				],
 			});
 		}
@@ -146,29 +147,32 @@ module.exports = {
 		if (message.channel.id !== config.settings.bot_channel) {
 			return message.channel.send({
 				embeds: [
-					new Discord.MessageEmbed()
+					new Discord.EmbedBuilder()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(
 							`You can't execute economy commands here! We have a special channel => <#${config.settings.bot_channel}>!`,
 						)
-						.setColor('RED'),
+						.setColor('Red'),
 				],
 			});
 		}
 
 		// Author perms property
 
-		if (command.permissions && message.channel.type !== 'DM') {
+		if (
+			command.permissions &&
+			message.channel.type !== Discord.ChannelType.DM
+		) {
 			const authorPerms = message.channel.permissionsFor(message.author);
 			if (!authorPerms || !authorPerms.has(command.permissions)) {
 				return message.reply({
 					embeds: [
-						new Discord.MessageEmbed()
+						new Discord.EmbedBuilder()
 							.setTitle(`:x: Access Denied!`)
 							.setDescription(
 								`You don't have enough permissions to run this command! Try contacting an admin?`,
 							)
-							.setColor('RED'),
+							.setColor('Red'),
 					],
 				});
 			}
@@ -185,10 +189,10 @@ module.exports = {
 
 			return message.channel.send({
 				embeds: [
-					new Discord.MessageEmbed()
+					new Discord.EmbedBuilder()
 						.setTitle(`:x: Arguments Error!`)
 						.setDescription(reply)
-						.setColor('RED'),
+						.setColor('Red'),
 				],
 			});
 		}
@@ -212,9 +216,9 @@ module.exports = {
 			if (now < expirationTime) {
 				return message.reply({
 					embeds: [
-						new Discord.MessageEmbed()
+						new Discord.EmbedBuilder()
 							.setTitle(`:x: Spam is never cool, dude.`)
-							.setColor('RED')
+							.setColor('Red')
 							.setDescription(
 								`Please wait, you can reuse the \`${
 									command.name
