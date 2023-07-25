@@ -2,7 +2,7 @@
  * @file Trivia Night Event
  * @author Naman Vrati
  * @since 2.0.4
- * @version 2.0.4
+ * @version 3.0.0
  */
 
 const Discord = require('discord.js');
@@ -48,32 +48,43 @@ module.exports = {
 
 		// Send your question to the chat.
 
-		const embed = new Discord.MessageEmbed()
-			.setColor(`RANDOM`)
+		const embed = new Discord.EmbedBuilder()
+			.setColor(`Random`)
 			.setTitle(this.name + '!')
 			.setDescription(`**${data.question}**`)
-			.addField(
-				'Difficultly',
-				data.difficulty[0].toUpperCase() + data.difficulty.slice(1),
-				true,
+			.addFields(
+				{
+					name: 'Difficultly',
+					value:
+						data.difficulty[0].toUpperCase() +
+						data.difficulty.slice(1),
+					inline: true,
+				},
+				{
+					name: 'Category',
+					value: data.category,
+					inline: true,
+				},
 			)
-			.addField('Category', data.category, true)
 			.setFooter({
 				text: 'You have 10 seconds to answer!',
 			});
 
 		// Create button options.
 
-		const optionsRow = new Discord.MessageActionRow();
+		/**
+		 * @type {Discord.ActionRowBuilder<Discord.ButtonBuilder>}
+		 */
+		const optionsRow = new Discord.ActionRowBuilder();
 		const options = [];
 
 		// Add incorect options.
 
 		for (const [index, value] of data.incorrect_answers.entries()) {
 			options.push(
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setCustomId(`trivia_incorrect_${index}`)
-					.setStyle('PRIMARY')
+					.setStyle(Discord.ButtonStyle.Primary)
 					.setLabel(value),
 			);
 		}
@@ -81,15 +92,15 @@ module.exports = {
 		// Add the correct option.
 
 		options.push(
-			new Discord.MessageButton()
+			new Discord.ButtonBuilder()
 				.setCustomId(`trivia_correct_answer`)
-				.setStyle('PRIMARY')
+				.setStyle(Discord.ButtonStyle.Primary)
 				.setLabel(data.correct_answer),
 		);
 
 		/**
 		 * Shuffled Options Array
-		 * @type {Discord.MessageButton[]}
+		 * @type {Discord.ButtonBuilder[]}
 		 */
 
 		const shuffledOptions = arrayShuffler(options);
@@ -108,7 +119,7 @@ module.exports = {
 		// Create a collector.
 
 		const collector = msg.createMessageComponentCollector({
-			componentType: 'BUTTON',
+			componentType: Discord.ComponentType.Button,
 			time: 10000,
 		});
 
@@ -150,20 +161,21 @@ module.exports = {
 		optionsRow.setComponents();
 
 		for (const [index, value] of shuffledOptions.entries()) {
-			if (value.customId.startsWith('trivia_incorrect')) {
+			// @ts-ignore
+			if (value.data.customId.startsWith('trivia_incorrect')) {
 				optionsRow.addComponents(
-					new Discord.MessageButton()
+					new Discord.ButtonBuilder()
 						.setCustomId(`trivia_incorrect_${index}`)
-						.setStyle('DANGER')
-						.setLabel(value.label)
+						.setStyle(Discord.ButtonStyle.Danger)
+						.setLabel(value.data.label)
 						.setDisabled(true),
 				);
 			} else {
 				optionsRow.addComponents(
-					new Discord.MessageButton()
+					new Discord.ButtonBuilder()
 						.setCustomId(`trivia_correct_answer`)
-						.setStyle('SUCCESS')
-						.setLabel(value.label)
+						.setStyle(Discord.ButtonStyle.Success)
+						.setLabel(value.data.label)
 						.setDisabled(true),
 				);
 			}
@@ -178,7 +190,7 @@ module.exports = {
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **Nobody answered correctly in time!** The answer was \`${data.correct_answer}\`!`,
+							`${embed.data.description}\n\n> **Nobody answered correctly in time!** The answer was \`${data.correct_answer}\`!`,
 						),
 					],
 					components: [optionsRow],
@@ -192,7 +204,7 @@ module.exports = {
 			msg.edit({
 				embeds: [
 					embed.setDescription(
-						`${embed.description}\n\n> **${
+						`${embed.data.description}\n\n> **${
 							m.last().user
 						} was the first to answer!** The answer was \`${
 							data.correct_answer

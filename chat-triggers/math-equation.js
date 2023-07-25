@@ -2,7 +2,7 @@
  * @file Math Equation Event
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 const Discord = require('discord.js');
@@ -34,8 +34,8 @@ module.exports = {
 
 		// Send your question to the chat.
 
-		const embed = new Discord.MessageEmbed()
-			.setColor(`RANDOM`)
+		const embed = new Discord.EmbedBuilder()
+			.setColor(`Random`)
 			.setTitle(this.name + '!')
 			.setDescription(
 				`What is ${num1} ${choice == 1 ? '+' : '-'} ${num2}?`,
@@ -71,7 +71,7 @@ module.exports = {
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`,
+							`${embed.data.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`,
 						),
 					],
 				});
@@ -84,7 +84,7 @@ module.exports = {
 			msg.edit({
 				embeds: [
 					embed.setDescription(
-						`${embed.description}\n\n> **${
+						`${embed.data.description}\n\n> **${
 							m.last().author
 						} was the first to answer!** The answer was \`${answer}\`!`,
 					),

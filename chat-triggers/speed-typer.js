@@ -2,7 +2,7 @@
  * @file Speed Typer Event
  * @author Naman Vrati
  * @since 2.0.0
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 // Read necessary modules
@@ -44,8 +44,8 @@ module.exports = {
 
 		// Send your question to the chat.
 
-		const embed = new Discord.MessageEmbed()
-			.setColor(`RANDOM`)
+		const embed = new Discord.EmbedBuilder()
+			.setColor(`Random`)
 			.setTitle(this.name + '!')
 			.setDescription(
 				`There's one sussy message below, the first person to type it wins!\n\n> \`${text}\``,
@@ -81,7 +81,7 @@ module.exports = {
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **Nobody typed in time!** Was it that difficult?`,
+							`${embed.data.description}\n\n> **Nobody typed in time!** Was it that difficult?`,
 						),
 					],
 				});
@@ -94,7 +94,7 @@ module.exports = {
 			msg.edit({
 				embeds: [
 					embed.setDescription(
-						`${embed.description}\n\n> **${
+						`${embed.data.description}\n\n> **${
 							m.last().author
 						} was the first to type!** GG!`,
 					),
