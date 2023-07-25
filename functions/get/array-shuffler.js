@@ -2,7 +2,7 @@
  * @file Array Shuffler
  * @author Naman Vrati
  * @since 2.0.4
- * @version 2.0.4
+ * @version 3.0.0
  */
 
 /**

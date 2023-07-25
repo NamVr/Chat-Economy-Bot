@@ -2,7 +2,7 @@
  * @file Random Number Generator
  * @author Naman Vrati
  * @since 2.0.0
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 /**
