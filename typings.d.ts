@@ -1,5 +1,11 @@
+/**
+ * @file Typings File.
+ * @author Naman Vrati
+ * @since 2.0.0
+ * @version 3.0.0
+ */
+
 import * as Discord from 'discord.js';
-import * as Builders from '@discordjs/builders';
 
 /**
  * Represents a chat-based Message Command.
@@ -68,15 +74,15 @@ export interface SlashInteractionCommand {
 	/**
 	 * The data of Application Command Interaction (Slash Command).
 	 */
-	data: Builders.SlashCommandBuilder;
+	data: Discord.SlashCommandBuilder;
 	options: Array<
-		| Builders.SlashCommandStringOption
-		| Builders.SlashCommandNumberOption
-		| Builders.SlashCommandRoleOption
-		| Builders.SlashCommandUserOption
-		| Builders.SlashCommandBooleanOption
-		| Builders.SlashCommandChannelOption
-		| Builders.SlashCommandIntegerOption
+		| Discord.SlashCommandStringOption
+		| Discord.SlashCommandNumberOption
+		| Discord.SlashCommandRoleOption
+		| Discord.SlashCommandUserOption
+		| Discord.SlashCommandBooleanOption
+		| Discord.SlashCommandChannelOption
+		| Discord.SlashCommandIntegerOption
 	>;
 
 	/**
@@ -94,7 +100,7 @@ export interface SlashInteractionCommand {
 	 * @param interaction The interaction that triggered this command.
 	 */
 	execute(
-		interaction: Discord.CommandInteraction & { client: Client },
+		interaction: Discord.ChatInputCommandInteraction & { client: Client },
 	): void | Promise<void>;
 }
 

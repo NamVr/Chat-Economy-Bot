@@ -1,7 +1,7 @@
 /**
  * @file Default Error Message On Error Modal Interaction
  * @author Naman Vrati
- * @since 3.2.0
+ * @since 2.0.0
  */
 
 module.exports = {

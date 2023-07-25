@@ -1,7 +1,7 @@
 /**
  * @file Default Error Message On Error Select Menu Interaction
  * @author Naman Vrati
- * @since 3.0.0
+ * @since 2.0.0
  */
 
 module.exports = {
