@@ -2,12 +2,12 @@
  * @file Beg command.
  * @author Naman Vrati
  * @since 2.0.5
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const random = require('../../../functions/get/random-number');
@@ -58,8 +58,8 @@ module.exports = {
 
 		// Display the results.
 
-		const embed = new MessageEmbed()
-			.setColor('RANDOM')
+		const embed = new EmbedBuilder()
+			.setColor('Random')
 			.setTitle(
 				begStrings.title_names[
 					random(0, begStrings.title_names.length - 1)

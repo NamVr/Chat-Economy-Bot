@@ -2,17 +2,12 @@
  * @file Search command.
  * @author Naman Vrati
  * @since 2.0.5
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Deconstructed the constants we need in this file.
 
-const {
-	MessageEmbed,
-	MessageButton,
-	MessageActionRow,
-	Message,
-} = require('discord.js');
+const Discord = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const random = require('../../../functions/get/random-number');
@@ -68,35 +63,42 @@ module.exports = {
 		let shuffledArray = arrayShuffler(searchStrings).slice(0, 3);
 
 		/**
-		 * @type {MessageButton[]}
+		 * @type {Discord.ButtonBuilder[]}
 		 */
 		let buttons = [];
 
 		/**
-		 * @type {MessageButton[]}
+		 * @type {Discord.ButtonBuilder[]}
 		 */
 		let disabledButtons = [];
 
 		for (const [index, value] of shuffledArray.entries()) {
-			const button = new MessageButton()
+			const button = new Discord.ButtonBuilder()
 				.setCustomId(`economy_search_${shuffledArray[index][0]}`)
-				.setStyle('PRIMARY')
+				.setStyle(Discord.ButtonStyle.Primary)
 				.setLabel(shuffledArray[index][0]);
 
 			buttons.push(button);
 
-			disabledButtons.push(new MessageButton(button).setDisabled(true));
+			disabledButtons.push(
+				new Discord.ButtonBuilder(button.data).setDisabled(true),
+			);
 		}
 
 		// Ask for a choice.
 
+		/**
+		 * @type {Discord.ActionRowBuilder<Discord.ButtonBuilder>}
+		 */
+		const actionRow = new Discord.ActionRowBuilder();
+
 		await interaction.reply({
 			content: `**Where do you want to search?**\n*Pick an option below to start searching that location!*`,
-			components: [new MessageActionRow().addComponents(buttons)],
+			components: [actionRow.addComponents(buttons)],
 		});
 
 		/**
-		 * @type {Message}
+		 * @type {Discord.Message}
 		 */
 		// @ts-ignore
 		const msg = await interaction.fetchReply();
@@ -104,7 +106,7 @@ module.exports = {
 		// Create a button collector.
 
 		const collector = msg.createMessageComponentCollector({
-			componentType: 'BUTTON',
+			componentType: Discord.ComponentType.Button,
 			time: 10000,
 		});
 
@@ -123,13 +125,16 @@ module.exports = {
 			// If no choice was selected, return.
 
 			if (!collected.last()) {
+				/**
+				 * @type {Discord.ActionRowBuilder<Discord.ButtonBuilder>}
+				 */
+				const actionRow = new Discord.ActionRowBuilder();
+
 				await msg.edit({
-					components: [
-						new MessageActionRow().addComponents(disabledButtons),
-					],
+					components: [actionRow.addComponents(disabledButtons)],
 					embeds: [
-						new MessageEmbed()
-							.setColor('RED')
+						new Discord.EmbedBuilder()
+							.setColor('Red')
 							.setDescription(
 								"You didn't selected any option, search mission was aborted!",
 							),
@@ -143,24 +148,30 @@ module.exports = {
 
 			// Find the button which is selected & highlight it.
 
-			const choosen = disabledButtons.find((b) => b.customId == selected);
+			const choosen = disabledButtons.find(
+				// @ts-ignore
+				(b) => b.data.customId == selected,
+			);
 
 			disabledButtons[disabledButtons.indexOf(choosen)] =
-				choosen.setStyle('SUCCESS');
+				choosen.setStyle(Discord.ButtonStyle.Success);
+
+			/**
+			 * @type {Discord.ActionRowBuilder<Discord.ButtonBuilder>}
+			 */
+			const actionRow = new Discord.ActionRowBuilder();
 
 			await msg.edit({
-				components: [
-					new MessageActionRow().addComponents(disabledButtons),
-				],
+				components: [actionRow.addComponents(disabledButtons)],
 			});
 
 			// Extract the button label directly
 
-			selected = choosen.label;
+			selected = choosen.data.label;
 
 			// Display the results.
 
-			const embed = new MessageEmbed().setTitle(
+			const embed = new Discord.EmbedBuilder().setTitle(
 				`${interaction.user.username} searched the ${selected}`,
 			);
 
@@ -168,7 +179,7 @@ module.exports = {
 				// Postive Results.
 
 				embed
-					.setColor('GREEN')
+					.setColor('Green')
 					.setDescription(
 						shuffledArray
 							.find((a) => a[0] == selected)[1]
@@ -182,7 +193,7 @@ module.exports = {
 				// Negative Results.
 
 				embed
-					.setColor('RED')
+					.setColor('Red')
 					.setDescription(
 						`*The luck is not with you everytime!*\n\nYou have lost **${
 							searchConfig.wallet_lost

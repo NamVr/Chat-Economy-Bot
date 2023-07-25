@@ -2,18 +2,18 @@
  * @file Buy command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
@@ -107,18 +107,18 @@ module.exports = {
 
 		// Make a stylish embed result!
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle(`Successful Purchase!`)
 			.setDescription(
 				`You have successfully purchased ${ShopItem.name} for **${ShopItem.price} ${emoji} ${name}**!`,
 			)
-			.addField(
-				'Transcation Details:',
-				`Old Balance: ${
+			.addFields({
+				name: 'Transcation Details:',
+				value: `Old Balance: ${
 					ShopItem.price + dbUser.balance
 				} ${emoji}\nNew Balance: ${dbUser.balance} ${emoji}`,
-			)
-			.setColor('GREEN')
+			})
+			.setColor('Green')
 			.setTimestamp();
 
 		await interaction.reply({

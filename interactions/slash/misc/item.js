@@ -2,19 +2,19 @@
  * @file Item manager for economy bot.
  * @author Naman Vrati
  * @since 2.0.0
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 const manager = require('../../../functions/database');
 
@@ -198,18 +198,18 @@ module.exports = {
 					await interaction.reply({
 						ephemeral: false,
 						embeds: [
-							new MessageEmbed()
+							new EmbedBuilder()
 								.setTitle(`${ShopItem.name}`)
 								.setDescription(`${ShopItem.description}`)
-								.setColor('RANDOM')
-								.addField(
-									'Price:',
-									`${ShopItem.price} ${
+								.setColor('Random')
+								.addFields({
+									name: 'Price:',
+									value: `${ShopItem.price} ${
 										manager.getConfigFile().settings
 											.currency.emoji
 									}`,
-									true,
-								),
+									inline: true,
+								}),
 						],
 					});
 

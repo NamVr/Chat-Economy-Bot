@@ -1,7 +1,7 @@
 /**
  * @file Sample modal interaction
  * @author Naman Vrati
- * @since 3.2.0
+ * @since 1.0.0
  */
 
 module.exports = {

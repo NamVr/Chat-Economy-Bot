@@ -2,18 +2,18 @@
  * @file Transfer balance command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
@@ -103,16 +103,16 @@ module.exports = {
 
 			// Make a stylish embed result!
 
-			const embed = new MessageEmbed()
+			const embed = new EmbedBuilder()
 				.setTitle(`Transfer Successful!`)
-				.setColor('GREEN')
+				.setColor('Green')
 				.setDescription(
 					`You have successfully transfered **${amount} ${emoji} ${name}** to ${user}.`,
 				)
-				.addField(
-					'Transcation Details:',
-					`Your balance = ${dbUserSender.balance} ${emoji}\n${user.tag}'s balance = ${dbUserReceiver.balance} ${emoji}`,
-				)
+				.addFields({
+					name: 'Transcation Details:',
+					value: `Your balance = ${dbUserSender.balance} ${emoji}\n${user.tag}'s balance = ${dbUserReceiver.balance} ${emoji}`,
+				})
 				.setTimestamp();
 
 			await interaction.reply({

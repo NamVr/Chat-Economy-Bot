@@ -2,18 +2,18 @@
  * @file Server shop command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
@@ -38,9 +38,9 @@ module.exports = {
 
 		// Make a stylish embed result!
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle(`${interaction.guild.name}'s Shop!`)
-			.setColor('RANDOM')
+			.setColor('Random')
 			.setDescription(
 				`${shopDB
 					.map(

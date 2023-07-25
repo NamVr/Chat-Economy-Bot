@@ -2,18 +2,18 @@
  * @file Inventory check command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
@@ -61,18 +61,21 @@ module.exports = {
 
 		// Make a stylish embed result!
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle(`${user.username}'s inventory`)
 			.setDescription(
 				`Bank Balance: **${
 					dbUser.balance ? dbUser.balance : 0
 				} ${emoji} ${name}**`,
 			)
-			.setColor('RANDOM')
+			.setColor('Random')
 			.setTimestamp();
 
 		for (const key of Object.keys(dbUser.items)) {
-			embed.addField(`${key}`, `Amount: ${dbUser.items[key]}`);
+			embed.addFields({
+				name: `${key}`,
+				value: `Amount: ${dbUser.items[key]}`,
+			});
 		}
 
 		await interaction.reply({

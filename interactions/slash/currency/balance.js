@@ -2,18 +2,18 @@
  * @file Balance check command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
@@ -61,10 +61,10 @@ module.exports = {
 
 		// Make a stylish embed result!
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle(`${user.username}'s balance`)
 			.setDescription(`**__Bank:__ ${dbUser.balance} ${emoji}**`)
-			.setColor('RANDOM')
+			.setColor('Random')
 			.setTimestamp();
 
 		await interaction.reply({
