@@ -36,7 +36,7 @@ const log = new Logger({ keepSilent: true });
 // @ts-ignore
 const client = new Client({
 	// Please add all intents you need, more detailed information @ https://ziad87.net/intents/
-	intents: 45570,
+	intents: 45571,
 });
 
 /**********************************************************************/
