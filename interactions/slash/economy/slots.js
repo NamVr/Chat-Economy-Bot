@@ -3,12 +3,12 @@
  * @author StormPacer
  * @author Naman Vrati
  * @since 2.0.0
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const delay = require('../../../functions/delay');
@@ -125,7 +125,7 @@ module.exports = {
 
 		// Check if the user won or lost & create embed.
 
-		let embed = new MessageEmbed().setTitle('You won!').setColor('GREEN');
+		let embed = new EmbedBuilder().setTitle('You won!').setColor('Green');
 
 		if (num1 == num2 && num2 == num3) {
 			// User Won Mega-Prize!
@@ -184,7 +184,7 @@ module.exports = {
 			// User Lost :(
 
 			embed.setTitle('You lost!');
-			embed.setColor('RED');
+			embed.setColor('Red');
 			embed.setDescription(
 				`**You lost \`${amount}\` ${currency.name} ${currency.emoji}!**\nYour slots rolled: \`${currentState}\``,
 			);

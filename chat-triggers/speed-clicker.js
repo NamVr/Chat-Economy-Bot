@@ -2,7 +2,7 @@
  * @file Speed Clicker Event
  * @author Naman Vrati
  * @since 2.0.0
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 const Discord = require('discord.js');
@@ -22,8 +22,8 @@ module.exports = {
 	async execute(message) {
 		// Send your question to the chat.
 
-		const embed = new Discord.MessageEmbed()
-			.setColor(`RANDOM`)
+		const embed = new Discord.EmbedBuilder()
+			.setColor(`Random`)
 			.setTitle(this.name + '!')
 			.setDescription(
 				'There’s one button below the message, the first person to react wins!',
@@ -32,14 +32,19 @@ module.exports = {
 				text: 'Be the first one to click the button to earn some coins for the shop!',
 			});
 
+		/**
+		 * @type {Discord.ActionRowBuilder<Discord.ButtonBuilder>}
+		 */
+		const actionRow = new Discord.ActionRowBuilder();
+
 		const msg = await message.channel.send({
 			embeds: [embed],
 			components: [
-				new Discord.MessageActionRow().addComponents(
-					new Discord.MessageButton()
+				actionRow.addComponents(
+					new Discord.ButtonBuilder()
 						.setCustomId('event-clicker')
 						.setLabel('Speed Click!')
-						.setStyle('PRIMARY'),
+						.setStyle(Discord.ButtonStyle.Primary),
 				),
 			],
 		});
@@ -58,7 +63,7 @@ module.exports = {
 
 		msg.awaitMessageComponent({
 			filter,
-			componentType: 'BUTTON',
+			componentType: Discord.ComponentType.Button,
 			time: 30000,
 		})
 			.catch((err) => {})
@@ -66,18 +71,23 @@ module.exports = {
 				// If no one clicked the button :(
 
 				if (!m) {
+					/**
+					 * @type {Discord.ActionRowBuilder<Discord.ButtonBuilder>}
+					 */
+					const actionRow = new Discord.ActionRowBuilder();
+
 					msg.edit({
 						embeds: [
 							embed.setDescription(
-								`${embed.description}\n\n> **Nobody clicked in time!** It was really simple tho.`,
+								`${embed.data.description}\n\n> **Nobody clicked in time!** It was really simple tho.`,
 							),
 						],
 						components: [
-							new Discord.MessageActionRow().addComponents(
-								new Discord.MessageButton()
+							actionRow.addComponents(
+								new Discord.ButtonBuilder()
 									.setCustomId('event-clicker')
 									.setLabel('Speed Click!')
-									.setStyle('DANGER')
+									.setStyle(Discord.ButtonStyle.Danger)
 									.setDisabled(true),
 							),
 						],
@@ -88,18 +98,23 @@ module.exports = {
 
 				// Edit the embed after the event ends.
 
+				/**
+				 * @type {Discord.ActionRowBuilder<Discord.ButtonBuilder>}
+				 */
+				const actionRow = new Discord.ActionRowBuilder();
+
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **${m.user} was the first to click!** GG!`,
+							`${embed.data.description}\n\n> **${m.user} was the first to click!** GG!`,
 						),
 					],
 					components: [
-						new Discord.MessageActionRow().addComponents(
-							new Discord.MessageButton()
+						actionRow.addComponents(
+							new Discord.ButtonBuilder()
 								.setCustomId('event-clicker')
 								.setLabel('Speed Click!')
-								.setStyle('SUCCESS')
+								.setStyle(Discord.ButtonStyle.Success)
 								.setDisabled(true),
 						),
 					],

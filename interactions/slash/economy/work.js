@@ -2,12 +2,12 @@
  * @file Work command.
  * @author Naman Vrati
  * @since 2.0.5
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const random = require('../../../functions/get/random-number');
@@ -53,7 +53,7 @@ module.exports = {
 
 		// Generate the results.
 
-		const embed = new MessageEmbed();
+		const embed = new EmbedBuilder();
 
 		if (amount > 0) {
 			// Positive Results.
@@ -64,7 +64,7 @@ module.exports = {
 				];
 
 			embed
-				.setColor('GREEN')
+				.setColor('Green')
 				.setTitle(`Working as ${job[0]}`)
 				.setDescription(
 					`${job[1].replace(
@@ -81,7 +81,7 @@ module.exports = {
 				];
 
 			embed
-				.setColor('RED')
+				.setColor('Red')
 				.setTitle(`Working as ${job[0]}`)
 				.setDescription(
 					`${job[1].replace(

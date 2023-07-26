@@ -1,6 +1,7 @@
 /**
  * @file Main File of the bot, responsible for registering events, commands, interactions etc.
  * @author Naman Vrati
+ * @since 1.0.0
  * @version 3.0.0
  */
 
@@ -8,9 +9,7 @@
 
 const fs = require('fs');
 
-const { Client, Collection, Intents } = require('discord.js');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { Client, Collection, REST, Routes } = require('discord.js');
 
 /**
  * @type {import('./typings').ConfigurationFile} Config File.
@@ -25,7 +24,7 @@ const { version } = require('./package.json');
 const fileExists = require('./functions/fileExists');
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
@@ -37,7 +36,7 @@ const log = new Logger({ keepSilent: true });
 // @ts-ignore
 const client = new Client({
 	// Please add all intents you need, more detailed information @ https://ziad87.net/intents/
-	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+	intents: 45571,
 });
 
 /**********************************************************************/

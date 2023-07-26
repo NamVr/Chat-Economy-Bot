@@ -2,12 +2,12 @@
  * @file Initialize Cron Job
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
@@ -17,7 +17,7 @@ const { cooldown } = settings;
 const manager = require('../../functions/database');
 
 const fs = require('fs');
-const { Collection } = require('discord.js');
+const Discord = require('discord.js');
 
 // Main cron job application starts here.
 
@@ -47,15 +47,15 @@ module.exports = {
 				const chat_triggers = fs.readdirSync('./chat-triggers');
 
 				/**
-				 * @type {Collection<string, import("../../typings").ChatTriggerEvent>}
+				 * @type {Discord.Collection<string, import("../../typings").ChatTriggerEvent>}
 				 */
-				const modules = new Collection();
+				const modules = new Discord.Collection();
 
 				/**
 				 * Enabled modules collection.
-				 * @type {Collection<string, import("../../typings").ChatTriggerEvent>}
+				 * @type {Discord.Collection<string, import("../../typings").ChatTriggerEvent>}
 				 */
-				const enabledModules = new Collection();
+				const enabledModules = new Discord.Collection();
 
 				// Loop through all files and store commands in commands collection.
 
@@ -93,7 +93,10 @@ module.exports = {
 					process.exit(1);
 				}
 
-				if (channel.type != 'GUILD_TEXT' && channel.type != 'DM') {
+				if (
+					channel.type != Discord.ChannelType.GuildText &&
+					channel.type != Discord.ChannelType.DM
+				) {
 					log.critical(`${channel.name} is NOT a Text Channel!`);
 					log.error(
 						'Please fix your configuration file (config.json) and setup the correct Heat Channel ID.',

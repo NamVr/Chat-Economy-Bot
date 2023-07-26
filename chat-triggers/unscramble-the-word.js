@@ -2,7 +2,7 @@
  * @file Unscramble The Word Event
  * @author Naman Vrati
  * @since 2.0.0
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 // Read necessary modules
@@ -47,8 +47,8 @@ module.exports = {
 
 		// Send your question to the chat.
 
-		const embed = new Discord.MessageEmbed()
-			.setColor(`RANDOM`)
+		const embed = new Discord.EmbedBuilder()
+			.setColor(`Random`)
 			.setTitle(this.name + '!')
 			.setDescription(
 				`I have scrambled a word, unscramble it to win some coins!\n\n> \`${word}\``,
@@ -84,7 +84,7 @@ module.exports = {
 				msg.edit({
 					embeds: [
 						embed.setDescription(
-							`${embed.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`,
+							`${embed.data.description}\n\n> **Nobody answered in time!** The answer was \`${answer}\`!`,
 						),
 					],
 				});
@@ -97,7 +97,7 @@ module.exports = {
 			msg.edit({
 				embeds: [
 					embed.setDescription(
-						`${embed.description}\n\n> **${
+						`${embed.data.description}\n\n> **${
 							m.last().author
 						} was the first to answer!** The answer was \`${answer}\`!`,
 					),

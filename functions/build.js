@@ -2,7 +2,7 @@
  * @file Application Initialization Build Wizard
  * @author Naman Vrati
  * @since 2.0.0
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 // Import required modules.
@@ -25,7 +25,7 @@ const chalk = require('chalk');
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
@@ -40,6 +40,7 @@ const rl = readline.createInterface({
 
 require('../functions/banner')();
 console.log(
+	// @ts-ignore
 	`${chalk.bgGreenBright.blackBright.bold(
 		'**********************************************************************',
 	)}\n`,
@@ -71,8 +72,10 @@ try {
 // Create multiple questions to be asked.
 
 const question1 = () => {
+	// @ts-ignore
 	return new Promise((resolve, reject) => {
 		rl.question(
+			// @ts-ignore
 			`${chalk.bgWhite.black.bold('[Q]:')} ${chalk.redBright.bold(
 				'What is your bot token: ',
 			)}`,
@@ -85,8 +88,10 @@ const question1 = () => {
 };
 
 const question2 = () => {
+	// @ts-ignore
 	return new Promise((resolve, reject) => {
 		rl.question(
+			// @ts-ignore
 			`${chalk.bgWhite.black.bold('[Q]:')} ${chalk.redBright.bold(
 				'What is your discord user ID: ',
 			)}`,
@@ -99,8 +104,10 @@ const question2 = () => {
 };
 
 const question3 = () => {
+	// @ts-ignore
 	return new Promise((resolve, reject) => {
 		rl.question(
+			// @ts-ignore
 			`${chalk.bgWhite.black.bold('[Q]:')} ${chalk.redBright.bold(
 				'What is your client (bot) ID: ',
 			)}`,
@@ -113,8 +120,10 @@ const question3 = () => {
 };
 
 const question4 = () => {
+	// @ts-ignore
 	return new Promise((resolve, reject) => {
 		rl.question(
+			// @ts-ignore
 			`${chalk.bgWhite.black.bold('[Q]:')} ${chalk.redBright.bold(
 				'What is your guild (server) ID: ',
 			)}`,
@@ -144,17 +153,22 @@ rl.on('close', async function () {
 
 	console.log('\n');
 	console.log(
+		// @ts-ignore
 		`${chalk.bgGreenBright.blackBright.bold(
 			'**********************************************************************',
 		)}\n`,
 	);
 	log.success('Configuration Created Successfully! Good Luck!\n');
 	console.log(
+		// @ts-ignore
 		`${chalk.bgMagenta.black(
+			// @ts-ignore
 			`Run ${chalk.bold(
 				'npm start',
+				// @ts-ignore
 			)} to start your bot, and setup your server settings using ${chalk.bold(
 				'/settings',
+				// @ts-ignore
 			)} command, or edit ${chalk.bold('config.json')} directly!`,
 		)}`,
 	);

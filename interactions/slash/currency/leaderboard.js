@@ -2,18 +2,18 @@
  * @file Leaderboard command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
@@ -46,18 +46,18 @@ module.exports = {
 			.slice(0, 9)
 			.map(
 				(user, position) =>
-					`(${position + 1}) ${
-						client.users.cache.get(user.user_id).tag
-					}: ${user.balance} ${emoji}`,
+					`(${position + 1}) <@${
+						client.users.cache.get(user.user_id).id
+					}>: ${user.balance} ${emoji}`,
 			)
 			.join('\n');
 
 		// Make a stylish embed result!
 
-		const embed = new MessageEmbed()
+		const embed = new EmbedBuilder()
 			.setTitle(`${interaction.guild.name}'s Leaderboard`)
 			.setDescription(str)
-			.setColor('RANDOM')
+			.setColor('Random')
 			.setTimestamp();
 
 		await interaction.reply({

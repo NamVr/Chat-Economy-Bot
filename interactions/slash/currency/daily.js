@@ -2,18 +2,18 @@
  * @file Daily command.
  * @author Naman Vrati
  * @since 2.0.1
- * @version 2.0.5
+ * @version 3.0.0
  */
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 // Deconstructed the constants we need in this file.
 
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
@@ -54,14 +54,14 @@ module.exports = {
 		let streak = dbUser.time_data.daily.streak;
 		let streakReset = false;
 
-		const embed = new MessageEmbed();
+		const embed = new EmbedBuilder();
 
 		if (currentTimestamp < dbTimestamp + 24 * 60 * 60 * 1000) {
 			// Daily Not Available!
 
 			embed
 				.setTitle("You've already claimed your daily!")
-				.setColor('RANDOM')
+				.setColor('Random')
 				.setDescription(
 					`Your next daily will be available **<t:${
 						((dbTimestamp + 24 * 60 * 60 * 1000) / 1000) | 0
@@ -96,7 +96,7 @@ module.exports = {
 			}
 			embed
 				.setTitle(`Daily ${config_currency.name}!`)
-				.setColor('RANDOM')
+				.setColor('Random')
 				.setDescription(
 					`You're given **\`${amountFinal}\` ${
 						config_currency.emoji

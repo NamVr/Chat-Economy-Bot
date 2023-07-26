@@ -1,27 +1,29 @@
 /**
  * @file Slash Command Interaction Handler
  * @author Naman Vrati
- * @since 3.0.0
- * @version 3.2.2
+ * @since 1.0.0
+ * @version 3.0.0
  */
+
+const Discord = require('discord.js');
 
 // Initialize LeeksLazyLogger
 
-const Logger = require('leekslazylogger');
+const { Logger } = require('leekslazylogger');
 // @ts-ignore
 const log = new Logger({ keepSilent: true });
 
 const manager = require('../../functions/database');
 const { DatabaseUser } = require('../../functions/database/create');
-const { MessageEmbed, Collection } = require('discord.js');
+const { EmbedBuilder, Collection } = require('discord.js');
 
 module.exports = {
-	name: 'interactionCreate',
+	name: Discord.Events.InteractionCreate,
 
 	/**
 	 * @description Executes when an interaction is created and handle it.
 	 * @author Naman Vrati
-	 * @param {import('discord.js').CommandInteraction & { client: import('../../typings').Client }} interaction The interaction which was created
+	 * @param {import('discord.js').ChatInputCommandInteraction & { client: import('../../typings').Client }} interaction The interaction which was created
 	 */
 
 	async execute(interaction) {
@@ -72,12 +74,12 @@ module.exports = {
 
 			await interaction.reply({
 				embeds: [
-					new MessageEmbed()
+					new EmbedBuilder()
 						.setTitle(`:x: Access Denied!`)
 						.setDescription(
 							`You can't execute economy commands here! We have a special channel => <#${config.settings.bot_channel}>!`,
 						)
-						.setColor('RED'),
+						.setColor('Red'),
 				],
 				ephemeral: true,
 			});
@@ -106,9 +108,9 @@ module.exports = {
 			if (now < expirationTime) {
 				return interaction.reply({
 					embeds: [
-						new MessageEmbed()
+						new EmbedBuilder()
 							.setTitle(`:x: Spam is never cool, dude.`)
-							.setColor('RED')
+							.setColor('Red')
 							.setDescription(
 								`Please wait, you can reuse the \`${
 									command.data.name
