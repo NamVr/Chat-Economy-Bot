@@ -7,6 +7,11 @@
 
 const Discord = require('discord.js');
 
+/**
+ * @type {import('../../typings').ConfigurationFile} Config File.
+ */
+const config = require('../../config.json');
+
 // Initialize LeeksLazyLogger
 
 const { Logger } = require('leekslazylogger');
@@ -21,10 +26,15 @@ module.exports = {
 	 * @description Executes the block of code when client is ready (bot initialization)
 	 * @param {import('../../typings').Client} client Main Application Client
 	 */
-	execute(client) {
+	async execute(client) {
 		// Database Verification - on each restart!
 
 		require('../../functions/database/verify')();
+
+		// Load all guild members.
+
+		const guild = await client.guilds.fetch(config.internal.guild_id);
+		await guild.members.fetch();
 
 		// Application Startup Success Message.
 

@@ -46,9 +46,9 @@ module.exports = {
 			.slice(0, 9)
 			.map(
 				(user, position) =>
-					`(${position + 1}) ${
-						client.users.cache.get(user.user_id).tag
-					}: ${user.balance} ${emoji}`,
+					`(${position + 1}) <@${
+						client.users.cache.get(user.user_id).id
+					}>: ${user.balance} ${emoji}`,
 			)
 			.join('\n');
 
