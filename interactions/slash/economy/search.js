@@ -150,7 +150,7 @@ module.exports = {
 
 			const choosen = disabledButtons.find(
 				// @ts-ignore
-				(b) => b.data.customId == selected,
+				(b) => b.data.custom_id == selected,
 			);
 
 			disabledButtons[disabledButtons.indexOf(choosen)] =
