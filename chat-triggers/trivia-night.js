@@ -2,7 +2,7 @@
  * @file Trivia Night Event
  * @author Naman Vrati
  * @since 2.0.4
- * @version 3.0.0
+ * @version 3.0.1
  */
 
 const Discord = require('discord.js');
@@ -162,7 +162,7 @@ module.exports = {
 
 		for (const [index, value] of shuffledOptions.entries()) {
 			// @ts-ignore
-			if (value.data.customId.startsWith('trivia_incorrect')) {
+			if (value.data.custom_id.startsWith('trivia_incorrect')) {
 				optionsRow.addComponents(
 					new Discord.ButtonBuilder()
 						.setCustomId(`trivia_incorrect_${index}`)
