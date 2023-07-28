@@ -2,7 +2,7 @@
  * @file Typings File.
  * @author Naman Vrati
  * @since 2.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 import * as Discord from 'discord.js';
@@ -171,7 +171,7 @@ export interface ContextInteractionCommand {
 	 * @param interaction The interaction that triggered this command.
 	 */
 	execute(
-		interaction: Discord.ContextMenuInteraction & { client: Client },
+		interaction: Discord.ContextMenuCommandInteraction & { client: Client },
 	): void | Promise<void>;
 }
 
@@ -543,6 +543,16 @@ export interface ConfigurationFile {
 			 * Percentage of amount of wallet to loose after dying (0-100).
 			 */
 			wallet_lost: number;
+		};
+
+		/**
+		 * Represents Transfer Command Settings.
+		 */
+		transfer: {
+			/**
+			 * Tax percent on each transfer.
+			 */
+			tax: number;
 		};
 	};
 
