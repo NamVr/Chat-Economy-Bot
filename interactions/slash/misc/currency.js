@@ -124,7 +124,11 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setTitle('Update Successful!')
 			.setDescription(
-				`You have successfully ${subCommand}ed **${amount} ${config.settings.currency.emoji} ${config.settings.currency.name}** to ${user}.`,
+				`You have successfully ${
+					subCommand == 'add' ? 'added' : 'removed'
+				} **${amount} ${config.settings.currency.emoji} ${
+					config.settings.currency.name
+				}** to ${user}.`,
 			)
 			.setColor('Green')
 			.addFields({
