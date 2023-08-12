@@ -510,19 +510,24 @@ export interface ConfigurationFile {
 		 */
 		search: {
 			/**
-			 * Minimum currency awarded to winner.
+			 * Maximum (Positive) Amount to be added.
 			 */
-			min: number;
+			positive_max: number;
 
 			/**
-			 * Maximum currency awarded to winner.
+			 * Minimum (Positive) Amount to be added.
 			 */
-			max: number;
+			positive_min: number;
 
 			/**
-			 * Percentage of amount of wallet to loose after dying (0-100).
+			 * Maximum (Negative) Amount to be removed.
 			 */
-			wallet_lost: number;
+			negative_max: number;
+
+			/**
+			 * Minimum (Negative) Amount to be removed.
+			 */
+			negative_min: number;
 		};
 
 		/**
@@ -530,19 +535,24 @@ export interface ConfigurationFile {
 		 */
 		work: {
 			/**
-			 * Minimum currency awarded to winner.
+			 * Maximum (Positive) Amount to be added.
 			 */
-			min: number;
+			positive_max: number;
 
 			/**
-			 * Maximum currency awarded to winner.
+			 * Minimum (Positive) Amount to be added.
 			 */
-			max: number;
+			positive_min: number;
 
 			/**
-			 * Percentage of amount of wallet to loose after dying (0-100).
+			 * Maximum (Negative) Amount to be removed.
 			 */
-			wallet_lost: number;
+			negative_max: number;
+
+			/**
+			 * Minimum (Negative) Amount to be removed.
+			 */
+			negative_min: number;
 		};
 
 		/**

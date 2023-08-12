@@ -31,14 +31,16 @@
 			"negative_min": -20
 		},
 		"search": {
-			"min": 10,
-			"max": 100,
-			"wallet_lost": 25
+			"positive_max": 200,
+			"positive_min": 50,
+			"negative_max": 0,
+			"negative_min": -100
 		},
 		"work": {
-			"min": 50,
-			"max": 100,
-			"wallet_lost": 10
+			"positive_max": 250,
+			"positive_min": 150,
+			"negative_max": 0,
+			"negative_min": -200
 		},
 		"transfer": {
 			"tax": 5

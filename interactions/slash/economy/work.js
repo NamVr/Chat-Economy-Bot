@@ -2,7 +2,7 @@
  * @file Work command.
  * @author Naman Vrati
  * @since 2.0.5
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Deconstructed the constants we need in this file.
@@ -44,11 +44,11 @@ module.exports = {
 		if (random(0, 9)) {
 			// Positive!
 
-			amount = random(workConfig.min, workConfig.max);
+			amount = random(workConfig.positive_min, workConfig.positive_max);
 		} else {
 			// Negative :(
 
-			amount = -(user.balance * (workConfig.wallet_lost / 100)) | 0;
+			amount = -random(workConfig.negative_min, workConfig.negative_max);
 		}
 
 		// Generate the results.

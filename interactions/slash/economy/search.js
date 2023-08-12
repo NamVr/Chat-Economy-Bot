@@ -2,7 +2,7 @@
  * @file Search command.
  * @author Naman Vrati
  * @since 2.0.5
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Deconstructed the constants we need in this file.
@@ -47,11 +47,17 @@ module.exports = {
 		if (random(0, 9)) {
 			// Positive!
 
-			amount = random(searchConfig.min, searchConfig.max);
+			amount = random(
+				searchConfig.positive_min,
+				searchConfig.positive_max,
+			);
 		} else {
 			// Negative :(
 
-			amount = -(user.balance * (searchConfig.wallet_lost / 100)) | 0;
+			amount = -random(
+				searchConfig.negative_min,
+				searchConfig.negative_max,
+			);
 		}
 
 		// Create Message & Get 3 random strings.
@@ -195,9 +201,7 @@ module.exports = {
 				embed
 					.setColor('Red')
 					.setDescription(
-						`*The luck is not with you everytime!*\n\nYou have lost **${
-							searchConfig.wallet_lost
-						}% of your wallet**, i.e. **${-amount} ${
+						`*The luck is not with you everytime!*\n\nYou have lost **${-amount} ${
 							currency.name
 						}** ${currency.emoji}!`,
 					)
