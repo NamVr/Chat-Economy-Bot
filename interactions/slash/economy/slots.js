@@ -3,7 +3,7 @@
  * @author StormPacer
  * @author Naman Vrati
  * @since 2.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Deconstructed the constants we need in this file.
@@ -14,6 +14,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const delay = require('../../../functions/delay');
 const random = require('../../../functions/get/random-number');
 const manager = require('../../../functions/database');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -202,7 +203,10 @@ module.exports = {
 		userDB.indexOf(user) != -1
 			? (userDB[userDB.indexOf(user)] = user)
 			: userDB.push(user);
-		manager.putUserDB(userDB);
+		await manager.putUserDB(userDB, {
+			type: LogTypes.EconomyCommandSlots,
+			initiator: interaction.user,
+		});
 
 		// The job is done!
 

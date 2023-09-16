@@ -2,7 +2,7 @@
  * @file Trivia Night Event
  * @author Naman Vrati
  * @since 2.0.4
- * @version 3.0.1
+ * @version 3.1.0
  */
 
 const Discord = require('discord.js');
@@ -12,6 +12,7 @@ const ChatWin = require('../messages/embeds/chat-win');
 const JSONResponse = require('../functions/get/json-response');
 const arrayShuffler = require('../functions/get/array-shuffler');
 const { DatabaseUser } = require('../functions/database/create');
+const { LogTypes } = require('../functions/constants');
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
@@ -183,7 +184,7 @@ module.exports = {
 
 		// Execute the rest of the code when the collector has been stopped.
 
-		collector.on('end', (m) => {
+		collector.on('end', async (m) => {
 			// If no one answered the question :(
 
 			if (!m.last() || disabledUsers.includes(m.last().user.id)) {
@@ -241,7 +242,10 @@ module.exports = {
 				? (userDB[userDB.indexOf(user)] = user)
 				: userDB.push(user);
 
-			manager.putUserDB(userDB);
+			await manager.putUserDB(userDB, {
+				type: LogTypes.ChatGameTriviaNight,
+				initiator: message.author,
+			});
 
 			// Send output of winning.
 

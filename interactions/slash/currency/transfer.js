@@ -18,6 +18,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
 const { DatabaseUser } = require('../../../functions/database/create');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -81,7 +82,7 @@ module.exports = {
 
 			return;
 		} else if (amount <= dbUserSender.balance) {
-			// Sufficient balance, process the transcation.
+			// Sufficient balance, process the transaction.
 
 			/**
 			 * @description The "tax percent" from configuration
@@ -109,7 +110,11 @@ module.exports = {
 				? (userDB[userDB.indexOf(dbUserReceiver)] = dbUserReceiver)
 				: userDB.push(dbUserReceiver);
 
-			manager.putUserDB(userDB);
+			await manager.putUserDB(userDB, {
+				type: LogTypes.CurrencyCommandTransfer,
+				initiator: interaction.user,
+				comments: `<@${interaction.user.id}> transferred money to <@${user.id}>.`,
+			});
 
 			// Get currency name & emoji.
 
@@ -131,7 +136,7 @@ module.exports = {
 						inline: true,
 					},
 					{
-						name: 'Transcation Details:',
+						name: 'Transaction Details:',
 						value: `Your balance = ${dbUserSender.balance} ${emoji}\n${user.username}'s balance = ${dbUserReceiver.balance} ${emoji}`,
 						inline: true,
 					},

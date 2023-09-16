@@ -2,7 +2,7 @@
  * @file Beg command.
  * @author Naman Vrati
  * @since 2.0.5
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Deconstructed the constants we need in this file.
@@ -13,6 +13,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const random = require('../../../functions/get/random-number');
 const manager = require('../../../functions/database');
 const begStrings = require('../../../messages/strings/beg.json');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -85,7 +86,10 @@ module.exports = {
 		userDB.indexOf(user) != -1
 			? (userDB[userDB.indexOf(user)] = user)
 			: userDB.push(user);
-		manager.putUserDB(userDB);
+		await manager.putUserDB(userDB, {
+			type: LogTypes.EconomyCommandBeg,
+			initiator: interaction.user,
+		});
 
 		// The job is done!
 

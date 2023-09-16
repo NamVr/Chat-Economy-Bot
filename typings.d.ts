@@ -6,6 +6,7 @@
  */
 
 import * as Discord from 'discord.js';
+import * as Constants from './functions/constants';
 
 /**
  * Represents a chat-based Message Command.
@@ -399,6 +400,11 @@ export interface ConfigurationFile {
 		 * Guild ID of the application.
 		 */
 		guild_id: Discord.Snowflake;
+
+		/**
+		 * Channel ID for logging purposes.
+		 */
+		log_channel_id?: Discord.Snowflake;
 	};
 
 	/**
@@ -704,4 +710,29 @@ export interface ChatTriggerEvent {
 	execute(
 		message: Discord.Message & { client: Client },
 	): void | Promise<void>;
+}
+
+/**
+ * Represents logging types (enum values).
+ */
+export interface LogTypes extends Constants.LogTypes {}
+
+/**
+ * Represents Reason Object for Logging Purposes.
+ */
+export interface LogReasonData {
+	/**
+	 * The type of update in the database.
+	 */
+	type: LogTypes;
+
+	/**
+	 * The initiator of this update (a user, if not defined then system).
+	 */
+	initiator?: Discord.User;
+
+	/**
+	 * The comments to this update (make official comments).
+	 */
+	comments?: string;
 }

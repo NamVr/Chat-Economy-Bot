@@ -13,6 +13,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const random = require('../../../functions/get/random-number');
 const manager = require('../../../functions/database');
 const workStrings = require('../../../messages/strings/work.json');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -104,7 +105,10 @@ module.exports = {
 		userDB.indexOf(user) != -1
 			? (userDB[userDB.indexOf(user)] = user)
 			: userDB.push(user);
-		manager.putUserDB(userDB);
+		await manager.putUserDB(userDB, {
+			type: LogTypes.EconomyCommandWork,
+			initiator: interaction.user,
+		});
 
 		// The job is done!
 

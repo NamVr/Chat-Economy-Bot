@@ -14,6 +14,7 @@ const random = require('../../../functions/get/random-number');
 const manager = require('../../../functions/database');
 const arrayShuffler = require('../../../functions/get/array-shuffler');
 const searchStrings = require('../../../messages/strings/search.json');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -223,7 +224,10 @@ module.exports = {
 		userDB.indexOf(user) != -1
 			? (userDB[userDB.indexOf(user)] = user)
 			: userDB.push(user);
-		manager.putUserDB(userDB);
+		await manager.putUserDB(userDB, {
+			type: LogTypes.EconomyCommandSearch,
+			initiator: interaction.user,
+		});
 
 		// The job is done!
 

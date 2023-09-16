@@ -2,7 +2,7 @@
  * @file Buy command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Initialize LeeksLazyLogger
@@ -17,6 +17,7 @@ const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -81,7 +82,7 @@ module.exports = {
 
 				return;
 			} else if (dbUser.balance >= ShopItem.price) {
-				// Sufficient balance, process the transcation.
+				// Sufficient balance, process the transaction.
 
 				dbUser.balance = dbUser.balance - ShopItem.price;
 				if (!dbUser.items[ShopItem.name]) {
@@ -97,8 +98,14 @@ module.exports = {
 			}
 		}
 
-		manager.putShopDB(shopDB);
-		manager.putUserDB(userDB);
+		await manager.putShopDB(shopDB, {
+			type: LogTypes.CurrencyCommandBuy,
+			initiator: interaction.user,
+		});
+		await manager.putUserDB(userDB, {
+			type: LogTypes.CurrencyCommandBuy,
+			initiator: interaction.user,
+		});
 
 		// Get currency name & emoji.
 
@@ -113,7 +120,7 @@ module.exports = {
 				`You have successfully purchased ${ShopItem.name} for **${ShopItem.price} ${emoji} ${name}**!`,
 			)
 			.addFields({
-				name: 'Transcation Details:',
+				name: 'Transaction Details:',
 				value: `Old Balance: ${
 					ShopItem.price + dbUser.balance
 				} ${emoji}\nNew Balance: ${dbUser.balance} ${emoji}`,

@@ -2,7 +2,7 @@
  * @file Speed Clicker Event
  * @author Naman Vrati
  * @since 2.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 const Discord = require('discord.js');
@@ -11,6 +11,7 @@ const random = require('../functions/get/random-number');
 const manager = require('../functions/database');
 const ChatWin = require('../messages/embeds/chat-win');
 const { DatabaseUser } = require('../functions/database/create');
+const { LogTypes } = require('../functions/constants');
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
@@ -67,7 +68,7 @@ module.exports = {
 			time: 30000,
 		})
 			.catch((err) => {})
-			.then((m) => {
+			.then(async (m) => {
 				// If no one clicked the button :(
 
 				if (!m) {
@@ -147,7 +148,10 @@ module.exports = {
 					? (userDB[userDB.indexOf(user)] = user)
 					: userDB.push(user);
 
-				manager.putUserDB(userDB);
+				await manager.putUserDB(userDB, {
+					type: LogTypes.ChatGameSpeedClicker,
+					initiator: message.author,
+				});
 
 				// Send output of winning.
 

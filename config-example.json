@@ -3,7 +3,8 @@
 		"token": "your-discord-token",
 		"owner_id": "your-user-id",
 		"client_id": "your-bot-id",
-		"guild_id": "your-server-id"
+		"guild_id": "your-server-id",
+		"log_channel_id": "your-log-channel-id"
 	},
 	"settings": {
 		"prefix": "!",

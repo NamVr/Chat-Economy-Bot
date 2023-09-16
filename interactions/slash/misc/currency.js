@@ -17,6 +17,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 
 const manager = require('../../../functions/database');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -117,7 +118,11 @@ module.exports = {
 			? (userDB[userDB.indexOf(dbUser)] = dbUser)
 			: userDB.push(dbUser);
 
-		manager.putUserDB(userDB);
+		await manager.putUserDB(userDB, {
+			type: LogTypes.CurrencyCommandAdminUpdate,
+			initiator: interaction.user,
+			comments: `System has generated currency by currency management command through an admin's instruction.`,
+		});
 
 		// Now follow-up after success!
 
