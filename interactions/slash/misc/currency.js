@@ -17,6 +17,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 
 const manager = require('../../../functions/database');
+const { DatabaseUser } = require('../../../functions/database/create');
 const { LogTypes } = require('../../../functions/constants');
 
 /**
@@ -79,6 +80,7 @@ module.exports = {
 		// Get User Database & Config from the Manager.
 
 		const userDB = manager.getUserDB();
+
 		const config = manager.getConfigFile();
 
 		/**
@@ -94,6 +96,16 @@ module.exports = {
 		// Find the user (index) in the database.
 
 		let dbUser = userDB.find((m) => m.user_id == user.id);
+
+		if (!dbUser) {
+			dbUser = new DatabaseUser(user.id);
+			userDB.push(dbUser);
+
+			await manager.putUserDB(userDB, {
+				type: LogTypes.SystemUpdate,
+				comments: 'System created the database user.'
+			});
+		}
 
 		/**
 		 * Store current currency amount to cache.
@@ -122,6 +134,7 @@ module.exports = {
 			type: LogTypes.CurrencyCommandAdminUpdate,
 			initiator: interaction.user,
 			comments: `System has generated currency by currency management command through an admin's instruction.`,
+			compareType: 'user'
 		});
 
 		// Now follow-up after success!
@@ -129,10 +142,8 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setTitle('Update Successful!')
 			.setDescription(
-				`You have successfully ${
-					subCommand == 'add' ? 'added' : 'removed'
-				} **${amount} ${config.settings.currency.emoji} ${
-					config.settings.currency.name
+				`You have successfully ${subCommand == 'add' ? 'added' : 'removed'
+				} **${amount} ${config.settings.currency.emoji} ${config.settings.currency.name
 				}** to ${user}.`,
 			)
 			.setColor('Green')

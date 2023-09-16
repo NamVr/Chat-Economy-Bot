@@ -155,22 +155,22 @@ async function logDatabaseUpdate(oldDB, newDB, logReasonData) {
 		return process.exit(1);
 	}
 
-	const changes = objectComparer(oldDB, newDB);
+	const changes = objectComparer(oldDB, newDB, logReasonData.compareType);
+
+	if (changes == []) return;
 
 	// Log embed creation.
 
 	const logEmbed = new Discord.EmbedBuilder()
 		.setAuthor({
-			name: `${
-				logReasonData.initiator
-					? logReasonData.initiator.username
-					: 'System'
-			}`,
-			iconURL: `${
-				logReasonData.initiator
-					? logReasonData.initiator.avatarURL()
-					: 'https://cloud.namanvrati.cf/favicon.png'
-			}`,
+			name: `${logReasonData.initiator
+				? logReasonData.initiator.username
+				: 'System'
+				}`,
+			iconURL: `${logReasonData.initiator
+				? logReasonData.initiator.avatarURL()
+				: 'https://cloud.namanvrati.cf/favicon.png'
+				}`,
 		})
 		.setTitle(`${logReasonData.type}`)
 		.setColor('Random')
@@ -188,7 +188,7 @@ async function logDatabaseUpdate(oldDB, newDB, logReasonData) {
 	for (const property in changes) {
 		const change = changes[property];
 		logEmbed.addFields({
-			name: `${property}`,
+			name: `${change.property}`,
 			value: `**Now:** ${change.newValue}\n**Was:** ${change.oldValue}`,
 		});
 	}

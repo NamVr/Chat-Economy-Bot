@@ -12,28 +12,66 @@
  * @property {string | number} oldValue
  */
 
-/**
- * Object Comparison Function
- * @description Each property which has changed is a new object within this database with sub-properties named "oldValue" and "newValue".
- * @param {Object} oldObj Old Object
- * @param {Object} newObj New Object
- * @returns {Object<string, ChangelogSpecificObject>} Changelog Object
- */
-function objectComparer(oldObj, newObj) {
-	/**
-	 * Each property which has changed is a new object within this database with sub-properties named "oldValue" and "newValue".
-	 * @type {Object<string, ChangelogSpecificObject>} Changelog Object
-	 */
-	const changes = {};
+const internalChanges = [];
 
-	for (const key in newObj) {
-		if (newObj.hasOwnProperty(key)) {
-			if (oldObj[key] !== newObj[key]) {
-				changes[key] = {
-					oldValue: oldObj[key],
-					newValue: newObj[key],
-				};
+function internalCompare(oldObj, newObj, id, type) {
+	for (const property in newObj) {
+		if (typeof newObj[property] === 'object') {
+			if (type === 'user') {
+				internalCompare(oldObj[property], newObj[property], id, type);
+			} else {
+				internalCompare(oldObj[property], newObj[property], id, type);
 			}
+		} else {
+			if (oldObj[property] !== newObj[property]) {
+				if (type === 'user') {
+					internalChanges.push({
+						property: property,
+						type: type,
+						userId: id,
+						name: property,
+						newValue: newObj[property],
+						oldValue: oldObj[property],
+					});
+				} else {
+					internalChanges.push({
+						property: property,
+						type: type,
+						name: id,
+						newValue: newObj[property],
+						oldValue: oldObj[property],
+					});
+				}
+			}
+		}
+	}
+
+	if (internalChanges.length === 0) {
+		return null;
+	}
+
+	return internalChanges;
+}
+
+function objectComparer(oldObj, newObj, type) {
+	const changes = [];
+
+	for (let key = 0; key < newObj.length; key++) {
+		if (typeof newObj[key] === 'object') {
+			let internalType;
+
+			if (type === 'user') {
+				internalType = oldObj[key].user_id;
+			} else {
+				internalType = oldObj[key].name;
+			}
+			const internalChanges = internalCompare(oldObj[key], newObj[key], internalType, type);
+
+			if (internalChanges === null) {
+				continue;
+			}
+
+			changes.push(...internalChanges);
 		}
 	}
 
