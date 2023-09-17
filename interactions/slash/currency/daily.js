@@ -2,7 +2,7 @@
  * @file Daily command.
  * @author Naman Vrati
  * @since 2.0.1
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Initialize LeeksLazyLogger
@@ -17,6 +17,7 @@ const { EmbedBuilder } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -126,7 +127,10 @@ module.exports = {
 				? (userDB[userDB.indexOf(dbUser)] = dbUser)
 				: userDB.push(dbUser);
 
-			manager.putUserDB(userDB);
+			await manager.putUserDB(userDB, {
+				type: LogTypes.CurrencyCommandDaily,
+				initiator: interaction.user,
+			});
 		}
 
 		// Send confirmation & end the command.

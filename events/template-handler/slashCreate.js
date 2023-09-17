@@ -2,7 +2,7 @@
  * @file Slash Command Interaction Handler
  * @author Naman Vrati
  * @since 1.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 const Discord = require('discord.js');
@@ -16,6 +16,7 @@ const log = new Logger({ keepSilent: true });
 const manager = require('../../functions/database');
 const { DatabaseUser } = require('../../functions/database/create');
 const { EmbedBuilder, Collection } = require('discord.js');
+const { LogTypes } = require('../../functions/constants');
 
 module.exports = {
 	name: Discord.Events.InteractionCreate,
@@ -140,7 +141,10 @@ module.exports = {
 			userDB.push(dbUser);
 
 			// Register in the database.
-			await manager.putUserDB(userDB);
+			await manager.putUserDB(userDB, {
+				type: LogTypes.SystemUpdate,
+				comments: 'System created the database user.',
+			});
 		}
 
 		// A try to execute the interaction.

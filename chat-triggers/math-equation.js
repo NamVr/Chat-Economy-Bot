@@ -2,7 +2,7 @@
  * @file Math Equation Event
  * @author Naman Vrati
  * @since 1.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 const Discord = require('discord.js');
@@ -10,6 +10,7 @@ const random = require('../functions/get/random-number');
 const manager = require('../functions/database');
 const ChatWin = require('../messages/embeds/chat-win');
 const { DatabaseUser } = require('../functions/database/create');
+const { LogTypes } = require('../functions/constants');
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
@@ -64,7 +65,7 @@ module.exports = {
 
 		// Execute the rest of the code when the collector has been stopped.
 
-		collector.on('end', (m) => {
+		collector.on('end', async (m) => {
 			// If no one answered the question :(
 
 			if (!m.last()) {
@@ -118,7 +119,10 @@ module.exports = {
 				? (userDB[userDB.indexOf(user)] = user)
 				: userDB.push(user);
 
-			manager.putUserDB(userDB);
+			await manager.putUserDB(userDB, {
+				type: LogTypes.ChatGameMathEquation,
+				initiator: message.author,
+			});
 
 			// Send output of winning.
 
