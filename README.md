@@ -108,7 +108,7 @@ To get a local/server copy up and running, follow these simple example steps.
     npm run init
     ```
 
-    > You have to follow the steps in the `init` script. Input your `token`, `client-id`, `owner-id` and `guild-id`. The script will automatically create `config.json` & `database` for you. **:warning: This is a one-time setup!**
+    > You have to follow the steps in the `init` script. Input your `token`, `client_id`, `owner_id` and `guild_id`. The script will automatically create `config.json` & `database` for you. **:warning: This is a one-time setup!**
 
 4. Setup your `config.json`'s settings according to your server variables. Make sure to also get a **[Wordnik API](https://developer.wordnik.com/docs) Key** to setup `apis >> wordnik` in the configuration.
 5. You should be all set as of now, start your bot!
