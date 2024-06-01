@@ -26,7 +26,7 @@
 <h3 align="center">NamVr Chat Economy</h3>
 
   <p align="center">
-    An <b>open-source (FOSS) alternative</b> to discord chat economy bots (in popular servers) that has various events to be triggered randomly in your chat, based on confidence scores of chat activity. Events including math equations, unscramble the word, speed clicker etc!
+    An <b>open-source (FOSS) alternative</b> to Discord Chat Economy bots in popular servers that has various events to be triggered randomly in your chat, based on confidence scores of chat activity. Events include math equations, unscramble the word, speed clicker, and more!
     <br />
     <a href="https://github.com/NamVr/Chat-Economy-Bot"><strong>Explore the docs »</strong></a>
     <br />
@@ -90,7 +90,7 @@ Coming Soon!
 ## Getting Started
 
 To get started, you should have `node.js` & `npm` installed. **(Node.js 16.9.0 or newer is required)**
-To get a local/server copy up and running follow these simple example steps.
+To get a local/server copy up and running, follow these simple example steps.
 
 ### Installation
 
@@ -108,9 +108,9 @@ To get a local/server copy up and running follow these simple example steps.
     npm run init
     ```
 
-    > You have to follow the steps in the `init` script. Put your token, bot-id, client-id, owner-id. The script will automatically create `config.json` & `database` for you. **:warning: This is one time only!**
+    > You have to follow the steps in the `init` script. Input your `token`, `client_id`, `owner_id` and `guild_id`. The script will automatically create `config.json` & `database` for you. **:warning: This is a one-time setup!**
 
-4. Setup your `config.json`'s settings according to your server variables. Make sure to also get a **[Wordnik API](https://developer.wordnik.com/docs)** to setup `apis >> wordnik` in the configuration.
+4. Setup your `config.json`'s settings according to your server variables. Make sure to also get a **[Wordnik API](https://developer.wordnik.com/docs) Key** to setup `apis >> wordnik` in the configuration.
 5. You should be all set as of now, start your bot!
     ```sh
     npm start
@@ -146,9 +146,9 @@ See the [open issues](https://github.com/NamVr/Chat-Economy-Bot/issues) for a fu
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to learn, create, and inspire. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make this project better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 **Don't forget to give the project a star!** Thanks again!
 
 1. Fork the Project
@@ -163,7 +163,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the Apache-2.0 License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
