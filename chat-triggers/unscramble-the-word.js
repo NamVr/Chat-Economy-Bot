@@ -31,8 +31,10 @@ module.exports = {
 
 		const response = await JSONResponse(
 			manager.getConfigFile().apis.wordnik +
-				'hasDictionaryDef=true&minLength=5&maxLength=10&limit=1',
+				'&hasDictionaryDef=true&minCorpusCount=1000&maxCorpusCount=-1&minDictionaryCount=10&maxDictionaryCount=-1&minLength=5&maxLength=-1&limit=1',
 		);
+
+		console.log(response);
 
 		/**
 		 * @description The Actual Word & Answer.

@@ -48,7 +48,7 @@
 		}
 	},
 	"apis": {
-		"wordnik": "http://api.wordnik.com/v4/words.json/randomWords?api_key=YOUR_API_KEY&?minCorpusCount=0&",
+		"wordnik": "http://api.wordnik.com/v4/words.json/randomWords?api_key=YOUR_API_KEY",
 		"opentdb": "https://opentdb.com/api.php?amount=1&type=multiple&encode=base64"
 	},
 	"modules": {
