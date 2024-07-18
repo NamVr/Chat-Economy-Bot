@@ -103,7 +103,7 @@ module.exports = {
 
 			await manager.putUserDB(userDB, {
 				type: LogTypes.SystemUpdate,
-				comments: 'System created the database user.'
+				comments: 'System created the database user.',
 			});
 		}
 
@@ -134,7 +134,7 @@ module.exports = {
 			type: LogTypes.CurrencyCommandAdminUpdate,
 			initiator: interaction.user,
 			comments: `System has generated currency by currency management command through an admin's instruction.`,
-			compareType: 'user'
+			compareType: 'user',
 		});
 
 		// Now follow-up after success!
@@ -142,9 +142,11 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setTitle('Update Successful!')
 			.setDescription(
-				`You have successfully ${subCommand == 'add' ? 'added' : 'removed'
-				} **${amount} ${config.settings.currency.emoji} ${config.settings.currency.name
-				}** to ${user}.`,
+				`You have successfully ${
+					subCommand == 'add' ? 'added' : 'removed'
+				} **${amount} ${config.settings.currency.emoji} ${
+					config.settings.currency.name
+				}** ${subCommand == 'add' ? 'to' : 'from'} ${user}.`,
 			)
 			.setColor('Green')
 			.addFields({
