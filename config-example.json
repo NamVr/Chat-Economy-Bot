@@ -3,7 +3,8 @@
 		"token": "your-discord-token",
 		"owner_id": "your-user-id",
 		"client_id": "your-bot-id",
-		"guild_id": "your-server-id"
+		"guild_id": "your-server-id",
+		"log_channel_id": "your-log-channel-id"
 	},
 	"settings": {
 		"prefix": "!",
@@ -31,18 +32,23 @@
 			"negative_min": -20
 		},
 		"search": {
-			"min": 10,
-			"max": 100,
-			"wallet_lost": 25
+			"positive_max": 200,
+			"positive_min": 50,
+			"negative_max": 0,
+			"negative_min": -100
 		},
 		"work": {
-			"min": 50,
-			"max": 100,
-			"wallet_lost": 10
+			"positive_max": 250,
+			"positive_min": 150,
+			"negative_max": 0,
+			"negative_min": -200
+		},
+		"transfer": {
+			"tax": 5
 		}
 	},
 	"apis": {
-		"wordnik": "http://api.wordnik.com/v4/words.json/randomWords?api_key=YOUR_API_KEY&?minCorpusCount=0&",
+		"wordnik": "http://api.wordnik.com/v4/words.json/randomWords?api_key=YOUR_API_KEY",
 		"opentdb": "https://opentdb.com/api.php?amount=1&type=multiple&encode=base64"
 	},
 	"modules": {

@@ -2,7 +2,7 @@
  * @file Work command.
  * @author Naman Vrati
  * @since 2.0.5
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Deconstructed the constants we need in this file.
@@ -13,6 +13,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const random = require('../../../functions/get/random-number');
 const manager = require('../../../functions/database');
 const workStrings = require('../../../messages/strings/work.json');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -44,11 +45,11 @@ module.exports = {
 		if (random(0, 9)) {
 			// Positive!
 
-			amount = random(workConfig.min, workConfig.max);
+			amount = random(workConfig.positive_min, workConfig.positive_max);
 		} else {
 			// Negative :(
 
-			amount = -(user.balance * (workConfig.wallet_lost / 100)) | 0;
+			amount = -random(workConfig.negative_min, workConfig.negative_max);
 		}
 
 		// Generate the results.
@@ -104,7 +105,10 @@ module.exports = {
 		userDB.indexOf(user) != -1
 			? (userDB[userDB.indexOf(user)] = user)
 			: userDB.push(user);
-		manager.putUserDB(userDB);
+		await manager.putUserDB(userDB, {
+			type: LogTypes.EconomyCommandWork,
+			initiator: interaction.user,
+		});
 
 		// The job is done!
 

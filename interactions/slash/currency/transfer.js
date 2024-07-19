@@ -2,7 +2,7 @@
  * @file Transfer balance command.
  * @author Naman Vrati
  * @since 1.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Initialize LeeksLazyLogger
@@ -18,6 +18,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 const manager = require('../../../functions/database');
 const { DatabaseUser } = require('../../../functions/database/create');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -26,7 +27,7 @@ module.exports = {
 	// The data needed to register slash commands to Discord.
 	data: new SlashCommandBuilder()
 		.setName('transfer')
-		.setDescription('Shares your user balance.')
+		.setDescription('Shares your user balance after taxes.')
 		.addUserOption((option) =>
 			option
 				.setName('user')
@@ -81,10 +82,25 @@ module.exports = {
 
 			return;
 		} else if (amount <= dbUserSender.balance) {
-			// Sufficient balance, process the transcation.
+			// Sufficient balance, process the transaction.
+
+			/**
+			 * @description The "tax percent" from configuration
+			 */
+			const tax_percent = manager.getConfigFile().commands.transfer.tax;
+
+			/**
+			 * @description The "tax" on transfer amount
+			 */
+			const tax = Math.ceil(amount * (tax_percent / 100));
+
+			/**
+			 * @description The "final amount" to be transferred (after taxes)
+			 */
+			const final_amount = amount - tax;
 
 			dbUserSender.balance = dbUserSender.balance - amount;
-			dbUserReceiver.balance = dbUserReceiver.balance + amount;
+			dbUserReceiver.balance = dbUserReceiver.balance + final_amount;
 
 			userDB.indexOf(dbUserSender) != -1
 				? (userDB[userDB.indexOf(dbUserSender)] = dbUserSender)
@@ -94,7 +110,11 @@ module.exports = {
 				? (userDB[userDB.indexOf(dbUserReceiver)] = dbUserReceiver)
 				: userDB.push(dbUserReceiver);
 
-			manager.putUserDB(userDB);
+			await manager.putUserDB(userDB, {
+				type: LogTypes.CurrencyCommandTransfer,
+				initiator: interaction.user,
+				comments: `<@${interaction.user.id}> transferred money to <@${user.id}>.`,
+			});
 
 			// Get currency name & emoji.
 
@@ -107,12 +127,20 @@ module.exports = {
 				.setTitle(`Transfer Successful!`)
 				.setColor('Green')
 				.setDescription(
-					`You have successfully transfered **${amount} ${emoji} ${name}** to ${user}.`,
+					`You have successfully transfered **${final_amount} ${emoji} ${name}** to ${user}.`,
 				)
-				.addFields({
-					name: 'Transcation Details:',
-					value: `Your balance = ${dbUserSender.balance} ${emoji}\n${user.tag}'s balance = ${dbUserReceiver.balance} ${emoji}`,
-				})
+				.addFields([
+					{
+						name: 'Taxation Details:',
+						value: `Transfer Amount: ${amount} ${emoji}\nTransaction Tax: ${tax} ${emoji} (${tax_percent}% Tax)`,
+						inline: true,
+					},
+					{
+						name: 'Transaction Details:',
+						value: `Your balance = ${dbUserSender.balance} ${emoji}\n${user.username}'s balance = ${dbUserReceiver.balance} ${emoji}`,
+						inline: true,
+					},
+				])
 				.setTimestamp();
 
 			await interaction.reply({

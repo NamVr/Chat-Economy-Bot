@@ -2,7 +2,7 @@
  * @file Item manager for economy bot.
  * @author Naman Vrati
  * @since 2.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Initialize LeeksLazyLogger
@@ -17,6 +17,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder } = require('discord.js');
 
 const manager = require('../../../functions/database');
+const { LogTypes } = require('../../../functions/constants');
 
 /**
  * @type {import('../../../typings').SlashInteractionCommand}
@@ -233,7 +234,12 @@ module.exports = {
 
 		// Now we will write the config to shop.json
 
-		manager.putShopDB(shopDB);
+		await manager.putShopDB(shopDB, {
+			type: LogTypes.SystemUpdate,
+			initiator: interaction.user,
+			comments:
+				'Shop Database was updated using Item Manager by an admin.',
+		});
 
 		// Now follow-up after success!
 

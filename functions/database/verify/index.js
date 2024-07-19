@@ -2,7 +2,7 @@
  * @file Application Startup Database Verification.
  * @author Naman Vrati
  * @since 2.0.3
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Initialize LeeksLazyLogger
@@ -13,14 +13,15 @@ const log = new Logger({ keepSilent: true });
 
 // Import Database Constants.
 
+const { LogTypes } = require('../../../functions/constants');
 const manager = require('../index');
 const { DatabaseUser, DatabaseShopItem } = require('../create');
 
 /**
  * Startup Database Verifier
- * @returns {void}
+ * @returns {Promise<void>}
  */
-module.exports = () => {
+module.exports = async () => {
 	// Get current databases.
 
 	const shopDB = manager.getShopDB();
@@ -48,7 +49,10 @@ module.exports = () => {
 
 	// Write in the database.
 
-	manager.putShopDB(shopDB);
+	await manager.putShopDB(shopDB, {
+		type: LogTypes.SystemUpdate,
+		comments: 'System Initialization Update.',
+	});
 
 	userDB.forEach((userItem) => {
 		// Loop through all items & merge properties.
@@ -65,7 +69,10 @@ module.exports = () => {
 
 	// Write in the database.
 
-	manager.putUserDB(userDB);
+	await manager.putUserDB(userDB, {
+		type: LogTypes.SystemUpdate,
+		comments: 'System Initialization Update.',
+	});
 
 	// Display Success Message & Return.
 

@@ -2,7 +2,7 @@
  * @file Unscramble The Word Event
  * @author Naman Vrati
  * @since 2.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 // Read necessary modules
@@ -15,6 +15,7 @@ const JSONResponse = require('../functions/get/json-response');
 const stringShuffler = require('../functions/get/string-shuffler');
 const ChatWin = require('../messages/embeds/chat-win');
 const { DatabaseUser } = require('../functions/database/create');
+const { LogTypes } = require('../functions/constants');
 
 /**
  * @type {import('../typings').ChatTriggerEvent}
@@ -30,8 +31,10 @@ module.exports = {
 
 		const response = await JSONResponse(
 			manager.getConfigFile().apis.wordnik +
-				'hasDictionaryDef=true&minLength=5&maxLength=10&limit=1',
+				'&hasDictionaryDef=true&minCorpusCount=1000&maxCorpusCount=-1&minDictionaryCount=10&maxDictionaryCount=-1&minLength=5&maxLength=-1&limit=1',
 		);
+
+		console.log(response);
 
 		/**
 		 * @description The Actual Word & Answer.
@@ -77,7 +80,7 @@ module.exports = {
 
 		// Execute the rest of the code when the collector has been stopped.
 
-		collector.on('end', (m) => {
+		collector.on('end', async (m) => {
 			// If no one answered the question :(
 
 			if (!m.last()) {
@@ -131,7 +134,10 @@ module.exports = {
 				? (userDB[userDB.indexOf(user)] = user)
 				: userDB.push(user);
 
-			manager.putUserDB(userDB);
+			await manager.putUserDB(userDB, {
+				type: LogTypes.ChatGameUnscrambleTheWord,
+				initiator: message.author,
+			});
 
 			// Send output of winning.
 

@@ -2,10 +2,11 @@
  * @file Typings File.
  * @author Naman Vrati
  * @since 2.0.0
- * @version 3.0.0
+ * @version 3.1.0
  */
 
 import * as Discord from 'discord.js';
+import * as Constants from './functions/constants';
 
 /**
  * Represents a chat-based Message Command.
@@ -171,7 +172,7 @@ export interface ContextInteractionCommand {
 	 * @param interaction The interaction that triggered this command.
 	 */
 	execute(
-		interaction: Discord.ContextMenuInteraction & { client: Client },
+		interaction: Discord.ContextMenuCommandInteraction & { client: Client },
 	): void | Promise<void>;
 }
 
@@ -399,6 +400,11 @@ export interface ConfigurationFile {
 		 * Guild ID of the application.
 		 */
 		guild_id: Discord.Snowflake;
+
+		/**
+		 * Channel ID for logging purposes.
+		 */
+		log_channel_id?: Discord.Snowflake;
 	};
 
 	/**
@@ -510,19 +516,24 @@ export interface ConfigurationFile {
 		 */
 		search: {
 			/**
-			 * Minimum currency awarded to winner.
+			 * Maximum (Positive) Amount to be added.
 			 */
-			min: number;
+			positive_max: number;
 
 			/**
-			 * Maximum currency awarded to winner.
+			 * Minimum (Positive) Amount to be added.
 			 */
-			max: number;
+			positive_min: number;
 
 			/**
-			 * Percentage of amount of wallet to loose after dying (0-100).
+			 * Maximum (Negative) Amount to be removed.
 			 */
-			wallet_lost: number;
+			negative_max: number;
+
+			/**
+			 * Minimum (Negative) Amount to be removed.
+			 */
+			negative_min: number;
 		};
 
 		/**
@@ -530,19 +541,34 @@ export interface ConfigurationFile {
 		 */
 		work: {
 			/**
-			 * Minimum currency awarded to winner.
+			 * Maximum (Positive) Amount to be added.
 			 */
-			min: number;
+			positive_max: number;
 
 			/**
-			 * Maximum currency awarded to winner.
+			 * Minimum (Positive) Amount to be added.
 			 */
-			max: number;
+			positive_min: number;
 
 			/**
-			 * Percentage of amount of wallet to loose after dying (0-100).
+			 * Maximum (Negative) Amount to be removed.
 			 */
-			wallet_lost: number;
+			negative_max: number;
+
+			/**
+			 * Minimum (Negative) Amount to be removed.
+			 */
+			negative_min: number;
+		};
+
+		/**
+		 * Represents Transfer Command Settings.
+		 */
+		transfer: {
+			/**
+			 * Tax percent on each transfer.
+			 */
+			tax: number;
 		};
 	};
 
@@ -684,4 +710,29 @@ export interface ChatTriggerEvent {
 	execute(
 		message: Discord.Message & { client: Client },
 	): void | Promise<void>;
+}
+
+/**
+ * Represents logging types (enum values).
+ */
+export interface LogTypes extends Constants.LogTypes {}
+
+/**
+ * Represents Reason Object for Logging Purposes.
+ */
+export interface LogReasonData {
+	/**
+	 * The type of update in the database.
+	 */
+	type: LogTypes;
+
+	/**
+	 * The initiator of this update (a user, if not defined then system).
+	 */
+	initiator?: Discord.User;
+
+	/**
+	 * The comments to this update (make official comments).
+	 */
+	comments?: string;
 }
